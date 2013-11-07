@@ -1,2 +1,5 @@
 *.exe 
 structure_auto.xmi
+*.o
+*.~
+main
