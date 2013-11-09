@@ -1,5 +1,10 @@
-*.exe 
-structure_auto.xmi
-*.o
-*~
+# Compiled source #
+###################
+*.exe
 main
+*.o
+
+# Temporary files #
+###################
+structure_auto.xmi
+*~

@@ -1,4 +1,4 @@
-#include "Generation.h"
+#include "generation.h"
 
 using namespace Genetic;
 

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Population.h"
+#include "population.h"
 
 using namespace std;
 

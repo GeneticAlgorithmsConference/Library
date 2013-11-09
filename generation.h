@@ -4,7 +4,8 @@
 
 #include <string>
 #include <vector>
-#include "Individual.h"
+#include "individual.h"
+#include "genetic.h"
 
 class Individual;
 
@@ -19,7 +20,7 @@ namespace Genetic {
 class Generation
 {
 public:
-
+	ParentsChooseType test_var;
   // Constructors/Destructors
   //  
 

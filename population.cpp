@@ -1,4 +1,4 @@
-#include "Population.h"
+#include "population.h"
 
 using namespace Genetic;
 

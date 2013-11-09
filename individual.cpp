@@ -1,4 +1,4 @@
-#include "Individual.h"
+#include "individual.h"
 
 using namespace Genetic;
 
