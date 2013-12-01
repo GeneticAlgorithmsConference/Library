@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 #include "individual.h"
-#include "genetic.h"
 
 class Individual;
 
@@ -14,7 +13,7 @@ namespace Genetic {
 
 /**
   * class Generation
-  * 
+  *
   */
 
 class Generation
@@ -22,7 +21,7 @@ class Generation
 public:
 	ParentsChooseType test_var;
   // Constructors/Destructors
-  //  
+  //
 
 
   /**
@@ -36,18 +35,18 @@ public:
   virtual ~Generation ( );
 
   // Static Public attributes
-  //  
+  //
 
   // Public attributes
-  //  
+  //
 
 
   // Public attribute accessor methods
-  //  
+  //
 
 
   // Public attribute accessor methods
-  //  
+  //
 
 
 
@@ -68,10 +67,10 @@ public:
 protected:
 
   // Static Protected attributes
-  //  
+  //
 
   // Protected attributes
-  //  
+  //
 
   std::vector <Individual*> individuals;
   int individualsNum;
@@ -82,7 +81,7 @@ public:
 
 
   // Protected attribute accessor methods
-  //  
+  //
 
 protected:
 
@@ -90,7 +89,7 @@ public:
 
 
   // Protected attribute accessor methods
-  //  
+  //
 
 
   /**
@@ -178,16 +177,16 @@ protected:
 private:
 
   // Static Private attributes
-  //  
+  //
 
   // Private attributes
-  //  
+  //
 
 public:
 
 
   // Private attribute accessor methods
-  //  
+  //
 
 private:
 
@@ -195,7 +194,7 @@ public:
 
 
   // Private attribute accessor methods
-  //  
+  //
 
 private:
 

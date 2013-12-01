@@ -1,0 +1,52 @@
+# depslib dependency file v1.0
+1385892465 source:d:\programming\github\genetic-algorithms\main.cpp
+	<iostream>
+	"individual.h"
+	<ctime>
+	<cstdlib>
+	<iomanip>
+
+1385892615 d:\programming\github\genetic-algorithms\individual.h
+	<string>
+	<vector>
+	<cmath>
+	<cstdlib>
+	"genetic.h"
+
+1385892177 d:\programming\github\genetic-algorithms\genetic.h
+
+1385890816 source:d:\programming\github\genetic-algorithms\individual.cpp
+	"individual.h"
+
+1385890816 source:d:\programming\github\genetic-algorithms\population.cpp
+	"population.h"
+
+1385890816 d:\programming\github\genetic-algorithms\population.h
+	<string>
+	<vector>
+
+1385890816 source:d:\programming\github\genetic-algorithms\generation.cpp
+	"generation.h"
+
+1385892649 d:\programming\github\genetic-algorithms\generation.h
+	<string>
+	<vector>
+	"individual.h"
+
+1385894416 source:d:\repo\genetic-algorithms\generation.cpp
+	"generation.h"
+
+1385897067 d:\repo\genetic-algorithms\generation.h
+	<string>
+	<vector>
+	"individual.h"
+
+1385897079 d:\repo\genetic-algorithms\individual.h
+	<string>
+	<vector>
+	<cmath>
+	<cstdlib>
+	"genetic.h"
+
+1385896814 d:\repo\genetic-algorithms\genetic.h
+

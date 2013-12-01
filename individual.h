@@ -4,15 +4,16 @@
 
 #include <string>
 #include <vector>
-
-
+#include <cmath>
+#include <cstdlib>
+#include "genetic.h"
 
 namespace Genetic {
 
 
 /**
   * class Individual
-  * 
+  *
   */
 
 class Individual
@@ -20,7 +21,7 @@ class Individual
 public:
 
   // Constructors/Destructors
-  //  
+  //
 
 
   /**
@@ -34,29 +35,31 @@ public:
   virtual ~Individual ( );
 
   // Static Public attributes
-  //  
+  //
 
   // Public attributes
-  //  
+  //
 
 
   // Public attribute accessor methods
-  //  
+  //
 
 
   // Public attribute accessor methods
-  //  
+  //
 
 
 
   /**
    * @param  individual1
    * @param  individual2
+   * @param  recombinationType
    * @param  crossoverPointsNum
    */
-  static void crossover (Genetic::Individual individual1, Genetic::Individual individual2, int crossoverPointsNum = 1 )
-  {
-  }
+  static void recombine(Genetic::Individual* individual1,
+                        Genetic::Individual* individual2,
+                        Genetic::RecombinationType recType,
+                        double recombineParam = 1.0 );
 
 
   /**
@@ -83,18 +86,18 @@ public:
 protected:
 
   // Static Protected attributes
-  //  
+  //
 
   // Protected attributes
-  //  
+  //
 
   int score;
-  std::vector <int> dna;
+  std::vector <double> dna;
 public:
 
 
   // Protected attribute accessor methods
-  //  
+  //
 
 protected:
 
@@ -102,7 +105,7 @@ public:
 
 
   // Protected attribute accessor methods
-  //  
+  //
 
 
   /**
@@ -125,7 +128,7 @@ public:
    * Set the value of dna
    * @param new_var the new value of dna
    */
-  void setDna ( std::vector <int> new_var )   {
+  void setDna ( std::vector <double> new_var )   {
       dna = new_var;
   }
 
@@ -133,7 +136,7 @@ public:
    * Get the value of dna
    * @return the value of dna
    */
-  std::vector <int> getDna ( )   {
+  std::vector <double> getDna ( )   {
     return dna;
   }
 protected:
@@ -142,16 +145,16 @@ protected:
 private:
 
   // Static Private attributes
-  //  
+  //
 
   // Private attributes
-  //  
+  //
 
 public:
 
 
   // Private attribute accessor methods
-  //  
+  //
 
 private:
 
@@ -159,7 +162,7 @@ public:
 
 
   // Private attribute accessor methods
-  //  
+  //
 
 private:
 
