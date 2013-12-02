@@ -56,10 +56,12 @@ public:
    * @param  recombinationType
    * @param  crossoverPointsNum
    */
-  static void recombine(Genetic::Individual* individual1,
-                        Genetic::Individual* individual2,
-                        Genetic::RecombinationType recType,
-                        double recombineParam = 1.0 );
+  static void recombine(Genetic::Individual* parent_individual1,
+                                    Genetic::Individual* parent_individual2,
+                                    Genetic::Individual* child_individual1,
+                                    Genetic::Individual* child_individual2,
+                                    Genetic::RecombinationType rec_type,
+                                    double recombine_param = 1.0);
 
 
   /**

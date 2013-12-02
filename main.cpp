@@ -6,13 +6,17 @@
 
 using namespace std;
 
-void testRecombinationOne(Genetic::RecombinationType recType, bool use_constant, double recPar = 2.0)
+void testRecombinationOne(Genetic::RecombinationType recType, bool use_constant, double recPar = 0.0)
 {
     Genetic::Individual* i1;
     Genetic::Individual* i2;
+    Genetic::Individual* i3;
+    Genetic::Individual* i4;
 
     i1 = new Genetic::Individual();
     i2 = new Genetic::Individual();
+    i3 = new Genetic::Individual();
+    i4 = new Genetic::Individual();
 
     int dna_size = 8;
     vector<double> dna;
@@ -31,6 +35,8 @@ void testRecombinationOne(Genetic::RecombinationType recType, bool use_constant,
     }
     cout << endl;
     i1 -> setDna(dna);
+    i3 -> setDna(dna);
+    i4 -> setDna(dna);
 
     cout << "DNA 2:  ";
     for(int i = 0; i < dna_size; ++i)
@@ -44,11 +50,11 @@ void testRecombinationOne(Genetic::RecombinationType recType, bool use_constant,
     cout << endl;
     i2 -> setDna(dna);
 
-    Genetic::Individual::recombine(i1, i2, recType, recPar);
+    Genetic::Individual::recombine(i1, i2, i3, i4, recType, recPar);
 
     cout << "--- r e s u l t -------------------------------------------------------\n";
 
-    dna = i1 -> getDna();
+    dna = i3 -> getDna();
     cout << "DNA 1:  ";
     for(int i = 0; i < dna_size; ++i)
     {
@@ -57,7 +63,7 @@ void testRecombinationOne(Genetic::RecombinationType recType, bool use_constant,
     }
     cout << endl;
 
-    dna = i2 -> getDna();
+    dna = i4 -> getDna();
     cout << "DNA 2:  ";
     for(int i = 0; i < dna_size; ++i)
     {
@@ -65,6 +71,11 @@ void testRecombinationOne(Genetic::RecombinationType recType, bool use_constant,
         cout << fixed << setprecision(4) << dna[i] << "  ";
     }
     cout << endl;
+
+    delete i1;
+    delete i2;
+    delete i3;
+    delete i4;
 }
 
 void testRecombination()
@@ -79,14 +90,15 @@ void testRecombination()
 
 
     cout << "======================= I N T E R M I D E A T E =======================\n";
+    // Для dna[i] в промежутке [0, 1] d = 0
     q = Genetic::INTERMEDIATE;
-    testRecombinationOne(q, USE_CONSTANT_DNA, 0.25);
+    testRecombinationOne(q, USE_CONSTANT_DNA, 0.0);
     cout << "=======================================================================\n\n";
 
 
     cout << "============================== L I N E ================================\n";
     q = Genetic::LINE;
-    testRecombinationOne(q, USE_CONSTANT_DNA, 0.25);
+    testRecombinationOne(q, USE_CONSTANT_DNA, 0.0);
     cout << "=======================================================================\n\n";
 
 }

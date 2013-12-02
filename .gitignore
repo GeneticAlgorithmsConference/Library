@@ -12,3 +12,8 @@ structure_auto.xmi
 *~
 
 *.save
+
+# Project files #
+#################
+Genetic-Algorithms.layout
+

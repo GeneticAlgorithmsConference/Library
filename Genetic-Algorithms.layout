@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="generation.h" open="1" top="0" tabpos="6">
-		<Cursor position="109" topLine="0" />
+	<File name="genetic.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="449" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="genetic.h" open="1" top="0" tabpos="4">
-		<Cursor position="219" topLine="0" />
+	<File name="individual.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2740" topLine="37" />
+		</Cursor>
 	</File>
-	<File name="individual.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="111" topLine="0" />
+	<File name="population.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="individual.h" open="1" top="0" tabpos="2">
-		<Cursor position="144" topLine="0" />
+	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="294" topLine="0" />
+		</Cursor>
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="286" topLine="0" />
+	<File name="individual.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="732" topLine="40" />
+		</Cursor>
 	</File>
-	<File name="population.h" open="1" top="0" tabpos="5">
-		<Cursor position="0" topLine="0" />
+	<File name="population.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="183" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="generation.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
