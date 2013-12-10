@@ -1,5 +1,6 @@
 #include "individual.h"
 #include <iostream>
+#include <cassert>
 
 using namespace Genetic;
 
@@ -24,12 +25,10 @@ void Individual::recombine(Genetic::Individual* parent_individual1,
                            Genetic::RecombinationType rec_type,
                            double recombine_param)
 {
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // Не изменять индивидов, а создавать новых!!!!!!!!!!!!
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     switch(rec_type)
     {
     case DISCRETE:
+    {
         for(int i = 0; i < parent_individual1 -> dna.size(); ++i)
         {
             if(rand() & 1)
@@ -46,44 +45,54 @@ void Individual::recombine(Genetic::Individual* parent_individual1,
             }
         }
         break;
+    }
     case INTERMEDIATE:
-        {
-            for(int i = 0; i < parent_individual1 -> dna.size(); ++i)
-            {
-                double alpha1 = static_cast<double>(rand() % 1000) / 1000.0 * (1.0 + 2.0 * recombine_param) - recombine_param;
-                double alpha2 = static_cast<double>(rand() % 1000) / 1000.0 * (1.0 + 2.0 * recombine_param) - recombine_param;
-//                std::cout << "alpha1: " << alpha1 << " alpha2" << std::endl;
-//                double alpha1 = (double)(rand()%(unsigned int)(recombine_param*20000)-recombine_param*10000) / 10000.0;
-//                double alpha2 = (double)(rand()%(unsigned int)(recombine_param*20000)-recombine_param*10000) / 10000.0;
-                double v[2];
-                v[0] = parent_individual1 -> dna[i] + alpha1 * (parent_individual2 -> dna[i] - parent_individual1 -> dna[i]);
-                v[1] = parent_individual1 -> dna[i] + alpha2 * (parent_individual2 -> dna[i] - parent_individual1 -> dna[i]);
-//                v[0] = std::min(1.0, std::max(0.0, v[0]));
-//                v[1] = std::min(1.0, std::max(0.0, v[1]));
-                child_individual1 -> dna[i] = v[0];
-                child_individual2 -> dna[i] = v[1];
-            }
-        }
-        break;
-    case LINE:
+    {
+        for(int i = 0; i < parent_individual1 -> dna.size(); ++i)
         {
             double alpha1 = static_cast<double>(rand() % 1000) / 1000.0 * (1.0 + 2.0 * recombine_param) - recombine_param;
             double alpha2 = static_cast<double>(rand() % 1000) / 1000.0 * (1.0 + 2.0 * recombine_param) - recombine_param;
-            for(int i = 0; i < parent_individual1 -> dna.size(); ++i)
-            {
-                double v[2];
-                v[0] = parent_individual1 -> dna[i] + alpha1 * (parent_individual2 -> dna[i] - parent_individual1 -> dna[i]);
-                v[1] = parent_individual1 -> dna[i] + alpha2 * (parent_individual2 -> dna[i] - parent_individual1 -> dna[i]);
-//                v[0] = std::min(1.0, std::max(0.0, v[0]));
-//                v[1] = std::min(1.0, std::max(0.0, v[1]));
-                child_individual1 -> dna[i] = v[0];
-                child_individual2 -> dna[i] = v[1];
-            }
+            double v[2];
+            v[0] = parent_individual1 -> dna[i] + alpha1 * (parent_individual2 -> dna[i] - parent_individual1 -> dna[i]);
+            v[1] = parent_individual1 -> dna[i] + alpha2 * (parent_individual2 -> dna[i] - parent_individual1 -> dna[i]);
+            child_individual1 -> dna[i] = v[0];
+            child_individual2 -> dna[i] = v[1];
         }
         break;
-    case CROSSOVER:
-
+    }
+    case LINE:
+    {
+        double alpha1 = static_cast<double>(rand() % 1000) / 1000.0 * (1.0 + 2.0 * recombine_param) - recombine_param;
+        double alpha2 = static_cast<double>(rand() % 1000) / 1000.0 * (1.0 + 2.0 * recombine_param) - recombine_param;
+        for(int i = 0; i < parent_individual1 -> dna.size(); ++i)
+        {
+            double v[2];
+            v[0] = parent_individual1 -> dna[i] + alpha1 * (parent_individual2 -> dna[i] - parent_individual1 -> dna[i]);
+            v[1] = parent_individual1 -> dna[i] + alpha2 * (parent_individual2 -> dna[i] - parent_individual1 -> dna[i]);
+            child_individual1 -> dna[i] = v[0];
+            child_individual2 -> dna[i] = v[1];
+        }
         break;
+    }
+    case CROSSOVER:
+    {
+        assert(parent_individual1 -> dna.size() == parent_individual2 -> dna.size());
+        assert(parent_individual1 -> dna.size() > 1);
+        int division_point = (parent_individual1 -> dna.size() > 2) ?
+                                rand() % (parent_individual1 -> dna.size() - 2) :
+                                0;
+        for(int i = 0; i <= division_point; ++i)
+        {
+            child_individual1 -> dna[i] = parent_individual1 -> dna[i];
+            child_individual2 -> dna[i] = parent_individual2 -> dna[i];
+        }
+        for(int i = division_point + 1; i < parent_individual1 -> dna.size(); ++i)
+        {
+            child_individual1 -> dna[i] = parent_individual2 -> dna[i];
+            child_individual2 -> dna[i] = parent_individual1 -> dna[i];
+        }
+        break;
+    }
     case UNIFORM_CROSSOVER:
 
         break;

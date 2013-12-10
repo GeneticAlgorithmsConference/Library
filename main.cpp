@@ -47,7 +47,9 @@ void testRecombinationOne(Genetic::RecombinationType recType, bool use_constant,
         cout.width(6);
         cout << fixed << setprecision(4) << dna[i] << "  ";
     }
+    i1 -> setDna(dna);
     cout << endl;
+    dna.resize(2);
     i2 -> setDna(dna);
 
     Genetic::Individual::recombine(i1, i2, i3, i4, recType, recPar);
@@ -90,7 +92,6 @@ void testRecombination()
 
 
     cout << "======================= I N T E R M I D E A T E =======================\n";
-    // Для dna[i] в промежутке [0, 1] d = 0
     q = Genetic::INTERMEDIATE;
     testRecombinationOne(q, USE_CONSTANT_DNA, 0.0);
     cout << "=======================================================================\n\n";
@@ -98,6 +99,12 @@ void testRecombination()
 
     cout << "============================== L I N E ================================\n";
     q = Genetic::LINE;
+    testRecombinationOne(q, USE_CONSTANT_DNA, 0.0);
+    cout << "=======================================================================\n\n";
+
+
+    cout << "========================== C R O S S O V E R ==========================\n";
+    q = Genetic::CROSSOVER;
     testRecombinationOne(q, USE_CONSTANT_DNA, 0.0);
     cout << "=======================================================================\n\n";
 
