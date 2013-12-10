@@ -61,7 +61,8 @@ public:
                                     Genetic::Individual* child_individual1,
                                     Genetic::Individual* child_individual2,
                                     Genetic::RecombinationType rec_type,
-                                    double recombine_param = 1.0);
+                                    double recombine_param = 1.0,
+                                    int crossover_points_num = 1);
 
 
   /**

@@ -6,7 +6,8 @@
 
 using namespace std;
 
-void testRecombinationOne(Genetic::RecombinationType recType, bool use_constant, double recPar = 0.0)
+void testRecombinationOne(Genetic::RecombinationType recType, bool use_constant,
+                          double recPar = 0.0, int crossover_points_num = 1)
 {
     Genetic::Individual* i1;
     Genetic::Individual* i2;
@@ -47,12 +48,10 @@ void testRecombinationOne(Genetic::RecombinationType recType, bool use_constant,
         cout.width(6);
         cout << fixed << setprecision(4) << dna[i] << "  ";
     }
-    i1 -> setDna(dna);
     cout << endl;
-    dna.resize(2);
     i2 -> setDna(dna);
 
-    Genetic::Individual::recombine(i1, i2, i3, i4, recType, recPar);
+    Genetic::Individual::recombine(i1, i2, i3, i4, recType, recPar, crossover_points_num);
 
     cout << "--- r e s u l t -------------------------------------------------------\n";
 
@@ -105,7 +104,7 @@ void testRecombination()
 
     cout << "========================== C R O S S O V E R ==========================\n";
     q = Genetic::CROSSOVER;
-    testRecombinationOne(q, USE_CONSTANT_DNA, 0.0);
+    testRecombinationOne(q, USE_CONSTANT_DNA, 0.0, 1);
     cout << "=======================================================================\n\n";
 
 }

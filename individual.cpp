@@ -1,6 +1,7 @@
 #include "individual.h"
 #include <iostream>
 #include <cassert>
+#include <algorithm>
 
 using namespace Genetic;
 
@@ -23,7 +24,8 @@ void Individual::recombine(Genetic::Individual* parent_individual1,
                            Genetic::Individual* child_individual1,
                            Genetic::Individual* child_individual2,
                            Genetic::RecombinationType rec_type,
-                           double recombine_param)
+                           double recombine_param,
+                           int crossover_points_num)
 {
     switch(rec_type)
     {
@@ -78,18 +80,60 @@ void Individual::recombine(Genetic::Individual* parent_individual1,
     {
         assert(parent_individual1 -> dna.size() == parent_individual2 -> dna.size());
         assert(parent_individual1 -> dna.size() > 1);
-        int division_point = (parent_individual1 -> dna.size() > 2) ?
-                                rand() % (parent_individual1 -> dna.size() - 2) :
-                                0;
-        for(int i = 0; i <= division_point; ++i)
+        assert(parent_individual1 -> dna.size() >= crossover_points_num);
+        assert(crossover_points_num > 0);
+
+        // Setting dividing points
+        std::vector <int> free_points(parent_individual1 -> dna.size());
+        std::vector <int> crossover_points(crossover_points_num);
+        for(int i = 0; i < free_points.size(); ++i)
         {
-            child_individual1 -> dna[i] = parent_individual1 -> dna[i];
-            child_individual2 -> dna[i] = parent_individual2 -> dna[i];
+            free_points[i] = i;
         }
-        for(int i = division_point + 1; i < parent_individual1 -> dna.size(); ++i)
+        for(int i = 0; i < crossover_points_num; ++i)
         {
-            child_individual1 -> dna[i] = parent_individual2 -> dna[i];
-            child_individual2 -> dna[i] = parent_individual1 -> dna[i];
+            int choosed_point_id = rand() % free_points.size();
+            int choosed_point = free_points[choosed_point_id];
+            free_points.erase(free_points.begin() + choosed_point_id);
+            crossover_points[i] = choosed_point;
+        }
+
+        std::sort(crossover_points.begin(), crossover_points.end());
+        if(crossover_points[crossover_points.size() - 1]
+           != parent_individual1 -> dna.size() - 1)
+        {
+            crossover_points.push_back(parent_individual1 -> dna.size() - 1);
+        }
+
+        int last_crossover_point = 0;
+        int next_crossover_point;
+        bool current_inverse = false;
+
+        for(int i = 0; i < crossover_points.size(); ++i)
+        {
+            int crossover_point = crossover_points[i];
+            next_crossover_point = (i < crossover_points_num - 1) ?
+                                    crossover_points[i + 1] :
+                                    parent_individual1 -> dna.size();
+
+
+            if(current_inverse)
+            {
+                for(int j = last_crossover_point; j <= crossover_point; ++j)
+                {
+                    child_individual1 -> dna[j] = parent_individual2 -> dna[j];
+                    child_individual2 -> dna[j] = parent_individual1 -> dna[j];
+                }
+            } else {
+                for(int j = last_crossover_point; j <= crossover_point; ++j)
+                {
+                    child_individual1 -> dna[j] = parent_individual1 -> dna[j];
+                    child_individual2 -> dna[j] = parent_individual2 -> dna[j];
+                }
+            }
+
+            last_crossover_point = crossover_point;
+            current_inverse = !current_inverse;
         }
         break;
     }

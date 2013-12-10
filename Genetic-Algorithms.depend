@@ -101,7 +101,7 @@
 	<vector>
 	"individual.h"
 
-1386684027 d:\mydocuments\c++\conference\genetic-algorithms\individual.h
+1386687026 d:\mydocuments\c++\conference\genetic-algorithms\individual.h
 	<string>
 	<vector>
 	<cmath>
@@ -110,10 +110,11 @@
 
 1386684027 d:\mydocuments\c++\conference\genetic-algorithms\genetic.h
 
-1386685763 source:d:\mydocuments\c++\conference\genetic-algorithms\individual.cpp
+1386688335 source:d:\mydocuments\c++\conference\genetic-algorithms\individual.cpp
 	"individual.h"
 	<iostream>
 	<cassert>
+	<algorithm>
 
 1386684027 source:d:\mydocuments\c++\conference\genetic-algorithms\population.cpp
 	"population.h"
@@ -122,7 +123,7 @@
 	<string>
 	<vector>
 
-1386685743 source:d:\mydocuments\c++\conference\genetic-algorithms\main.cpp
+1386688293 source:d:\mydocuments\c++\conference\genetic-algorithms\main.cpp
 	<iostream>
 	"individual.h"
 	<ctime>
