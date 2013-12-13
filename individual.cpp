@@ -138,14 +138,44 @@ void Individual::recombine(Genetic::Individual* parent_individual1,
         break;
     }
     case UNIFORM_CROSSOVER:
-
+    {
+        for(int i = 0; i < parent_individual1 -> dna.size(); ++i)
+        {
+            if(rand() & 1)
+            {
+                child_individual1 -> dna[i] = parent_individual1 -> dna[i];
+                child_individual2 -> dna[i] = parent_individual2 -> dna[i];
+            } else {
+                child_individual1 -> dna[i] = parent_individual2 -> dna[i];
+                child_individual2 -> dna[i] = parent_individual1 -> dna[i];
+            }
+        }
         break;
+    }
     case TRIADIC_CROSSOVER:
 
         break;
     case SHUFFLER_CROSSOVER:
-
+    {
+        for(int i = 0; i < parent_individual1 -> dna.size(); ++i)
+        {
+            if(rand() & 1)
+            {
+                std::swap(parent_individual1 -> dna[i], parent_individual2 -> dna[i]);
+            }
+        }
+        recombine(parent_individual1, parent_individual2,
+                  child_individual1, child_individual2,
+                  CROSSOVER, recombine_param, crossover_points_num);
+        for(int i = 0; i < parent_individual1 -> dna.size(); ++i)
+        {
+            if(rand() & 1)
+            {
+                std::swap(child_individual1 -> dna[i], child_individual2 -> dna[i]);
+            }
+        }
         break;
+    }
     case CROSSOVER_WITH_REDUCED_SURROGATE:
 
         break;

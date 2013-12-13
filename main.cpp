@@ -107,6 +107,11 @@ void testRecombination()
     testRecombinationOne(q, USE_CONSTANT_DNA, 0.0, 1);
     cout << "=======================================================================\n\n";
 
+    cout << "================== S H U F F L E R   C R O S S O V E R ================\n";
+    q = Genetic::CROSSOVER;
+    testRecombinationOne(q, USE_CONSTANT_DNA, 0.0, 1);
+    cout << "=======================================================================\n\n";
+
 }
 
 int main()
