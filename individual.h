@@ -68,9 +68,7 @@ public:
   /**
    * @param  probability
    */
-  void mutate (double probability )
-  {
-  }
+  void mutate(MutationType mut_type, double probability, int attempts = 1, double parameter = 5.0);
 
 
   /**

@@ -31,4 +31,11 @@ namespace Genetic
         TOURNAMENT = 0x400,
         ROULETTE_WHEEL
     };
+    enum MutationType
+    {
+        REAL_VALUE = 0x500,
+        BINARY,
+        DENSITY,
+        SWAP
+    };
 }

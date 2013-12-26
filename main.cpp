@@ -79,6 +79,44 @@ void testRecombinationOne(Genetic::RecombinationType recType, bool use_constant,
     delete i4;
 }
 
+void testMutationOne(Genetic::MutationType mutType, bool use_constant,
+                     double probability, int attempts = 1, double mutPar = 5.0)
+{
+    Genetic::Individual* i1 = new Genetic::Individual();
+
+    int dna_size = 8;
+    vector<double> dna;
+    dna.resize(dna_size);
+
+    cout << "--- o r i g i n a l ---------------------------------------------------\n";
+
+    for(int i = 0; i < dna_size; ++i)
+    {
+        dna[i] = (double)(rand()%1000) / 1000.0;
+        if(use_constant)
+            dna[i] = 0.5;
+        cout.width(6);
+        cout << fixed << setprecision(4) << dna[i] << "  ";
+    }
+    cout << endl;
+    i1 -> setDna(dna);
+
+
+    i1 -> mutate(mutType, probability, attempts, mutPar);
+
+    cout << "--- r e s u l t -------------------------------------------------------\n";
+
+    dna = i1 -> getDna();
+    for(int i = 0; i < dna_size; ++i)
+    {
+        cout.width(6);
+        cout << fixed << setprecision(4) << dna[i] << "  ";
+    }
+    cout << endl;
+
+    delete i1;
+}
+
 void testRecombination()
 {
     bool USE_CONSTANT_DNA = false;
@@ -114,10 +152,37 @@ void testRecombination()
 
 }
 
+void testMutation()
+{
+    bool USE_CONSTANT_DNA = false;
+    int ATTEMPTS = 1;
+    double PROBABILITY = 0.25;
+    Genetic::MutationType q;
+
+    cout << "========================== D I S C R E T E ============================\n";
+    q = Genetic::REAL_VALUE;
+    testMutationOne(q, USE_CONSTANT_DNA, PROBABILITY, ATTEMPTS, 5);
+    cout << "=======================================================================\n\n";
+
+    cout << "============================ B I N A R Y ==============================\n";
+    q = Genetic::BINARY;
+    testMutationOne(q, USE_CONSTANT_DNA, PROBABILITY, ATTEMPTS);
+    cout << "=======================================================================\n\n";
+
+    cout << "============================== S W A P ================================\n";
+    q = Genetic::SWAP;
+    testMutationOne(q, USE_CONSTANT_DNA, PROBABILITY, ATTEMPTS);
+    cout << "=======================================================================\n\n";
+
+}
+
 int main()
 {
     srand(time(NULL));
+
     testRecombination();
+    cout << "\n\n\n\n";
+    testMutation();
 
     return 0;
 }
