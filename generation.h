@@ -12,196 +12,173 @@ namespace Genetic {
 
 
 /**
-  * class Generation
-  *
-  */
+ * class Generation
+ *
+ */
 
-class Generation
-{
-public:
-	ParentsChooseType test_var;
-  // Constructors/Destructors
-  //
-
-
-  /**
-   * Empty Constructor
-   */
-  Generation ( );
-
-  /**
-   * Empty Destructor
-   */
-  virtual ~Generation ( );
-
-  // Static Public attributes
-  //
-
-  // Public attributes
-  //
+	template <typename Individual, typename DNAtype>
+	class Generation
+	{
+	public:
+		// Constructors/Destructors
+		//
 
 
-  // Public attribute accessor methods
-  //
+		/**
+		 * Empty Constructor
+		 */
+		Generation(int _individuals_num);
+
+		/**
+		 * Empty Destructor
+		 */
+		virtual ~Generation();
+
+		// Static Public attributes
+		//
+
+		// Public attributes
+		//
 
 
-  // Public attribute accessor methods
-  //
+		// Public attribute accessor methods
+		//
+
+
+		// Public attribute accessor methods
+		//
 
 
 
-  /**
-   */
-  virtual void test ( )
-  {
-  }
+		/**
+		 */
+		virtual void test ( )
+			{
+			}
 
 
-  /**
-   * @param  seed
-   */
-  void init (unsigned int seed )
-  {
-  }
+		/**
+		 * @param  seed
+		 */
+		void init (unsigned int seed )
+			{
+			}
 
-protected:
+	protected:
 
-  // Static Protected attributes
-  //
+		// Static Protected attributes
+		//
 
-  // Protected attributes
-  //
+		// Protected attributes
+		//
 
-  std::vector <Individual*> individuals;
-  int individualsNum;
-  double mutationProbability;
-  int mutationAttempts;
-  int crossoverPointsNum;
-public:
-
-
-  // Protected attribute accessor methods
-  //
-
-protected:
-
-public:
+		std::vector <Individual*> individuals;
+		int individuals_num;
+		double mutation_probability;
+		int mutation_attempts;
+		int crossover_points_num;
+	public:
 
 
-  // Protected attribute accessor methods
-  //
+		// Protected attribute accessor methods
+		//
+
+	protected:
+
+	public:
 
 
-  /**
-   * Set the value of individuals
-   * @param new_var the new value of individuals
-   */
-  void setIndividuals ( std::vector <Individual*> new_var )   {
-      individuals = new_var;
-  }
-
-  /**
-   * Get the value of individuals
-   * @return the value of individuals
-   */
-  std::vector <Individual*> getIndividuals ( )   {
-    return individuals;
-  }
-
-  /**
-   * Set the value of individualsNum
-   * @param new_var the new value of individualsNum
-   */
-  void setIndividualsNum ( int new_var )   {
-      individualsNum = new_var;
-  }
-
-  /**
-   * Get the value of individualsNum
-   * @return the value of individualsNum
-   */
-  int getIndividualsNum ( )   {
-    return individualsNum;
-  }
-
-  /**
-   * Set the value of mutationProbability
-   * @param new_var the new value of mutationProbability
-   */
-  void setMutationProbability ( double new_var )   {
-      mutationProbability = new_var;
-  }
-
-  /**
-   * Get the value of mutationProbability
-   * @return the value of mutationProbability
-   */
-  double getMutationProbability ( )   {
-    return mutationProbability;
-  }
-
-  /**
-   * Set the value of mutationAttempts
-   * @param new_var the new value of mutationAttempts
-   */
-  void setMutationAttempts ( int new_var )   {
-      mutationAttempts = new_var;
-  }
-
-  /**
-   * Get the value of mutationAttempts
-   * @return the value of mutationAttempts
-   */
-  int getMutationAttempts ( )   {
-    return mutationAttempts;
-  }
-
-  /**
-   * Set the value of crossoverPointsNum
-   * @param new_var the new value of crossoverPointsNum
-   */
-  void setCrossoverPointsNum ( int new_var )   {
-      crossoverPointsNum = new_var;
-  }
-
-  /**
-   * Get the value of crossoverPointsNum
-   * @return the value of crossoverPointsNum
-   */
-  int getCrossoverPointsNum ( )   {
-    return crossoverPointsNum;
-  }
-protected:
+		// Protected attribute accessor methods
+		//
 
 
-private:
+		/**
+		 * Set the value of individuals
+		 * @param new_var the new value of individuals
+		 */
+		void setIndividuals(std::vector <Individual*> new_var);
 
-  // Static Private attributes
-  //
+		/**
+		 * Get the value of individuals
+		 * @return the value of individuals
+		 */
+		std::vector <Individual*> getIndividuals();
 
-  // Private attributes
-  //
+		/**
+		 * Set the value of individualsNum
+		 * @param new_var the new value of individualsNum
+		 */
+		void setIndividualsNum(int value);
 
-public:
+		/**
+		 * Get the value of individualsNum
+		 * @return the value of individualsNum
+		 */
+		int getIndividualsNum();
+
+		/**
+		 * Set the value of mutationProbability
+		 * @param new_var the new value of mutationProbability
+		 */
+		void setMutationProbability(double value);
+
+		/**
+		 * Get the value of mutationProbability
+		 * @return the value of mutationProbability
+		 */
+		double getMutationProbability();
+
+		/**
+		 * Set the value of mutationAttempts
+		 * @param new_var the new value of mutationAttempts
+		 */
+		void setMutationAttempts(int value);
+
+		/**
+		 * Get the value of mutationAttempts
+		 * @return the value of mutationAttempts
+		 */
+		int getMutationAttempts();
+
+		/**
+		 * Set the value of crossoverPointsNum
+		 * @param new_var the new value of crossoverPointsNum
+		 */
+		void setCrossoverPointsNum(int value);
+
+		/**
+		 * Get the value of crossoverPointsNum
+		 * @return the value of crossoverPointsNum
+		 */
+		int getCrossoverPointsNum();
+	protected:
 
 
-  // Private attribute accessor methods
-  //
+	private:
 
-private:
+		// Static Private attributes
+		//
 
-public:
+		// Private attributes
+		//
 
-
-  // Private attribute accessor methods
-  //
-
-private:
+	public:
 
 
-  void initAttributes ( ) ;
+		// Private attribute accessor methods
+		//
 
-};
+	private:
+
+	public:
+
+
+		// Private attribute accessor methods
+		//
+
+	private:
+
+	};
 }; // end of package namespace
 
 #endif // GENERATION_H

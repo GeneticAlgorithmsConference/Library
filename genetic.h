@@ -33,9 +33,9 @@ namespace Genetic
     };
     enum MutationType
     {
-        REAL_VALUE = 0x500,
-        BINARY,
-        DENSITY,
-        SWAP
+        REAL_VALUE_MUTATION = 0x500,
+        BINARY_MUTATION,
+        DENSITY_MUTATION,
+        SWAP_MUTATION
     };
 }

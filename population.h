@@ -5,151 +5,143 @@
 #include <string>
 #include <vector>
 
-class Generation;
+
+#include "generation.h"
 
 namespace Genetic {
 
 
 /**
-  * class Population
-  *
-  */
+ * class Population
+ *
+ */
 
-class Population
-{
-public:
+	template <typename Individual, typename DNAtype>
+	class Population
+	{
+	public:
 
-  // Constructors/Destructors
-  //
-
-
-  /**
-   * Empty Constructor
-   */
-  Population ( );
-
-  /**
-   * Empty Destructor
-   */
-  virtual ~Population ( );
-
-  // Static Public attributes
-  //
-
-  // Public attributes
-  //
+		// Constructors/Destructors
+		//
 
 
-  // Public attribute accessor methods
-  //
+		/**
+		 * Empty Constructor
+		 */
+		Population ( );
+
+		/**
+		 * Empty Destructor
+		 */
+		virtual ~Population ( );
+
+		// Static Public attributes
+		//
+
+		// Public attributes
+		//
 
 
-  // Public attribute accessor methods
-  //
+		// Public attribute accessor methods
+		//
+
+
+		// Public attribute accessor methods
+		//
 
 
 
-  /**
-   * @param  seed
-   */
-  void init (int seed )
-  {
-  }
+		/**
+		 * @param  seed
+		 */
+		void init (int seed )
+		{
+		}
 
 
-  /**
-   */
-  void nextGeneration ( )
-  {
-  }
+		/**
+		 */
+		void nextGeneration()
+		{
+		}
 
-protected:
+	protected:
 
-  // Static Protected attributes
-  //
+		// Static Protected attributes
+		//
 
-  // Protected attributes
-  //
+		// Protected attributes
+		//
 
-public:
-
-
-  // Protected attribute accessor methods
-  //
-
-protected:
-
-public:
+	public:
 
 
-  // Protected attribute accessor methods
-  //
+		// Protected attribute accessor methods
+		//
 
-protected:
+	protected:
 
-
-private:
-
-  // Static Private attributes
-  //
-
-  // Private attributes
-  //
-
-  Generation* previousGeneration;
-  Generation* currentGeneration;
-public:
+	public:
 
 
-  // Private attribute accessor methods
-  //
+		// Protected attribute accessor methods
+		//
 
-private:
-
-public:
+	protected:
 
 
-  // Private attribute accessor methods
-  //
+	private:
+
+		// Static Private attributes
+		//
+
+		// Private attributes
+		//
+
+		Generation <Individual, DNAtype>* previous_generation;
+		Generation <Individual, DNAtype>* current_generation;
+	public:
 
 
-  /**
-   * Set the value of previousGeneration
-   * @param new_var the new value of previousGeneration
-   */
-  void setPreviousGeneration ( Generation* new_var )   {
-      previousGeneration = new_var;
-  }
+		// Private attribute accessor methods
+		//
 
-  /**
-   * Get the value of previousGeneration
-   * @return the value of previousGeneration
-   */
-  Generation* getPreviousGeneration ( )   {
-    return previousGeneration;
-  }
+	private:
 
-  /**
-   * Set the value of currentGeneration
-   * @param new_var the new value of currentGeneration
-   */
-  void setCurrentGeneration ( Generation* new_var )   {
-      currentGeneration = new_var;
-  }
-
-  /**
-   * Get the value of currentGeneration
-   * @return the value of currentGeneration
-   */
-  Generation* getCurrentGeneration ( )   {
-    return currentGeneration;
-  }
-private:
+	public:
 
 
-  void initAttributes ( ) ;
+		// Private attribute accessor methods
+		//
 
+
+		/**
+		 * Set the value of previousGeneration
+		 * @param new_var the new value of previousGeneration
+		 */
+		void setPreviousGeneration(Generation <Individual, DNAtype>* value);
+
+		/**
+		 * Get the value of previousGeneration
+		 * @return the value of previousGeneration
+		 */
+		// Generation* getPreviousGeneration();
+
+		/**
+		 * Set the value of currentGeneration
+		 * @param new_var the new value of currentGeneration
+		 */
+		// void setCurrentGeneration(Generation* value);
+
+		// /**
+		//  * Get the value of currentGeneration
+		//  * @return the value of currentGeneration
+		//  */
+		// Generation* getCurrentGeneration();
+	private:
+
+
+	};
 };
-}; // end of package namespace
 
 #endif // POPULATION_H

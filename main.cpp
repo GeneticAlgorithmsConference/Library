@@ -1,23 +1,24 @@
-#include <iostream>
-#include "individual.h"
+﻿#include <iostream>
 #include <ctime>
 #include <cstdlib>
 #include <iomanip>
+
+#include "individual.h"
 
 using namespace std;
 
 void testRecombinationOne(Genetic::RecombinationType recType, bool use_constant,
                           double recPar = 0.0, int crossover_points_num = 1)
 {
-    Genetic::Individual* i1;
-    Genetic::Individual* i2;
-    Genetic::Individual* i3;
-    Genetic::Individual* i4;
+    Genetic::Individual <double>* i1;
+    Genetic::Individual <double>* i2;
+    Genetic::Individual <double>* i3;
+    Genetic::Individual <double>* i4;
 
-    i1 = new Genetic::Individual();
-    i2 = new Genetic::Individual();
-    i3 = new Genetic::Individual();
-    i4 = new Genetic::Individual();
+    i1 = new Genetic::Individual <double>();
+    i2 = new Genetic::Individual <double>();
+    i3 = new Genetic::Individual <double>();
+    i4 = new Genetic::Individual <double>();
 
     int dna_size = 8;
     vector<double> dna;
@@ -51,7 +52,7 @@ void testRecombinationOne(Genetic::RecombinationType recType, bool use_constant,
     cout << endl;
     i2 -> setDna(dna);
 
-    Genetic::Individual::recombine(i1, i2, i3, i4, recType, recPar, crossover_points_num);
+    Genetic::Individual<double>::recombine(i1, i2, i3, i4, recType, recPar, crossover_points_num);
 
     cout << "--- r e s u l t -------------------------------------------------------\n";
 
@@ -82,7 +83,7 @@ void testRecombinationOne(Genetic::RecombinationType recType, bool use_constant,
 void testMutationOne(Genetic::MutationType mutType, bool use_constant,
                      double probability, int attempts = 1, double mutPar = 5.0)
 {
-    Genetic::Individual* i1 = new Genetic::Individual();
+    Genetic::Individual<double>* i1 = new Genetic::Individual<double>();
 
     int dna_size = 8;
     vector<double> dna;
@@ -160,17 +161,17 @@ void testMutation()
     Genetic::MutationType q;
 
     cout << "========================== D I S C R E T E ============================\n";
-    q = Genetic::REAL_VALUE;
+    q = Genetic::REAL_VALUE_MUTATION;
     testMutationOne(q, USE_CONSTANT_DNA, PROBABILITY, ATTEMPTS, 5);
     cout << "=======================================================================\n\n";
 
     cout << "============================ B I N A R Y ==============================\n";
-    q = Genetic::BINARY;
+    q = Genetic::BINARY_MUTATION;
     testMutationOne(q, USE_CONSTANT_DNA, PROBABILITY, ATTEMPTS);
     cout << "=======================================================================\n\n";
 
     cout << "============================== S W A P ================================\n";
-    q = Genetic::SWAP;
+    q = Genetic::SWAP_MUTATION;
     testMutationOne(q, USE_CONSTANT_DNA, PROBABILITY, ATTEMPTS);
     cout << "=======================================================================\n\n";
 
