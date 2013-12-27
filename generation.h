@@ -6,8 +6,6 @@
 #include <vector>
 #include "individual.h"
 
-class Individual;
-
 namespace Genetic {
 
 
@@ -16,7 +14,7 @@ namespace Genetic {
  *
  */
 
-	template <typename Individual, typename DNAtype>
+	template <typename Individual>
 	class Generation
 	{
 	public:
@@ -35,7 +33,7 @@ namespace Genetic {
 
 			for(int i = 0; i < individuals_num; ++i)
 			{
-				tmp_individual = new Genetic::Individual<DNAtype>();
+				tmp_individual = new Individual();
 				individuals.push_back(tmp_individual);
 			}
 		}

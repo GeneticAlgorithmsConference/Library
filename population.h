@@ -16,7 +16,7 @@ namespace Genetic {
  *
  */
 
-	template <typename Individual, typename DNAtype>
+	template <typename Individual>
 	class Population
 	{
 	public:
@@ -69,8 +69,8 @@ namespace Genetic {
 			{
 				delete current_generation;
 			}
-			previous_generation = new Generation<Individual, DNAtype>(1);
-			current_generation = new Generation<Individual, DNAtype>(1);
+			previous_generation = new Generation<Individual>(1);
+			current_generation = new Generation<Individual>(1);
 		}
 
 
@@ -113,8 +113,8 @@ namespace Genetic {
 		// Private attributes
 		//
 
-		Generation <Individual, DNAtype>* previous_generation;
-		Generation <Individual, DNAtype>* current_generation;
+		Generation <Individual>* previous_generation;
+		Generation <Individual>* current_generation;
 	public:
 
 
@@ -134,7 +134,7 @@ namespace Genetic {
 		 * Set the value of previousGeneration
 		 * @param new_var the new value of previousGeneration
 		 */
-		void setPreviousGeneration(Generation <Individual, DNAtype>* value)
+		void setPreviousGeneration(Generation <Individual>* value)
 		{
 			previous_generation = value;
 		}

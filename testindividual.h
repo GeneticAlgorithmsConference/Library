@@ -2,6 +2,7 @@
 #define TEST_INDIVIDUAL_H
 
 #include "individual.h"
+
 using namespace Genetic;
 
 template <class T>

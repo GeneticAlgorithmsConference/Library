@@ -1,6 +1,6 @@
 
 #ifndef INDIVIDUAL_H
-//#define INDIVIDUAL_H
+#define INDIVIDUAL_H
 
 #include <string>
 #include <vector>
@@ -81,9 +81,8 @@ namespace Genetic {
 
 		/**
 		 */
-		virtual void updateParameters ( )
-			{
-			}
+		virtual void updateParameters();
+
 
 	protected:
 
@@ -114,33 +113,25 @@ namespace Genetic {
 		 * Set the value of score
 		 * @param new_var the new value of score
 		 */
-		void setScore ( int new_var )   {
-			score = new_var;
-		}
+		void setScore(int value);
 
 		/**
 		 * Get the value of score
 		 * @return the value of score
 		 */
-		int getScore ( )   {
-			return score;
-		}
+		int getScore();
 
 		/**
 		 * Set the value of dna
 		 * @param new_var the new value of dna
 		 */
-		void setDna ( std::vector <double> new_var )   {
-			dna = new_var;
-		}
+		void setDNA(const std::vector <DNAtype>& value);
 
 		/**
 		 * Get the value of dna
 		 * @return the value of dna
 		 */
-		std::vector <double> getDna ( )   {
-			return dna;
-		}
+		const std::vector <DNAtype>& getDNA() const;
 	protected:
 
 
@@ -408,6 +399,35 @@ void Genetic::Individual <DNAtype>::mutate(MutationType mut_type,
 template <typename DNAtype>
 void Genetic::Individual <DNAtype>::generate()
 {
+}
+
+template <typename DNAtype>
+void Genetic::Individual <DNAtype>::updateParameters()
+{
+}
+
+template <typename DNAtype>
+void Genetic::Individual <DNAtype>::setScore(int value)
+{
+	score = value;
+}
+
+template <typename DNAtype>
+int Genetic::Individual <DNAtype>::getScore()
+{
+	return score;
+}
+
+template <typename DNAtype>
+void Genetic::Individual <DNAtype>::setDNA(const std::vector <DNAtype>& value)
+{
+	dna = value;
+}
+
+template <typename DNAtype>
+const std::vector <DNAtype>& Genetic::Individual <DNAtype>::getDNA() const
+{
+	return dna;
 }
 
 #endif // INDIVIDUAL_H
