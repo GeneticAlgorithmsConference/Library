@@ -9,6 +9,8 @@
 
 using namespace std;
 
+#ifdef ENABLE_TESTS
+
 void testRecombinationOne(Genetic::RecombinationType rec_type, bool use_constant,
                           double rec_par = 0.0, int crossover_points_num = 1)
 {
@@ -181,13 +183,19 @@ void testMutation()
 
 }
 
+#endif
+
 int main()
 {
 	srand(time(NULL));
 
+#ifdef ENABLE_TESTS
+
 	testRecombination();
 	cout << "\n\n\n\n";
 	testMutation();
+
+#endif
     
 	Population <TestIndividual <int> > test;
 	return 0;

@@ -25,25 +25,12 @@ namespace Genetic {
 		/**
 		 * Empty Constructor
 		 */
-		Generation(int _individuals_num)
-		{
-			individuals_num = _individuals_num;
-
-			Individual* tmp_individual;
-
-			for(int i = 0; i < individuals_num; ++i)
-			{
-				tmp_individual = new Individual();
-				individuals.push_back(tmp_individual);
-			}
-		}
+		Generation(int individualsNum);
 
 		/**
 		 * Empty Destructor
 		 */
-		virtual ~Generation()
-		{
-		}
+		virtual ~Generation();
 
 		// Static Public attributes
 		//
@@ -63,17 +50,13 @@ namespace Genetic {
 
 		/**
 		 */
-		virtual void test()
-		{
-		}
+		virtual void test();
 
 
 		/**
 		 * @param  seed
 		 */
-		void init(unsigned int seed)
-		{
-		}
+		void init(unsigned int seed);
 
 	protected:
 
@@ -84,10 +67,10 @@ namespace Genetic {
 		//
 
 		std::vector <Individual*> individuals;
-		int individuals_num;
-		double mutation_probability;
-		int mutation_attempts;
-		int crossover_points_num;
+		int individualsNum;
+		double mutationProbability;
+		int mutationAttempts;
+		int crossoverPointsNum;
 	public:
 
 
@@ -107,91 +90,61 @@ namespace Genetic {
 		 * Set the value of individuals
 		 * @param new_var the new value of individuals
 		 */
-		void setIndividuals(std::vector <Individual*> value)
-		{
-			individuals = value;
-		}
+		void setIndividuals(const std::vector <Individual*>& value);
 
 		/**
 		 * Get the value of individuals
 		 * @return the value of individuals
 		 */
-		std::vector <Individual*> getIndividuals()
-		{
-			return individuals;
-		}
+		std::vector <Individual*>& getIndividuals();
 
 		/**
 		 * Set the value of individualsNum
 		 * @param new_var the new value of individualsNum
 		 */
-		void setIndividualsNum(int value)
-		{
-			individuals_num = value;
-		}
+		void setIndividualsNum(int value);
 
 		/**
 		 * Get the value of individualsNum
 		 * @return the value of individualsNum
 		 */
-		int getIndividualsNum()
-		{
-			return individuals_num;
-		}
+		int getIndividualsNum();
 
 		/**
 		 * Set the value of mutationProbability
 		 * @param new_var the new value of mutationProbability
 		 */
-		void setMutationProbability(double value)
-		{
-			mutation_probability = value;
-		}
+		void setMutationProbability(double value);
 
 		/**
 		 * Get the value of mutationProbability
 		 * @return the value of mutationProbability
 		 */
-		double getMutationProbability()
-		{
-			return mutation_probability;
-		}
+		double getMutationProbability();
 
 		/**
 		 * Set the value of mutationAttempts
 		 * @param new_var the new value of mutationAttempts
 		 */
-		void setMutationAttempts(int value)
-		{
-			mutation_attempts = value;
-		}
+		void setMutationAttempts(int value);
 
 		/**
 		 * Get the value of mutationAttempts
 		 * @return the value of mutationAttempts
 		 */
-		int getMutationAttempts()
-		{
-			return mutation_attempts;
-		}
+		int getMutationAttempts();
 
 		/**
 		 * Set the value of crossoverPointsNum
 		 * @param new_var the new value of crossoverPointsNum
 		 */
-		void setCrossoverPointsNum(int value)
-		{
-			crossover_points_num = value;
-		}
+		void setCrossoverPointsNum(int value);
 
 		/**
 		 * Get the value of crossoverPointsNum
 		 * @return the value of crossoverPointsNum
 		 */
-		int getCrossoverPointsNum()
-		{
-			return crossover_points_num;
-		}
+		int getCrossoverPointsNum();
 	protected:
 
 
@@ -221,5 +174,94 @@ namespace Genetic {
 
 	};
 }; // end of package namespace
+
+template <typename Individual>
+Genetic::Generation <Individual>::Generation(int _individualsNum)
+{
+	individualsNum = _individualsNum;
+
+	Individual* tmpIndividual;
+
+	for(int i = 0; i < individualsNum; ++i)
+	{
+		tmpIndividual = new Individual();
+		individuals.push_back(tmpIndividual);
+	}
+}
+
+template <typename Individual>
+Genetic::Generation <Individual>::~Generation()
+{
+}
+
+template <typename Individual>
+void Genetic::Generation <Individual>::test()
+{
+}
+
+template <typename Individual>
+void Genetic::Generation <Individual>::init(unsigned int seed)
+{
+}
+
+template <typename Individual>
+void Genetic::Generation <Individual>::setIndividuals(const std::vector <Individual*>& value)
+{
+	individuals = value;
+}
+
+template <typename Individual>
+std::vector <Individual*>& Genetic::Generation <Individual>::getIndividuals()
+{
+	return individuals;
+}
+
+template <typename Individual>
+void Genetic::Generation <Individual>::setIndividualsNum(int value)
+{
+	individualsNum = value;
+}
+
+template <typename Individual>
+int Genetic::Generation <Individual>::getIndividualsNum()
+{
+	return individualsNum;
+}
+
+template <typename Individual>
+void Genetic::Generation <Individual>::setMutationProbability(double value)
+{
+	mutationProbability = value;
+}
+
+template <typename Individual>
+double Genetic::Generation <Individual>::getMutationProbability()
+{
+	return mutationProbability;
+}
+
+template <typename Individual>
+void Genetic::Generation <Individual>::setMutationAttempts(int value)
+{
+	mutationAttempts = value;
+}
+
+template <typename Individual>
+int Genetic::Generation <Individual>::getMutationAttempts()
+{
+	return mutationAttempts;
+}
+
+template <typename Individual>
+void Genetic::Generation <Individual>::setCrossoverPointsNum(int value)
+{
+	crossoverPointsNum = value;
+}
+
+template <typename Individual>
+int Genetic::Generation <Individual>::getCrossoverPointsNum()
+{
+	return crossoverPointsNum;
+}
 
 #endif // GENERATION_H

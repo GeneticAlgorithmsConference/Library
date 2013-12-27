@@ -28,17 +28,12 @@ namespace Genetic {
 		/**
 		 * Empty Constructor
 		 */
-		Population()
-		{
-			previous_generation = nullptr;
-		}
+		Population();
 
 		/**
 		 * Empty Destructor
 		 */
-		virtual ~Population()
-		{
-		}
+		virtual ~Population();
 
 		// Static Public attributes
 		//
@@ -59,26 +54,12 @@ namespace Genetic {
 		/**
 		 * @param  seed
 		 */
-		void init(int seed)
-		{
-			if(previous_generation != nullptr)
-			{
-				delete previous_generation;
-			}
-			if(current_generation != nullptr)
-			{
-				delete current_generation;
-			}
-			previous_generation = new Generation<Individual>(1);
-			current_generation = new Generation<Individual>(1);
-		}
+		void init(int seed);
 
 
 		/**
 		 */
-		void nextGeneration()
-		{
-		}
+		void genNextGeneration();
 
 	protected:
 
@@ -113,8 +94,8 @@ namespace Genetic {
 		// Private attributes
 		//
 
-		Generation <Individual>* previous_generation;
-		Generation <Individual>* current_generation;
+		Generation <Individual>* previousGeneration;
+		Generation <Individual>* currentGeneration;
 	public:
 
 
@@ -134,32 +115,80 @@ namespace Genetic {
 		 * Set the value of previousGeneration
 		 * @param new_var the new value of previousGeneration
 		 */
-		void setPreviousGeneration(Generation <Individual>* value)
-		{
-			previous_generation = value;
-		}
+		void setPreviousGeneration(Generation <Individual>* value);
 
 		/**
 		 * Get the value of previousGeneration
 		 * @return the value of previousGeneration
 		 */
-		// Generation* getPreviousGeneration();
+		Generation <Individual>* getPreviousGeneration();
 
 		/**
 		 * Set the value of currentGeneration
 		 * @param new_var the new value of currentGeneration
 		 */
-		// void setCurrentGeneration(Generation* value);
+		void setCurrentGeneration(Generation <Individual>* value);
 
 		// /**
 		//  * Get the value of currentGeneration
 		//  * @return the value of currentGeneration
 		//  */
-		// Generation* getCurrentGeneration();
+		Generation <Individual>* getCurrentGeneration();
 	private:
 
 
 	};
 };
+
+template <typename Individual>
+Genetic::Population <Individual>::Population()
+{
+	previousGeneration = nullptr;
+}
+
+template <typename Individual>
+Genetic::Population <Individual>::~Population()
+{
+}
+
+template <typename Individual>
+void Genetic::Population <Individual>::init(int seed)
+{
+	if(previousGeneration != nullptr)
+	{
+		delete previousGeneration;
+	}
+	if(currentGeneration != nullptr)
+	{
+		delete currentGeneration;
+	}
+	previousGeneration = new Generation<Individual>(1);
+	currentGeneration = new Generation<Individual>(1);
+}
+
+template <typename Individual>
+void Genetic::Population <Individual>::genNextGeneration()
+{
+}
+
+template <typename Individual>
+void Genetic::Population <Individual>::setPreviousGeneration(Genetic::Generation <Individual>* value)
+{
+}
+
+template <typename Individual>
+Genetic::Generation <Individual>* Genetic::Population <Individual>::getPreviousGeneration()
+{
+}
+
+template <typename Individual>
+void Genetic::Population <Individual>::setCurrentGeneration(Genetic::Generation <Individual>* value)
+{
+}
+
+template <typename Individual>
+Genetic::Generation <Individual>* Genetic::Population <Individual>::getCurrentGeneration()
+{
+}
 
 #endif // POPULATION_H
