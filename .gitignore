@@ -1,7 +1,7 @@
 # Compiled source #
 ###################
 *.exe
-
+main
 *.o
 
 
