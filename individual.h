@@ -1,6 +1,6 @@
 
 #ifndef INDIVIDUAL_H
-#define INDIVIDUAL_H
+//#define INDIVIDUAL_H
 
 #include <string>
 #include <vector>
@@ -51,7 +51,7 @@ class Individual
 
         // Public attribute accessor methods
         //
-
+	
 
         // Public attribute accessor methods
         //
@@ -233,58 +233,58 @@ class Individual
             * @param  probability
             */
         void mutate(MutationType mut_type, double probability, int attempts, double parameter)
+	{
+		for(int attemptNo = 0; attemptNo < attempts; ++attemptNo)
 		{
-			for(int attemptNo = 0; attemptNo < attempts; ++attemptNo)
+			if(((double)(rand()%10000))/10000.0 <= probability)
 			{
-				if(((double)(rand()%10000))/10000.0 <= probability)
+				switch(mut_type)
 				{
-					switch(mut_type)
+					case REAL_VALUE_MUTATION:
 					{
-						case REAL_VALUE_MUTATION:
+						double dlt = 0;
+						for(double i = 1.0; i < parameter; ++i)
 						{
-							double dlt = 0;
-							for(double i = 1.0; i < parameter; ++i)
+							if(((double)(rand()%10000))/10000.0 <= 1.0 / parameter)
 							{
-								if(((double)(rand()%10000))/10000.0 <= 1.0 / parameter)
-								{
-									dlt += pow(2.0, -i);
-								}
+								dlt += pow(2.0, -i);
 							}
+						}
 
-							if(rand() & 1)
-							{
-								dlt *= -1.0;
-							}
+						if(rand() & 1)
+						{
+							dlt *= -1.0;
+						}
 
-							dlt *= 0.5;
-							int a = rand() % dna.size();
+						dlt *= 0.5;
+						int a = rand() % dna.size();
 
-							dna[a] += dlt;
-							break;
-						}
-						case BINARY_MUTATION:
-						{
-							int a = rand() % dna.size();
-							dna[a] = (int)dna[a] ^ 1;
-							break;
-						}
-						case DENSITY_MUTATION:
-						{
-							break;
-						}
-						case SWAP_MUTATION:
-						{
-							int a = rand()%(dna.size());
-							int b = rand()%(dna.size()-1);
-							if(b >= a)
-								++b;
-							std::swap(dna[a], dna[b]);
-							break;
-						}
+						dna[a] += dlt;
+						break;
+					}
+					case BINARY_MUTATION:
+					{
+						int a = rand() % dna.size();
+						dna[a] = (int)dna[a] ^ 1;
+						break;
+					}
+					case DENSITY_MUTATION:
+					{
+						break;
+					}
+					case SWAP_MUTATION:
+					{
+						int a = rand()%(dna.size());
+						int b = rand()%(dna.size()-1);
+						if(b >= a)
+							++b;
+						std::swap(dna[a], dna[b]);
+						break;
 					}
 				}
 			}
 		}
+	}
 
 
         /**

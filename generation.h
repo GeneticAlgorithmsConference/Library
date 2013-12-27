@@ -27,12 +27,25 @@ namespace Genetic {
 		/**
 		 * Empty Constructor
 		 */
-		Generation(int _individuals_num);
+		Generation(int _individuals_num)
+		{
+			individuals_num = _individuals_num;
+
+			Individual* tmp_individual;
+
+			for(int i = 0; i < individuals_num; ++i)
+			{
+				tmp_individual = new Genetic::Individual<DNAtype>();
+				individuals.push_back(tmp_individual);
+			}
+		}
 
 		/**
 		 * Empty Destructor
 		 */
-		virtual ~Generation();
+		virtual ~Generation()
+		{
+		}
 
 		// Static Public attributes
 		//
@@ -52,17 +65,17 @@ namespace Genetic {
 
 		/**
 		 */
-		virtual void test ( )
-			{
-			}
+		virtual void test()
+		{
+		}
 
 
 		/**
 		 * @param  seed
 		 */
-		void init (unsigned int seed )
-			{
-			}
+		void init(unsigned int seed)
+		{
+		}
 
 	protected:
 
@@ -96,61 +109,91 @@ namespace Genetic {
 		 * Set the value of individuals
 		 * @param new_var the new value of individuals
 		 */
-		void setIndividuals(std::vector <Individual*> new_var);
+		void setIndividuals(std::vector <Individual*> value)
+		{
+			individuals = value;
+		}
 
 		/**
 		 * Get the value of individuals
 		 * @return the value of individuals
 		 */
-		std::vector <Individual*> getIndividuals();
+		std::vector <Individual*> getIndividuals()
+		{
+			return individuals;
+		}
 
 		/**
 		 * Set the value of individualsNum
 		 * @param new_var the new value of individualsNum
 		 */
-		void setIndividualsNum(int value);
+		void setIndividualsNum(int value)
+		{
+			individuals_num = value;
+		}
 
 		/**
 		 * Get the value of individualsNum
 		 * @return the value of individualsNum
 		 */
-		int getIndividualsNum();
+		int getIndividualsNum()
+		{
+			return individuals_num;
+		}
 
 		/**
 		 * Set the value of mutationProbability
 		 * @param new_var the new value of mutationProbability
 		 */
-		void setMutationProbability(double value);
+		void setMutationProbability(double value)
+		{
+			mutation_probability = value;
+		}
 
 		/**
 		 * Get the value of mutationProbability
 		 * @return the value of mutationProbability
 		 */
-		double getMutationProbability();
+		double getMutationProbability()
+		{
+			return mutation_probability;
+		}
 
 		/**
 		 * Set the value of mutationAttempts
 		 * @param new_var the new value of mutationAttempts
 		 */
-		void setMutationAttempts(int value);
+		void setMutationAttempts(int value)
+		{
+			mutation_attempts = value;
+		}
 
 		/**
 		 * Get the value of mutationAttempts
 		 * @return the value of mutationAttempts
 		 */
-		int getMutationAttempts();
+		int getMutationAttempts()
+		{
+			return mutation_attempts;
+		}
 
 		/**
 		 * Set the value of crossoverPointsNum
 		 * @param new_var the new value of crossoverPointsNum
 		 */
-		void setCrossoverPointsNum(int value);
+		void setCrossoverPointsNum(int value)
+		{
+			crossover_points_num = value;
+		}
 
 		/**
 		 * Get the value of crossoverPointsNum
 		 * @return the value of crossoverPointsNum
 		 */
-		int getCrossoverPointsNum();
+		int getCrossoverPointsNum()
+		{
+			return crossover_points_num;
+		}
 	protected:
 
 

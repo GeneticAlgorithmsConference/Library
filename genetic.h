@@ -1,3 +1,6 @@
+#ifndef GENETIC_H
+#define GENETIC_H
+
 namespace Genetic
 {
     enum RecombinationType
@@ -39,3 +42,5 @@ namespace Genetic
         SWAP_MUTATION
     };
 }
+
+#endif

@@ -1,4 +1,4 @@
-#include "generation.h"
+/*#include "generation.h"
 #include "individual.h"
 
 using namespace Genetic;
@@ -94,3 +94,4 @@ int Generation<Individual, DNAtype>::getCrossoverPointsNum()
 
 // Other methods
 //  
+*/

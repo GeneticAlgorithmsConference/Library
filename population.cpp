@@ -5,7 +5,7 @@ using namespace Genetic;
 
 // Constructors/Destructors
 //  
-
+/*
 template <typename Individual, typename DNAtype>
 Population <Individual, DNAtype>::Population()
 {
@@ -50,3 +50,4 @@ void Population <Individual, DNAtype>::setPreviousGeneration(Generation <Individ
 // Other methods
 //  
 
+*/

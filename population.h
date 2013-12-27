@@ -28,12 +28,17 @@ namespace Genetic {
 		/**
 		 * Empty Constructor
 		 */
-		Population ( );
+		Population()
+		{
+			previous_generation = nullptr;
+		}
 
 		/**
 		 * Empty Destructor
 		 */
-		virtual ~Population ( );
+		virtual ~Population()
+		{
+		}
 
 		// Static Public attributes
 		//
@@ -54,8 +59,18 @@ namespace Genetic {
 		/**
 		 * @param  seed
 		 */
-		void init (int seed )
+		void init(int seed)
 		{
+			if(previous_generation != nullptr)
+			{
+				delete previous_generation;
+			}
+			if(current_generation != nullptr)
+			{
+				delete current_generation;
+			}
+			previous_generation = new Generation<Individual, DNAtype>(1);
+			current_generation = new Generation<Individual, DNAtype>(1);
 		}
 
 
@@ -119,7 +134,10 @@ namespace Genetic {
 		 * Set the value of previousGeneration
 		 * @param new_var the new value of previousGeneration
 		 */
-		void setPreviousGeneration(Generation <Individual, DNAtype>* value);
+		void setPreviousGeneration(Generation <Individual, DNAtype>* value)
+		{
+			previous_generation = value;
+		}
 
 		/**
 		 * Get the value of previousGeneration
