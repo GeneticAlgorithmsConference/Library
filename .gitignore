@@ -10,7 +10,7 @@ main
 ###################
 structure_auto.xmi
 *~
-
+.directory
 *.save
 
 # Project files #
