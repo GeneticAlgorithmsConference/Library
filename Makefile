@@ -1,7 +1,7 @@
 CXX	= g++
 CFLAGS	= -c -O2 -std=c++11
 LDFLAGS	=
-SOURCES	= main.cpp #generation.cpp population.cpp individual.cpp
+SOURCES	= main.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 EXECUTABLE = main
 

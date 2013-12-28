@@ -19,3 +19,7 @@ Genetic-Algorithms.layout
 Genetic-Algorithms.depend
 bin/
 
+# Documentation files #
+#######################
+html/
+latex/

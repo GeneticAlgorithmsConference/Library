@@ -23,43 +23,13 @@ namespace Genetic {
 	class Individual
 	{
 	public:
-
-		// Constructors/Destructors
-		//
-
-
-		/**
-		 * Empty Constructor
-		 */
+		/// Empty Constructor2.
 		Individual();
 
-		/**
-		 * Empty Destructor
-		 */
+		/// Empty Destructor.
 		virtual ~Individual();
 
-		// Static Public attributes
-		//
-
-		// Public attributes
-		//
-
-
-		// Public attribute accessor methods
-		//
-	
-
-		// Public attribute accessor methods
-		//
-
-
-
-		/**
-		 * @param  individual1
-		 * @param  individual2
-		 * @param  recombinationType
-		 * @param  crossoverPointsNum
-		 */
+		/// Recombine method.
 		static void recombine(Genetic::Individual <DNAtype>* parent_individual1,
 		                      Genetic::Individual <DNAtype>* parent_individual2,
 		                      Genetic::Individual <DNAtype>* child_individual1,
@@ -68,47 +38,17 @@ namespace Genetic {
 		                      double recombine_param = 1.0,
 		                      int crossover_points_num = 1);
 
-		/**
-		 * @param  probability
-		 */
+		/// Mutate methid.
 		void mutate(MutationType mut_type, double probability, int attempts,
 		            double parameter);
 
-		/**
-		 */
+		/// Generate method.
 		virtual void generate();
 
-
-		/**
-		 */
+		/// Update parameters from dna.
 		virtual void updateParameters();
 
-
-	protected:
-
-		// Static Protected attributes
-		//
-
-		// Protected attributes
-		//
-
-		int score;
-		std::vector <DNAtype> dna;
-	public:
-
-
-		// Protected attribute accessor methods
-		//
-
-	protected:
-
-	public:
-
-
-		// Protected attribute accessor methods
-		//
-
-
+		
 		/**
 		 * Set the value of score
 		 * @param new_var the new value of score
@@ -132,36 +72,23 @@ namespace Genetic {
 		 * @return the value of dna
 		 */
 		const std::vector <DNAtype>& getDNA() const;
+
 	protected:
 
-
-	private:
-
-		// Static Private attributes
+		// Static Protected attributes
 		//
 
-		// Private attributes
+		// Protected attributes
 		//
 
-	public:
-
-
-		// Private attribute accessor methods
-		//
-
-	private:
-
-	public:
-
-
-		// Private attribute accessor methods
-		//
-
-	private:
-
+		int score;	///< Score value
+		std::vector <DNAtype> dna;
 	};
-}; // end of package namespace
+};
 
+/**
+ * Detailed description of empty constructor.
+ */
 template <typename DNAtype>
 Genetic::Individual <DNAtype>::Individual()
 {
@@ -343,16 +270,16 @@ void Genetic::Individual <DNAtype>::mutate(MutationType mut_type,
 {
 	for(int attemptNo = 0; attemptNo < attempts; ++attemptNo)
 	{
-		if(((double)(rand()%10000))/10000.0 <= probability)
+		if(static_cast<double>(rand() % 10000) / 10000.0 <= probability)
 		{
 			switch(mut_type)
 			{
 			case REAL_VALUE_MUTATION:
 			{
-				double dlt = 0;
+				double dlt = 0.0;
 				for(double i = 1.0; i < parameter; ++i)
 				{
-					if(((double)(rand()%10000))/10000.0 <= 1.0 / parameter)
+					if(static_cast<double>(rand()%10000) / 10000.0 <= 1.0 / parameter)
 					{
 						dlt += pow(2.0, -i);
 					}
@@ -360,7 +287,7 @@ void Genetic::Individual <DNAtype>::mutate(MutationType mut_type,
 
 				if(rand() & 1)
 				{
-					dlt *= -1.0;
+					dlt = -dlt;
 				}
 
 				dlt *= 0.5;
@@ -372,7 +299,7 @@ void Genetic::Individual <DNAtype>::mutate(MutationType mut_type,
 			case BINARY_MUTATION:
 			{
 				int a = rand() % dna.size();
-				dna[a] = (int)dna[a] ^ 1;
+				dna[a] = static_cast<int>(dna[a]) ^ 1;
 				break;
 			}
 			case DENSITY_MUTATION:
@@ -381,7 +308,6 @@ void Genetic::Individual <DNAtype>::mutate(MutationType mut_type,
 			}
 			case SWAP_MUTATION:
 			{
-				// WTF is it?
 				int a = rand() % (dna.size());
 				int b = rand() % (dna.size() - 1);
 				if(b >= a)
