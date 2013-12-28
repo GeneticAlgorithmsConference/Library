@@ -16,18 +16,12 @@ namespace Genetic {
  *
  */
 
-	template <typename Individual>
+	template <typename Generation>
 	class Population
 	{
 	public:
 
-		// Constructors/Destructors
-		//
-
-
-		/**
-		 * Empty Constructor
-		 */
+		/// Empty constructor
 		Population();
 
 		/**
@@ -35,26 +29,10 @@ namespace Genetic {
 		 */
 		virtual ~Population();
 
-		// Static Public attributes
-		//
-
-		// Public attributes
-		//
-
-
-		// Public attribute accessor methods
-		//
-
-
-		// Public attribute accessor methods
-		//
-
-
-
 		/**
 		 * @param  seed
 		 */
-		void init(int seed);
+		void init(unsigned int seed);
 
 
 		/**
@@ -63,46 +41,8 @@ namespace Genetic {
 
 	protected:
 
-		// Static Protected attributes
-		//
-
-		// Protected attributes
-		//
-
-	public:
-
-
-		// Protected attribute accessor methods
-		//
-
-	protected:
-
-	public:
-
-
-		// Protected attribute accessor methods
-		//
-
-	protected:
-
-
-	private:
-
-		// Static Private attributes
-		//
-
-		// Private attributes
-		//
-
-		Generation <Individual>* previousGeneration;
-		Generation <Individual>* currentGeneration;
-	public:
-
-
-		// Private attribute accessor methods
-		//
-
-	private:
+		Generation* previousGeneration;
+		Generation* currentGeneration;
 
 	public:
 
@@ -115,45 +55,46 @@ namespace Genetic {
 		 * Set the value of previousGeneration
 		 * @param new_var the new value of previousGeneration
 		 */
-		void setPreviousGeneration(Generation <Individual>* value);
+		void setPreviousGeneration(Generation* value);
 
 		/**
 		 * Get the value of previousGeneration
 		 * @return the value of previousGeneration
 		 */
-		Generation <Individual>* getPreviousGeneration();
+		Generation* getPreviousGeneration();
 
 		/**
 		 * Set the value of currentGeneration
 		 * @param new_var the new value of currentGeneration
 		 */
-		void setCurrentGeneration(Generation <Individual>* value);
+		void setCurrentGeneration(Generation* value);
 
-		// /**
-		//  * Get the value of currentGeneration
-		//  * @return the value of currentGeneration
-		//  */
-		Generation <Individual>* getCurrentGeneration();
+		/**
+		 * Get the value of currentGeneration
+		 * @return the value of currentGeneration
+		 */
+		Generation* getCurrentGeneration();
 	private:
 
 
 	};
 };
 
-template <typename Individual>
-Genetic::Population <Individual>::Population()
+template <typename Generation>
+Genetic::Population <Generation>::Population()
 {
 	previousGeneration = nullptr;
 }
 
-template <typename Individual>
-Genetic::Population <Individual>::~Population()
+template <typename Generation>
+Genetic::Population <Generation>::~Population()
 {
 }
 
-template <typename Individual>
-void Genetic::Population <Individual>::init(int seed)
+template <typename Generation>
+void Genetic::Population <Generation>::init(unsigned int seed)
 {
+	srand(seed);
 	if(previousGeneration != nullptr)
 	{
 		delete previousGeneration;
@@ -162,33 +103,37 @@ void Genetic::Population <Individual>::init(int seed)
 	{
 		delete currentGeneration;
 	}
-	previousGeneration = new Generation<Individual>(1);
-	currentGeneration = new Generation<Individual>(1);
+	previousGeneration = new Generation(1);
+	currentGeneration = new Generation(1);
 }
 
-template <typename Individual>
-void Genetic::Population <Individual>::genNextGeneration()
+template <typename Generation>
+void Genetic::Population <Generation>::genNextGeneration()
 {
 }
 
-template <typename Individual>
-void Genetic::Population <Individual>::setPreviousGeneration(Genetic::Generation <Individual>* value)
+template <typename Generation>
+void Genetic::Population <Generation>::setPreviousGeneration(Generation* value)
 {
+	previousGeneration = value;
 }
 
-template <typename Individual>
-Genetic::Generation <Individual>* Genetic::Population <Individual>::getPreviousGeneration()
+template <typename Generation>
+Generation* Genetic::Population <Generation>::getPreviousGeneration()
 {
+	return previousGeneration;
 }
 
-template <typename Individual>
-void Genetic::Population <Individual>::setCurrentGeneration(Genetic::Generation <Individual>* value)
+template <typename Generation>
+void Genetic::Population <Generation>::setCurrentGeneration(Generation* value)
 {
+	currentGeneration = value;
 }
 
-template <typename Individual>
-Genetic::Generation <Individual>* Genetic::Population <Individual>::getCurrentGeneration()
+template <typename Generation>
+Generation* Genetic::Population <Generation>::getCurrentGeneration()
 {
+	return currentGeneration;
 }
 
 #endif // POPULATION_H

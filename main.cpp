@@ -187,7 +187,7 @@ void testMutation()
 
 int main()
 {
-	srand(time(NULL));
+	// srand(time(NULL));
 
 #ifdef ENABLE_TESTS
 
@@ -197,6 +197,7 @@ int main()
 
 #endif
     
-	Population <TestIndividual <int> > test;
+	Population < Generation <TestIndividual <int> > > test;
+	test.init(time(NULL));
 	return 0;
 }

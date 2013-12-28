@@ -18,10 +18,6 @@ namespace Genetic {
 	class Generation
 	{
 	public:
-		// Constructors/Destructors
-		//
-
-
 		/**
 		 * Empty Constructor
 		 */
@@ -32,22 +28,6 @@ namespace Genetic {
 		 */
 		virtual ~Generation();
 
-		// Static Public attributes
-		//
-
-		// Public attributes
-		//
-
-
-		// Public attribute accessor methods
-		//
-
-
-		// Public attribute accessor methods
-		//
-
-
-
 		/**
 		 */
 		virtual void test();
@@ -56,28 +36,15 @@ namespace Genetic {
 		/**
 		 * @param  seed
 		 */
-		void init(unsigned int seed);
+		void init();
 
 	protected:
-
-		// Static Protected attributes
-		//
-
-		// Protected attributes
-		//
 
 		std::vector <Individual*> individuals;
 		int individualsNum;
 		double mutationProbability;
 		int mutationAttempts;
 		int crossoverPointsNum;
-	public:
-
-
-		// Protected attribute accessor methods
-		//
-
-	protected:
 
 	public:
 
@@ -145,33 +112,6 @@ namespace Genetic {
 		 * @return the value of crossoverPointsNum
 		 */
 		int getCrossoverPointsNum();
-	protected:
-
-
-	private:
-
-		// Static Private attributes
-		//
-
-		// Private attributes
-		//
-
-	public:
-
-
-		// Private attribute accessor methods
-		//
-
-	private:
-
-	public:
-
-
-		// Private attribute accessor methods
-		//
-
-	private:
-
 	};
 }; // end of package namespace
 
@@ -200,7 +140,7 @@ void Genetic::Generation <Individual>::test()
 }
 
 template <typename Individual>
-void Genetic::Generation <Individual>::init(unsigned int seed)
+void Genetic::Generation <Individual>::init()
 {
 }
 
