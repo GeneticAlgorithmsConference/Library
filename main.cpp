@@ -199,5 +199,6 @@ int main()
     
 	Population < Generation <TestIndividual <int> > > test;
 	test.init(time(NULL));
+
 	return 0;
 }

@@ -84,11 +84,14 @@ template <typename Generation>
 Genetic::Population <Generation>::Population()
 {
 	previousGeneration = nullptr;
+	currentGeneration = nullptr;
 }
 
 template <typename Generation>
 Genetic::Population <Generation>::~Population()
 {
+	delete previousGeneration;
+	delete currentGeneration;
 }
 
 template <typename Generation>
