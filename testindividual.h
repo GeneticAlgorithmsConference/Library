@@ -8,13 +8,6 @@
 
 using namespace Genetic;
 
-// template <typename T>
-// class Test1234
-// {
-// public:
-// 	 T a;
-// };
-
 class TestIndividual : public Individual <LinearBinaryDna>
 {
 public:
