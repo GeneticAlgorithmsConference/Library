@@ -11,7 +11,7 @@ namespace Genetic
 	{
 	public:
 		T& operator[](int id);
-		int size();
+		int size() const;
 		void resize(int newSize);
 		virtual void mutate() = 0;
 	protected:
@@ -27,7 +27,7 @@ T& Genetic::BaseLinearDna <T>::operator[](int id)
 }
 
 template <typename T>
-int Genetic::BaseLinearDna <T>::size()
+int Genetic::BaseLinearDna <T>::size() const
 {
 	return dna.size();
 }

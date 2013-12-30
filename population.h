@@ -5,8 +5,7 @@
 #include <string>
 #include <vector>
 
-
-#include "generation.h"
+#include "genetic.h"
 
 namespace Genetic {
 
@@ -23,6 +22,8 @@ namespace Genetic {
 
 		/// Empty constructor
 		Population();
+
+		Population(int _generationSize, NewPopulationSelectionType _selectionType = ELITE_SELECTION);
 
 		/**
 		 * Empty Destructor
@@ -41,27 +42,11 @@ namespace Genetic {
 
 	protected:
 
-		Generation* previousGeneration;
 		Generation* currentGeneration;
+		int generationSize;
+		NewPopulationSelectionType selectionType;
 
 	public:
-
-
-		// Private attribute accessor methods
-		//
-
-
-		/**
-		 * Set the value of previousGeneration
-		 * @param new_var the new value of previousGeneration
-		 */
-		void setPreviousGeneration(Generation* value);
-
-		/**
-		 * Get the value of previousGeneration
-		 * @return the value of previousGeneration
-		 */
-		Generation* getPreviousGeneration();
 
 		/**
 		 * Set the value of currentGeneration
@@ -83,14 +68,23 @@ namespace Genetic {
 template <typename Generation>
 Genetic::Population <Generation>::Population()
 {
-	previousGeneration = nullptr;
 	currentGeneration = nullptr;
+	generationSize = 10;
+	selectionType = ELITE_SELECTION;
+}
+
+template <typename Generation>
+Genetic::Population <Generation>::Population(int _generationSize,
+                                             NewPopulationSelectionType _selectionType)
+{
+	currentGeneration = nullptr;
+	generationSize = _generationSize;
+	selectionType = _selectionType;
 }
 
 template <typename Generation>
 Genetic::Population <Generation>::~Population()
 {
-	delete previousGeneration;
 	delete currentGeneration;
 }
 
@@ -98,33 +92,20 @@ template <typename Generation>
 void Genetic::Population <Generation>::init(unsigned int seed)
 {
 	srand(seed);
-	if(previousGeneration != nullptr)
-	{
-		delete previousGeneration;
-	}
 	if(currentGeneration != nullptr)
 	{
 		delete currentGeneration;
 	}
-	previousGeneration = new Generation(1);
-	currentGeneration = new Generation(1);
+	currentGeneration = new Generation(10);
+	currentGeneration -> init();
 }
 
 template <typename Generation>
 void Genetic::Population <Generation>::genNextGeneration()
 {
-}
-
-template <typename Generation>
-void Genetic::Population <Generation>::setPreviousGeneration(Generation* value)
-{
-	previousGeneration = value;
-}
-
-template <typename Generation>
-Generation* Genetic::Population <Generation>::getPreviousGeneration()
-{
-	return previousGeneration;
+	Generation* nextGeneration = currentGeneration -> genNext();
+	delete currentGeneration;
+	currentGeneration = nextGeneration;
 }
 
 template <typename Generation>

@@ -2,6 +2,7 @@
 #ifndef GENERATION_H
 #define GENERATION_H
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include "individual.h"
@@ -32,6 +33,7 @@ namespace Genetic {
 		 */
 		virtual void test();
 
+		virtual Generation* genNext();
 
 		/**
 		 * @param  seed
@@ -47,10 +49,6 @@ namespace Genetic {
 		int crossoverPointsNum;
 
 	public:
-
-
-		// Protected attribute accessor methods
-		//
 
 
 		/**
@@ -119,14 +117,7 @@ template <typename Individual>
 Genetic::Generation <Individual>::Generation(int _individualsNum)
 {
 	individualsNum = _individualsNum;
-
-	Individual* tmpIndividual;
-
-	for(int i = 0; i < individualsNum; ++i)
-	{
-		tmpIndividual = new Individual();
-		individuals.push_back(tmpIndividual);
-	}
+	assert(individualsNum % 2 == 0);
 }
 
 template <typename Individual>
@@ -140,8 +131,38 @@ void Genetic::Generation <Individual>::test()
 }
 
 template <typename Individual>
+Genetic::Generation <Individual>* Genetic::Generation <Individual>::genNext()
+{
+	std::vector <Individual*> nextIndividuals(individualsNum);
+	for(int i = 0; i < individualsNum; ++i)
+	{
+		nextIndividuals[i] = new Individual;
+	}
+	int firstParent, secondParent;
+	for(int i = 0; i < individualsNum / 2; ++i)
+	{
+		firstParent = rand() % individualsNum;
+		secondParent = rand() % (individualsNum - 1);
+		if(secondParent >= firstParent)
+		{
+			++secondParent;
+		}
+		Individual::recombine(individuals[firstParent], individuals[secondParent],
+		                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1],
+		                      CROSSOVER, 0.0, 1);
+	}
+}
+
+template <typename Individual>
 void Genetic::Generation <Individual>::init()
 {
+	Individual* tmpIndividual;
+
+	for(int i = 0; i < individualsNum; ++i)
+	{
+		tmpIndividual = new Individual();
+		individuals.push_back(tmpIndividual);
+	}
 }
 
 template <typename Individual>
