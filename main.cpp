@@ -4,8 +4,10 @@
 #include <iomanip>
 
 #include "individual.h"
+#include "generation.h"
 #include "population.h"
 #include "testindividual.h"
+#include "dnatypes.h"
 
 using namespace std;
 
@@ -197,8 +199,14 @@ int main()
 
 #endif
     
-	Population < Generation <TestIndividual <int> > > test;
+	Population < Generation < TestIndividual > > test(10, ELITE_SELECTION);
 	test.init(time(NULL));
+
+	for(int i = 0; i < 1000; ++i)
+	{
+		test.genNextGeneration();
+	}
 
 	return 0;
 }
+

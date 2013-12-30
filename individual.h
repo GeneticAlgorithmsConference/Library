@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <cassert>
 #include <algorithm>
+#include <iostream>
 
 #include "genetic.h"
 
@@ -19,7 +20,7 @@ namespace Genetic {
  *
  */
 
-	template <typename DNAtype>
+	template <typename D>
 	class Individual
 	{
 	public:
@@ -29,16 +30,18 @@ namespace Genetic {
 		/// Empty Destructor.
 		virtual ~Individual();
 
+		virtual void test() = 0;
+
 		/// Recombine method.
-		static void recombine(Genetic::Individual <DNAtype>* parent_individual1,
-		                      Genetic::Individual <DNAtype>* parent_individual2,
-		                      Genetic::Individual <DNAtype>* child_individual1,
-		                      Genetic::Individual <DNAtype>* child_individual2,
+		static void recombine(Genetic::Individual <D>* parent_individual1,
+		                      Genetic::Individual <D>* parent_individual2,
+		                      Genetic::Individual <D>* child_individual1,
+		                      Genetic::Individual <D>* child_individual2,
 		                      Genetic::RecombinationType rec_type,
 		                      double recombine_param = 1.0,
 		                      int crossover_points_num = 1);
 
-		/// Mutate methid.
+		/// Mutate method.
 		void mutate(MutationType mut_type, double probability, int attempts,
 		            double parameter);
 
@@ -48,6 +51,7 @@ namespace Genetic {
 		/// Update parameters from dna.
 		virtual void updateParameters();
 
+		virtual void mutate() = 0;
 		
 		/**
 		 * Set the value of score
@@ -65,13 +69,13 @@ namespace Genetic {
 		 * Set the value of dna
 		 * @param new_var the new value of dna
 		 */
-		void setDNA(const std::vector <DNAtype>& value);
+		void setDNA(D& value);
 
 		/**
 		 * Get the value of dna
 		 * @return the value of dna
 		 */
-		const std::vector <DNAtype>& getDNA() const;
+		const D& getDNA() const;
 
 	protected:
 
@@ -82,31 +86,31 @@ namespace Genetic {
 		//
 
 		int score;	///< Score value
-		std::vector <DNAtype> dna;
+		D dna;
 	};
 };
 
 /**
  * Detailed description of empty constructor.
  */
-template <typename DNAtype>
-Genetic::Individual <DNAtype>::Individual()
+template <typename D>
+Genetic::Individual <D>::Individual()
 {
 }
 
-template <typename DNAtype>
-Genetic::Individual <DNAtype>::~Individual()
+template <typename D>
+Genetic::Individual <D>::~Individual()
 {
 }
 
-template <typename DNAtype>
-void Genetic::Individual <DNAtype>::recombine(Genetic::Individual <DNAtype>* parent_individual1,
-                                              Genetic::Individual <DNAtype>* parent_individual2,
-                                              Genetic::Individual <DNAtype>* child_individual1,
-                                              Genetic::Individual <DNAtype>* child_individual2,
-                                              Genetic::RecombinationType rec_type,
-                                              double recombine_param,
-                                              int crossover_points_num)
+template <typename D>
+void Genetic::Individual <D>::recombine(Genetic::Individual <D>* parent_individual1,
+                                        Genetic::Individual <D>* parent_individual2,
+                                        Genetic::Individual <D>* child_individual1,
+                                        Genetic::Individual <D>* child_individual2,
+                                        Genetic::RecombinationType rec_type,
+                                        double recombine_param,
+                                        int crossover_points_num)
 {
 	switch(rec_type)
 	{
@@ -263,8 +267,8 @@ void Genetic::Individual <DNAtype>::recombine(Genetic::Individual <DNAtype>* par
 	}
 }
 
-template <typename DNAtype>        
-void Genetic::Individual <DNAtype>::mutate(MutationType mut_type,
+template <typename D>        
+void Genetic::Individual <D>::mutate(MutationType mut_type,
                                            double probability, int attempts,
                                            double parameter)
 {
@@ -322,36 +326,36 @@ void Genetic::Individual <DNAtype>::mutate(MutationType mut_type,
 	}
 }
 
-template <typename DNAtype>
-void Genetic::Individual <DNAtype>::generate()
+template <typename D>
+void Genetic::Individual <D>::generate()
 {
 }
 
-template <typename DNAtype>
-void Genetic::Individual <DNAtype>::updateParameters()
+template <typename D>
+void Genetic::Individual <D>::updateParameters()
 {
 }
 
-template <typename DNAtype>
-void Genetic::Individual <DNAtype>::setScore(int value)
+template <typename D>
+void Genetic::Individual <D>::setScore(int value)
 {
 	score = value;
 }
 
-template <typename DNAtype>
-int Genetic::Individual <DNAtype>::getScore()
+template <typename D>
+int Genetic::Individual <D>::getScore()
 {
 	return score;
 }
 
-template <typename DNAtype>
-void Genetic::Individual <DNAtype>::setDNA(const std::vector <DNAtype>& value)
+template <typename D>
+void Genetic::Individual <D>::setDNA(D& value)
 {
 	dna = value;
 }
 
-template <typename DNAtype>
-const std::vector <DNAtype>& Genetic::Individual <DNAtype>::getDNA() const
+template <typename D>
+const D& Genetic::Individual <D>::getDNA() const
 {
 	return dna;
 }

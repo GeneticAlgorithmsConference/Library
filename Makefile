@@ -1,5 +1,5 @@
 CXX	= g++
-CFLAGS	= -c -O2 -std=c++11
+CFLAGS	= -c -g -std=c++11
 LDFLAGS	=
 SOURCES	= main.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
