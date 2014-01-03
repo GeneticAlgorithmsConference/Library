@@ -3,11 +3,13 @@
 #include <cstdlib>
 #include <iomanip>
 
+#include "treeindividual.h"
 #include "individual.h"
 #include "generation.h"
 #include "population.h"
 #include "testindividual.h"
 #include "dnatypes.h"
+#include "treeexpressionindividual.h"
 
 using namespace std;
 
@@ -198,14 +200,21 @@ int main()
 	testMutation();
 
 #endif
-    
-	Population < Generation < TestIndividual > > test(10, ELITE_SELECTION);
-	test.init(time(NULL));
+
+	// Population < Generation < TestIndividual > > test(10, ELITE_SELECTION);
+	// test.init(time(NULL));
+
+	// for(int i = 0; i < 1000; ++i)
+	// {
+	// 	test.genNextGeneration();
+	// }
+
+	Population < Generation < TreeExpressionIndividual > > test;
 
 	for(int i = 0; i < 1000; ++i)
 	{
 		test.genNextGeneration();
-	}
+	}	
 
 	return 0;
 }

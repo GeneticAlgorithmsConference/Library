@@ -15,12 +15,12 @@ public:
 	void test();
 	void mutate();
 private:
-	const int desiredValue = 10;
+	const int desiredValue = 123498;
 };
 
 TestIndividual::TestIndividual()
 {
-	dna.resize(10);
+	dna.resize(20);
 
 	for(int i = 0; i < dna.size(); ++i)
 	{
@@ -41,7 +41,7 @@ void TestIndividual::test()
 		delta = -delta;
 	}
 	score = delta;
-	
+
 	// std::cout << "Individual: " << score << std::endl;
 }
 

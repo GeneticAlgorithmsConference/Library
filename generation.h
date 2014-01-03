@@ -161,8 +161,7 @@ void Genetic::Generation <Individual>::genNext()
 			++secondParent;
 		}
 		Individual::recombine(individuals[firstParent], individuals[secondParent],
-		                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1],
-		                      CROSSOVER, 0.0, 1);
+		                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]);
 	}
 	for(int i = 0; i < individualsNum; ++i)
 	{
