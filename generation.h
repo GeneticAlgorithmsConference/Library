@@ -163,22 +163,22 @@ void Genetic::Generation <Individual>::genNext()
 		Individual::recombine(individuals[firstParent], individuals[secondParent],
 		                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]);
 	}
-	for(int i = 0; i < individualsNum; ++i)
-	{
-		nextIndividuals.push_back(individuals[i]);
-		individuals[i] -> test();
-		nextIndividuals[i] -> mutate();
-		nextIndividuals[i] -> test();
-	}
-	individuals.clear();
-	sort(nextIndividuals.begin(), nextIndividuals.end(), individualComparator<Individual>);
-	std::cout << "Best: " << nextIndividuals[0] -> getScore() << std::endl;
-	for(int i = 0; i < individualsNum; ++i)
-	{
-		individuals.push_back(nextIndividuals[i]);
-		delete nextIndividuals[individualsNum + i];
-	}
-	nextIndividuals.clear();
+	// for(int i = 0; i < individualsNum; ++i)
+	// {
+	// 	nextIndividuals.push_back(individuals[i]);
+	// 	individuals[i] -> test();
+	// 	nextIndividuals[i] -> mutate();
+	// 	nextIndividuals[i] -> test();
+	// }
+	// individuals.clear();
+	// sort(nextIndividuals.begin(), nextIndividuals.end(), individualComparator<Individual>);
+	// std::cout << "Best: " << nextIndividuals[0] -> getScore() << std::endl;
+	// for(int i = 0; i < individualsNum; ++i)
+	// {
+	// 	individuals.push_back(nextIndividuals[i]);
+	// 	delete nextIndividuals[individualsNum + i];
+	// }
+	// nextIndividuals.clear();
 }
 
 template <typename Individual>

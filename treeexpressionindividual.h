@@ -10,15 +10,17 @@ public:
 	TreeExpressionIndividual();
 	void test();
 	void mutate();
-	void recombine(TreeExpressionIndividual* parentIndividual1,
-	               TreeExpressionIndividual* parentIndividual2,
-	               TreeExpressionIndividual* childIndividual1,
-	               TreeExpressionIndividual* childIndividual2);
+	static void recombine(TreeExpressionIndividual* parentIndividual1,
+	                      TreeExpressionIndividual* parentIndividual2,
+	                      TreeExpressionIndividual* childIndividual1,
+	                      TreeExpressionIndividual* childIndividual2);
 };
 
 TreeExpressionIndividual::TreeExpressionIndividual()
 {
-	dna = new TreeExpressionDna();
+	dna = new TreeExpressionDna(1);
+	// dna -> print();
+	// std::cout << std::endl;
 }
 
 void TreeExpressionIndividual::test()
@@ -36,10 +38,14 @@ void TreeExpressionIndividual::recombine(TreeExpressionIndividual* parentIndivid
                                          TreeExpressionIndividual* childIndividual1,
                                          TreeExpressionIndividual* childIndividual2)
 {
-	TreeIndividual::recombine(dynamic_cast<TreeIndividual <TreeExpressionDna>* >(parentIndividual1),
-	                          dynamic_cast<TreeIndividual <TreeExpressionDna>* >(parentIndividual2),
-	                          dynamic_cast<TreeIndividual <TreeExpressionDna>* >(childIndividual1),
-	                          dynamic_cast<TreeIndividual <TreeExpressionDna> *>(childIndividual2));
+	// TreeIndividual::recombine(dynamic_cast<TreeIndividual <TreeExpressionDna>* >(parentIndividual1),
+	//                           dynamic_cast<TreeIndividual <TreeExpressionDna>* >(parentIndividual2),
+	//                           dynamic_cast<TreeIndividual <TreeExpressionDna>* >(childIndividual1),
+	//                           dynamic_cast<TreeIndividual <TreeExpressionDna> *>(childIndividual2));
+	TreeIndividual::recombine((parentIndividual1),
+	                          (parentIndividual2),
+	                          (childIndividual1),
+	                          (childIndividual2));
 }
 
 #endif

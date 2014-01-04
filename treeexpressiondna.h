@@ -1,6 +1,8 @@
 #ifndef TREEEXPRESSIONDNA_H
 #define TREEEXPRESSIONDNA_H
 
+#include <iostream>
+
 #include "basetreedna.h"
 
 namespace Genetic
@@ -9,9 +11,11 @@ namespace Genetic
 	class TreeExpressionDna : public BaseTreeDna <unsigned int>
 	{
 	public:
-		TreeExpressionDna(int currentDepth = 1);
-		void operator=(BaseTreeDna <unsigned int>* dna);
+		TreeExpressionDna();
+		TreeExpressionDna(int currentDepth);
+		void operator=(TreeExpressionDna& dna);
 		void mutate();
+		void print();
 	private:
 		int range;
 		static const int maxDepth;
@@ -19,6 +23,11 @@ namespace Genetic
 
 	const int TreeExpressionDna::maxDepth = 6;
 
+}
+
+Genetic::TreeExpressionDna::TreeExpressionDna()
+{
+	
 }
 
 Genetic::TreeExpressionDna::TreeExpressionDna(int currentDepth)
@@ -46,6 +55,17 @@ Genetic::TreeExpressionDna::TreeExpressionDna(int currentDepth)
 	}
 }
 
+void Genetic::TreeExpressionDna::operator=(TreeExpressionDna& dna)
+{
+	value = dna.value;
+	children.resize(dna.getChildrenNum());
+	for(int i = 0; i < children.size(); ++i)
+	{
+		children[i] = new TreeExpressionDna;
+		*children[i] = *(dna.children[i]);
+	}
+}
+
 void Genetic::TreeExpressionDna::mutate()
 {
 	// 0 - abs
@@ -68,6 +88,39 @@ void Genetic::TreeExpressionDna::mutate()
 		value = rand() % 5 + 5;
 	} else {
 		value = rand() % (2 * range + 1) + 10;
+	}
+}
+
+void Genetic::TreeExpressionDna::print()
+{
+	static const char* s[] = {
+		"abs",
+		"sin",
+		"cos",
+		"tan",
+		"ctg",
+		"+",
+		"-",
+		"*",
+		"/",
+		"^",
+		"x"
+	};
+	if(value <= 10)
+	{
+		std::cout << s[value] << "( ";
+		for(int i = 0; i < static_cast<int>(children.size()) - 1; ++i)
+		{
+			dynamic_cast<TreeExpressionDna*>(children[i]) -> print();
+			std::cout << ", ";
+		}
+		if(children.size() > 0)
+		{
+			dynamic_cast<TreeExpressionDna*>(children[children.size() - 1]) -> print();
+		}
+		std::cout << " )";
+	} else {
+		std::cout << value;
 	}
 }
 

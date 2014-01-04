@@ -11,8 +11,14 @@ namespace Genetic
 	{
 	public:
 		BaseTreeDna();
-		virtual void operator=(BaseTreeDna <T>* dna);
+		~BaseTreeDna();
+		// virtual void operator=(BaseTreeDna <T>& dna) = 0;
 		virtual void mutate() = 0;
+
+		static void swapRandomChildren(BaseTreeDna <T>* dna1,
+		                               BaseTreeDna <T>* dna2);
+		static void swapChildren(BaseTreeDna <T>* dna1, int id1,
+		                         BaseTreeDna <T>* dna2, int id2);
 		
 		BaseTreeDna <T>* getRandom();
 		BaseTreeDna <T>* getRandomWithChildren();
@@ -33,14 +39,32 @@ Genetic::BaseTreeDna <T>::BaseTreeDna()
 }
 
 template <typename T>
-void Genetic::BaseTreeDna <T>::operator=(BaseTreeDna <T> *dna)
+Genetic::BaseTreeDna <T>::~BaseTreeDna()
 {
-	value = dna -> value;
-	children.resize(dna -> getChildrenNum());
 	for(int i = 0; i < children.size(); ++i)
 	{
-		children[i] = dna -> children[i];
+		delete children[i];
 	}
+}
+
+template <typename T>
+void Genetic::BaseTreeDna <T>::swapChildren(BaseTreeDna <T>* dna1, int id1,
+                                            BaseTreeDna <T>* dna2, int id2)
+{
+	BaseTreeDna <T>* tmp = dna1 -> getChild(id1);
+	dna1 -> setChild(id1, dna2 -> getChild(id2));
+	dna2 -> setChild(id2, tmp);
+}
+
+template <typename T>
+void Genetic::BaseTreeDna <T>::swapRandomChildren(BaseTreeDna <T>* dna1,
+                                                  BaseTreeDna <T>* dna2)
+{
+	int id1 = rand() % dna1 -> getChildrenNum();
+	int id2 = rand() % dna2 -> getChildrenNum();
+	BaseTreeDna <T>* tmp = dna1 -> getChild(id1);
+	dna1 -> setChild(id1, dna2 -> getChild(id2));
+	dna2 -> setChild(id2, tmp);
 }
 
 template <typename T>

@@ -210,10 +210,13 @@ int main()
 	// }
 
 	Population < Generation < TreeExpressionIndividual > > test;
+	test.init(time(NULL));
 
 	for(int i = 0; i < 1000; ++i)
 	{
+		std::cout << "Beginning... " << i << " ";
 		test.genNextGeneration();
+		std::cout << i << std::endl;
 	}	
 
 	return 0;

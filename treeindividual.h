@@ -11,6 +11,7 @@
 #include <iostream>
 
 #include "genetic.h"
+#include "treeexpressiondna.h"
 
 namespace Genetic {
 
@@ -83,11 +84,13 @@ namespace Genetic {
 template <typename D>
 Genetic::TreeIndividual <D>::TreeIndividual()
 {
+
 }
 
 template <typename D>
 Genetic::TreeIndividual <D>::~TreeIndividual()
 {
+	delete dna;
 }
 
 template <typename D>
@@ -98,36 +101,31 @@ void Genetic::TreeIndividual <D>::recombine(Genetic::TreeIndividual <D>* parentI
 {
 	D* dna1;
 	D* dna2;
-	*(childIndividual1 -> dna) = parentIndividual1 -> dna;
-	*(childIndividual2 -> dna) = parentIndividual2 -> dna;
+	*(childIndividual1 -> dna) = *(parentIndividual1 -> dna);
+	*(childIndividual2 -> dna) = *(parentIndividual2 -> dna);
 	if((childIndividual1 -> dna -> getChildrenNum() > 0)
 	   && (childIndividual2 -> dna -> getChildrenNum() > 0))
 	{
 		// Swaping two verticies of trees.
-		dna1 = childIndividual1 -> dna -> getRandomWithChildren();
-		dna2 = childIndividual2 -> dna -> getRandomWithChildren();
-		int id1 = rand() % dna1 -> getChildrenNum();
-		int id2 = rand() % dna2 -> getChildrenNum();
-		D* tmp = dna1 -> getChild(id1);
-		dna1 -> setChild(id1, dna2 -> getChild(id2));
-		dna2 -> setChild(id2, tmp);
-	} else if(childIndividual2 -> dna -> getChildrenNum() > 0)
-	{
-		dna1 = childIndividual2 -> dna -> getRandomWithChildren();
-		int id = rand() % dna1 -> getChildrenNum();
-		D* tmp = childIndividual1 -> dna;
-		childIndividual1 -> dna = dna1 -> getChild(id);
-		dna1 -> setChild(tmp);		
-	} else if(childIndividual1 -> dna -> getChildrenNum() > 0)
-	{
-		dna1 = childIndividual1 -> dna -> getRandomWithChildren();
-		int id = rand() % dna1 -> getChildrenNum();
-		D* tmp = childIndividual2 -> dna;
-		childIndividual2 -> dna = dna1 -> getChild(id);
-		dna1 -> setChild(id, tmp);
-	} else {
-		// Do nothing
-	}
+		D::swapRandomChildren(childIndividual1 -> dna -> getRandomWithChildren(),
+		                      childIndividual2 -> dna -> getRandomWithChildren());
+	} // else if(childIndividual2 -> dna -> getChildrenNum() > 0)
+	// {
+	// 	auto dna1 = childIndividual2 -> dna -> getRandomWithChildren();
+	// 	int id1 = rand() % dna1 -> getChildrenNum();
+	// 	auto tmp = childIndividual1 -> dna;
+	// 	childIndividual1 -> dna = dynamic_cast<D*>(dna1 -> getChild(id1));
+	// 	dna1 -> setChild(id1, tmp);
+	// } else if(childIndividual1 -> dna -> getChildrenNum() > 0)
+	// {
+	// 	auto dna1 = childIndividual1 -> dna -> getRandomWithChildren();
+	// 	int id1 = rand() % dna1 -> getChildrenNum();
+	// 	auto tmp = childIndividual2 -> dna;
+	// 	childIndividual2 -> dna = dynamic_cast<D*>(dna1 -> getChild(id1));
+	// 	dna1 -> setChild(id1, tmp);
+	// } else {
+	// 	// Do nothing
+	// }
 }
 
 template <typename D>        
