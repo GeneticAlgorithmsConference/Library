@@ -10,6 +10,7 @@
 #include "testindividual.h"
 #include "dnatypes.h"
 #include "treeexpressionindividual.h"
+#include "log.h"
 
 using namespace std;
 
@@ -212,12 +213,11 @@ int main()
 	Population < Generation < TreeExpressionIndividual > > test;
 	test.init(time(NULL));
 
-	for(int i = 0; i < 1000; ++i)
+	for(int i = 0; i < 100; ++i)
 	{
-		std::cout << "Beginning... " << i << " ";
+		dnalog << "Step: " << i << endl;
 		test.genNextGeneration();
-		std::cout << i << std::endl;
-	}	
+	}
 
 	return 0;
 }

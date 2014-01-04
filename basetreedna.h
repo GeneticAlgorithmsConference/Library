@@ -60,8 +60,8 @@ template <typename T>
 void Genetic::BaseTreeDna <T>::swapRandomChildren(BaseTreeDna <T>* dna1,
                                                   BaseTreeDna <T>* dna2)
 {
-	int id1 = rand() % dna1 -> getChildrenNum();
-	int id2 = rand() % dna2 -> getChildrenNum();
+	int id1 = rand() % (dna1 -> getChildrenNum());
+	int id2 = rand() % (dna2 -> getChildrenNum());
 	BaseTreeDna <T>* tmp = dna1 -> getChild(id1);
 	dna1 -> setChild(id1, dna2 -> getChild(id2));
 	dna2 -> setChild(id2, tmp);

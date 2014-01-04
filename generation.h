@@ -14,6 +14,8 @@ bool individualComparator(T* i1, T* i2)
 	return (i1 -> getScore() < i2 -> getScore());
 }
 
+using std::endl;
+
 namespace Genetic {
 
 
@@ -148,9 +150,8 @@ void Genetic::Generation <Individual>::genNext()
 	std::vector <Individual*> nextIndividuals(individualsNum);
 	for(int i = 0; i < individualsNum; ++i)
 	{
-		nextIndividuals[i] = new Individual;
+		nextIndividuals[i] = new Individual(false);
 	}
-
 	int firstParent, secondParent;
 	for(int i = 0; i < individualsNum / 2; ++i)
 	{
@@ -160,25 +161,43 @@ void Genetic::Generation <Individual>::genNext()
 		{
 			++secondParent;
 		}
+		// dnalog << "Before:" << endl;;
+		// individuals[firstParent] -> getDna() -> print();
+		// dnalog << endl;
+		// individuals[secondParent] -> getDna() -> print();
+		// dnalog << endl;
+		// nextIndividuals[i * 2] -> getDna() -> print();
+		// dnalog << endl;
+		// nextIndividuals[i * 2 + 1] -> getDna() -> print();
+		// dnalog << endl;
 		Individual::recombine(individuals[firstParent], individuals[secondParent],
 		                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]);
+		// dnalog << "After:" << endl;
+		// individuals[firstParent] -> getDna() -> print();
+		// dnalog << endl;
+		// individuals[secondParent] -> getDna() -> print();
+		// dnalog << endl;
+		// nextIndividuals[i * 2] -> getDna() -> print();
+		// dnalog << endl;
+		// nextIndividuals[i * 2 + 1] -> getDna() -> print();
+		// dnalog << endl;
 	}
-	// for(int i = 0; i < individualsNum; ++i)
-	// {
-	// 	nextIndividuals.push_back(individuals[i]);
-	// 	individuals[i] -> test();
-	// 	nextIndividuals[i] -> mutate();
-	// 	nextIndividuals[i] -> test();
-	// }
-	// individuals.clear();
-	// sort(nextIndividuals.begin(), nextIndividuals.end(), individualComparator<Individual>);
-	// std::cout << "Best: " << nextIndividuals[0] -> getScore() << std::endl;
-	// for(int i = 0; i < individualsNum; ++i)
-	// {
-	// 	individuals.push_back(nextIndividuals[i]);
-	// 	delete nextIndividuals[individualsNum + i];
-	// }
-	// nextIndividuals.clear();
+	for(int i = 0; i < individualsNum; ++i)
+	{
+		nextIndividuals.push_back(individuals[i]);
+		individuals[i] -> test();
+		nextIndividuals[i] -> mutate();
+		nextIndividuals[i] -> test();
+	}
+	individuals.clear();
+	sort(nextIndividuals.begin(), nextIndividuals.end(), individualComparator<Individual>);
+	std::cout << "Best: " << nextIndividuals[0] -> getScore() << std::endl;
+	for(int i = 0; i < individualsNum; ++i)
+	{
+		individuals.push_back(nextIndividuals[i]);
+		delete nextIndividuals[individualsNum + i];
+	}
+	nextIndividuals.clear();
 }
 
 template <typename Individual>
@@ -188,7 +207,7 @@ void Genetic::Generation <Individual>::init()
 
 	for(int i = 0; i < individualsNum; ++i)
 	{
-		tmpIndividual = new Individual();
+		tmpIndividual = new Individual(true);
 		individuals.push_back(tmpIndividual);
 	}
 }

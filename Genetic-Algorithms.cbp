@@ -29,17 +29,24 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="generation.cpp" />
+		<Unit filename="baselineardna.h" />
+		<Unit filename="basetreedna.h" />
+		<Unit filename="dnatypes.h" />
 		<Unit filename="generation.h" />
 		<Unit filename="genetic.h" />
-		<Unit filename="individual.cpp" />
 		<Unit filename="individual.h" />
+		<Unit filename="linearbinarydna.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="population.cpp" />
 		<Unit filename="population.h" />
+		<Unit filename="testindividual.h" />
+		<Unit filename="treeexpressiondna.h" />
+		<Unit filename="treeexpressionindividual.h" />
+		<Unit filename="treeindividual.h" />
+		<Unit filename="treeintegerdna.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

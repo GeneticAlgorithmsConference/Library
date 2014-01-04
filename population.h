@@ -96,7 +96,7 @@ void Genetic::Population <Generation>::init(unsigned int seed)
 	{
 		delete currentGeneration;
 	}
-	currentGeneration = new Generation(10);
+	currentGeneration = new Generation(generationSize);
 	currentGeneration -> init();
 }
 
