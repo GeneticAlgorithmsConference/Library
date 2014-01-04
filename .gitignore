@@ -12,6 +12,7 @@ structure_auto.xmi
 *~
 .directory
 *.save
+log.txt
 
 # Project files #
 #################

@@ -191,7 +191,9 @@ void Genetic::Generation <Individual>::genNext()
 	}
 	individuals.clear();
 	sort(nextIndividuals.begin(), nextIndividuals.end(), individualComparator<Individual>);
-	std::cout << "Best: " << nextIndividuals[0] -> getScore() << std::endl;
+	dnalog << "Best: ";
+	nextIndividuals[0] -> getDna() -> print();
+	dnalog << std::endl;
 	for(int i = 0; i < individualsNum; ++i)
 	{
 		individuals.push_back(nextIndividuals[i]);

@@ -59,8 +59,10 @@ void TreeExpressionIndividual::test()
 	}
 	currentSum /= tests.size();
 	score = currentSum;
-	dna -> print();
-	dnalog << " " << score << endl;
+	if(isnan(score))
+	{
+		score = 100000.0;
+	}
 }
 
 void TreeExpressionIndividual::mutate()

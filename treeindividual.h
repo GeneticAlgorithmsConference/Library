@@ -51,13 +51,13 @@ namespace Genetic {
 		 * Set the value of score
 		 * @param new_var the new value of score
 		 */
-		void setScore(int value);
+		void setScore(double value);
 
 		/**
 		 * Get the value of score
 		 * @return the value of score
 		 */
-		int getScore();
+		double getScore();
 
 		/**
 		 * Set the value of dna
@@ -145,13 +145,13 @@ void Genetic::TreeIndividual <D>::updateParameters()
 }
 
 template <typename D>
-void Genetic::TreeIndividual <D>::setScore(int value)
+void Genetic::TreeIndividual <D>::setScore(double value)
 {
 	score = value;
 }
 
 template <typename D>
-int Genetic::TreeIndividual <D>::getScore()
+double Genetic::TreeIndividual <D>::getScore()
 {
 	return score;
 }
