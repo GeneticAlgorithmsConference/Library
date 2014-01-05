@@ -3,6 +3,7 @@
 
 #include "baselineardna.h"
 #include "linearbinarydna.h"
+#include "lineardoubledna.h"
 
 #include "basetreedna.h"
 #include "treeexpressiondna.h"

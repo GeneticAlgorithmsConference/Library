@@ -59,7 +59,7 @@ void TreeExpressionIndividual::test()
 	}
 	currentSum /= tests.size();
 	score = currentSum;
-	if(isnan(score))
+	if(std::isnan(score))
 	{
 		score = 100000.0;
 	}
