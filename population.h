@@ -33,7 +33,7 @@ namespace Genetic {
 		/**
 		 * @param  seed
 		 */
-		void init(unsigned int seed);
+		void init(unsigned int seed, double dnaGenerateParameter = 10.0);
 
 
 		/**
@@ -63,8 +63,6 @@ namespace Genetic {
 		 * @return the value of currentGeneration
 		 */
 		Generation* getCurrentGeneration();
-	private:
-
 
 	};
 };
@@ -96,7 +94,7 @@ Genetic::Population <Generation>::~Population()
 }
 
 template <typename Generation>
-void Genetic::Population <Generation>::init(unsigned int seed)
+void Genetic::Population <Generation>::init(unsigned int seed, double dnaGenerateParameter)
 {
 	srand(seed);
 	if(currentGeneration != nullptr)
@@ -104,7 +102,7 @@ void Genetic::Population <Generation>::init(unsigned int seed)
 		delete currentGeneration;
 	}
 	currentGeneration = new Generation(generationSize);
-	currentGeneration -> init();
+	currentGeneration -> init(dnaGenerateParameter);
 }
 
 template <typename Generation>

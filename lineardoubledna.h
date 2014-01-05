@@ -2,6 +2,7 @@
 #define LINEARDOUBLEDNA_H
 
 #include <math.h>
+#include "baselineardna.h"
 
 namespace Genetic
 {
@@ -9,6 +10,7 @@ namespace Genetic
 	{
 	public:
 		void mutate(double parameter);
+		void generate(double parameter);
 	};
 
 }
@@ -33,6 +35,15 @@ void Genetic::LinearDoubleDna::mutate(double parameter)
     int a = rand() % dna.size();
 
     dna[a] += dlt;
+}
+
+void Genetic::LinearDoubleDna::generate(double parameter)
+{
+    dna.resize(parameter);
+    for(int i = 0; i < dna.size(); ++i)
+    {
+        dna[i] = ((double)(rand() % 1000000)) / 1000.0;
+    }
 }
 
 #endif // LINEARDOUBLEDNA_H

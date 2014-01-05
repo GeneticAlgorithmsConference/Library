@@ -199,7 +199,9 @@ public:
     static double getResult(LinearDoubleDna &arguments)
     {
         double x = arguments[0];
-        return x * x;
+        double y = arguments[1];
+        double z = arguments[2];
+        return fabs(x * y - y * z + z * x / (z + x + y));
     }
 };
 
@@ -225,7 +227,7 @@ int main()
 
 	Population < Generation < MinSearchIndividual <MyTargetFunction> > > test;
 
-	test.init(time(NULL));
+	test.init(time(NULL), 6);
 
 	for(int i = 0; i < 100; ++i)
 	{

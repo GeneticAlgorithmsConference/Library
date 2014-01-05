@@ -15,8 +15,11 @@ namespace Genetic
 		T& operator[](int id);
 		int size() const;
 		void resize(int newSize);
-		virtual void mutate(double parameter = 1.0) = 0;
         void print();
+
+		virtual void mutate(double parameter = 1.0) = 0;
+		virtual void generate(double parameter = 6.0) = 0;
+
 	protected:
 		std::vector <T> dna;
 	};

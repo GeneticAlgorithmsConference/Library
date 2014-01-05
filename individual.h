@@ -24,8 +24,13 @@ namespace Genetic {
 	class Individual
 	{
 	public:
-		/// Empty Constructor2.
-		Individual();
+
+		/**
+		 * Constructor
+		 * @param generateDna shuold the constructor generate dna
+		 * @param dnaGenerateParameter parametr for dna generator (for example: size of linear dna)
+		 */
+        Individual(bool generateDna = false, double dnaGenerateParameter = 6.0);
 
 		/// Empty Destructor.
 		virtual ~Individual();
@@ -90,12 +95,13 @@ namespace Genetic {
 	};
 };
 
-/**
- * Detailed description of empty constructor.
- */
 template <typename D>
-Genetic::Individual <D>::Individual()
+Genetic::Individual <D>::Individual(bool generateDna, double dnaGenerateParameter)
 {
+    if(generateDna)
+	{
+        dna.generate(dnaGenerateParameter);
+	}
 }
 
 template <typename D>

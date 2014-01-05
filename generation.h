@@ -47,9 +47,9 @@ namespace Genetic {
                              int crossoverPointsNum);
 
 		/**
-		 * @param  seed
+		 * @param  parameter for dna generator
 		 */
-		void init();
+		void init(double dnaGenerateParameter);
 
 	protected:
 
@@ -110,17 +110,6 @@ namespace Genetic {
 		 */
 		int getMutationAttempts();
 
-//		/**
-//		 * Set the value of crossoverPointsNum
-//		 * @param new_var the new value of crossoverPointsNum
-//		 */
-//		void setCrossoverPointsNum(int value);
-//
-//		/**
-//		 * Get the value of crossoverPointsNum
-//		 * @return the value of crossoverPointsNum
-//		 */
-//		int getCrossoverPointsNum();
 	};
 }; // end of package namespace
 
@@ -216,13 +205,13 @@ void Genetic::Generation <Individual>::genNext(Genetic::RecombinationType recomb
 }
 
 template <typename Individual>
-void Genetic::Generation <Individual>::init()
+void Genetic::Generation <Individual>::init(double dnaGenerateParameter)
 {
 	Individual* tmpIndividual;
 
 	for(int i = 0; i < individualsNum; ++i)
 	{
-		tmpIndividual = new Individual(true);
+		tmpIndividual = new Individual(true, dnaGenerateParameter);
 		individuals.push_back(tmpIndividual);
 	}
 }
@@ -274,17 +263,5 @@ int Genetic::Generation <Individual>::getMutationAttempts()
 {
 	return mutationAttempts;
 }
-
-//template <typename Individual>
-//void Genetic::Generation <Individual>::setCrossoverPointsNum(int value)
-//{
-//	crossoverPointsNum = value;
-//}
-//
-//template <typename Individual>
-//int Genetic::Generation <Individual>::getCrossoverPointsNum()
-//{
-//	return crossoverPointsNum;
-//}
 
 #endif // GENERATION_H

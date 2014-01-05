@@ -12,26 +12,19 @@ namespace Genetic
     class MinSearchIndividual : public Genetic::Individual <LinearDoubleDna>
     {
     public:
-        MinSearchIndividual(bool generateDna = true);
+        MinSearchIndividual(bool generateDna = false, double dnaGenerateParameter = 2.0);
+
         void test();
         void mutate();
-    private:
-        std::function<double()> _f;
     };
 }
 
 template <class F>
-Genetic::MinSearchIndividual <F>::MinSearchIndividual(bool generateDna)
+Genetic::MinSearchIndividual <F>::MinSearchIndividual(bool generateDna, double dnaGenerateParameter)
 {
     if(generateDna)
 	{
-        dna.resize(20);
-        for(int i = 0; i < dna.size(); ++i)
-        {
-            dna[i] = ((double)(rand() % 1000000)) / 1000.0;
-        }
-	} else {
-		dna.resize(0);
+        dna.generate(dnaGenerateParameter);
 	}
 }
 
