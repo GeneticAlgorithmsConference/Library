@@ -199,9 +199,10 @@ public:
     static double getResult(LinearDoubleDna &arguments)
     {
         double x = arguments[0];
-        double y = arguments[1];
-        double z = arguments[2];
-        return fabs(x * y - y * z + z * x / (z + x + y));
+//        double y = arguments[1];
+//        double z = arguments[2];
+//        return fabs(x * y - y * z + z * x) / (z + x + y);
+        return 2*x*x+8*x-16;
     }
 };
 
@@ -225,11 +226,11 @@ int main()
 	// 	test.genNextGeneration();
 	// }
 
-	Population < Generation < MinSearchIndividual <MyTargetFunction> > > test(100, ELITE_SELECTION, CROSSOVER, 1, 0.75, 3, 17);
-	test.init(time(NULL), 3);
+	Population < Generation < MinSearchIndividual <MyTargetFunction> > > test(100, ELITE_SELECTION, CROSSOVER, 1, 1, 100, 17);
+	test.initGeneration(time(NULL), 3);
 //	test.
 
-	for(int i = 0; i < 100; ++i)
+	for(int i = 0; i < 10000; ++i)
 	{
 		dnalog << "Step: " << i << endl;
 		test.genNextGeneration();
