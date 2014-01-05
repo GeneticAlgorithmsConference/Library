@@ -12,52 +12,63 @@ namespace Genetic {
 
 /**
  * @class Population
- *
+ * @brief Class 'Population' contains all gentic settings and a pointer to the current Generation.
  */
 
 	template <typename Generation>
 	class Population
 	{
 	public:
-		/**
-		 *
+
+        /// @name Constructor/destructor
+        /// @{
+
+		/**@brief
+		 * Constructor. If no arguments are given, all genetic settings will be set to their defaults.
+		 * The meaning of all parameters can be easily found in description of class attributes
 		 */
 		Population(int _generationSize = 10, NewGenerationSelectionType _newGenerationSelectionType = ELITE_SELECTION,
              RecombinationType _recombinationType = CROSSOVER, double _recombinationParameter = 1.0,
              double _mutationProbability = 0.3, int _mutationAttempts = 1, double _mutationParameter = 0.0);
 
-		/// Destructor. Deletes current generation.
+		///@brief Destructor. Deletes current generation.
 		~Population();
 
-        /// @name Current generation
+        /// @}
+        /// @name Working with generation
         /// @{
 
-		/** Initialize a new generation. This method kills all individuals in current generation (if they exist) and
+		/**@brief
+         * Initialize a new generation. This method kills all individuals in current generation (if they exist) and
          * generates new ones.
 		 * @param seed Seed which is used for random initialization.
 		 * @param dnaGenerateParameter An argument which will be transmitted to the DNA generator
 		 */
-		void init(unsigned int seed, double dnaGenerateParameter = 10.0);
+		void initGeneration(unsigned int seed, double dnaGenerateParameter = 10.0);
 
-		/**
+		/**@brief
 		 * Generates next generation by calling genNext method for current genertion
 		 * with genetic settings that where set for the instance of this class.
 		 */
 		void genNextGeneration();
 
-        /**
+        /**@brief
 		 * Set the value of currentGeneration
 		 * @param value the new value of currentGeneration
 		 */
 		void setCurrentGeneration(Generation* value);
 
-		/**
+		/**@brief
 		 * Get the value of currentGeneration
 		 * @return the value of currentGeneration
 		 */
 		Generation* getCurrentGeneration();
+        /// @}
 
 	protected:
+
+        /// @name Generation
+        /// @{
 
         /// @brief
         /// A pointer on the current generation
@@ -66,8 +77,8 @@ namespace Genetic {
         /// @brief
         /// A number of individuals in each generation
 		int generationSize;
-        /// @}
 
+        /// @}
         /// @name Genetic settings
         /// @{
 
@@ -207,7 +218,7 @@ Genetic::Population <Generation>::~Population()
 }
 
 template <typename Generation>
-void Genetic::Population <Generation>::init(unsigned int seed, double dnaGenerateParameter)
+void Genetic::Population <Generation>::initGeneration(unsigned int seed, double dnaGenerateParameter)
 {
 	srand(seed);
 	if(currentGeneration != nullptr)
@@ -274,6 +285,42 @@ template <typename Generation>
 double Genetic::Population <Generation>::getMutationParameter()
 {
 	return mutationParameter;
+}
+
+template <typename Generation>
+void Genetic::Population <Generation>::setNewGenerationSelectionType( Genetic::NewGenerationSelectionType value)
+{
+	newGenerationSelectionType = value;
+}
+
+template <typename Generation>
+ Genetic::NewGenerationSelectionType Genetic::Population <Generation>::getNewGenerationSelectionType()
+{
+	return newGenerationSelectionType;
+}
+
+template <typename Generation>
+void Genetic::Population <Generation>::setRecombinationType( Genetic::RecombinationType value)
+{
+	recombinationType = value;
+}
+
+template <typename Generation>
+Genetic::RecombinationType Genetic::Population <Generation>::getRecombinationType()
+{
+	return recombinationType;
+}
+
+template <typename Generation>
+void Genetic::Population <Generation>::setRecombinationParameter(double value)
+{
+	recombinationParameter = value;
+}
+
+template <typename Generation>
+double Genetic::Population <Generation>::getRecombinationParameter()
+{
+	return recombinationParameter;
 }
 
 #endif // POPULATION_H
