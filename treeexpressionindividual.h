@@ -46,8 +46,6 @@ TreeExpressionIndividual::TreeExpressionIndividual(bool generateDna)
 	} else {
 		dna = new TreeExpressionDna();
 	}
-	// dna -> print();
-	// std::cout << std::endl;
 }
 
 void TreeExpressionIndividual::test()
@@ -57,7 +55,7 @@ void TreeExpressionIndividual::test()
 	{
 		currentSum += fabs(tests[i].second - dna -> getValue(tests[i].first));
 	}
-	currentSum /= tests.size();
+	// currentSum /= tests.size();
 	score = currentSum;
 	if(std::isnan(score))
 	{

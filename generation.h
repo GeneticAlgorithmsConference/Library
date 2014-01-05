@@ -137,8 +137,9 @@ void Genetic::Generation <Individual>::genNext(RecombinationType recombinationTy
 //		 dnalog << endl;
 
 		 Individual::recombine(individuals[firstParent], individuals[secondParent],
-		                       nextIndividuals[i * 2], nextIndividuals[i * 2 + 1],
-                               recombinationType, recombinationParameter);
+		                       nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]
+                               // ,recombinationType, recombinationParameter
+			 );
 
 //		 dnalog << "After:" << endl;
 //		 individuals[firstParent] -> getDna() -> print();
@@ -156,7 +157,8 @@ void Genetic::Generation <Individual>::genNext(RecombinationType recombinationTy
 	{
 		nextIndividuals.push_back(individuals[i]);
 		individuals[i] -> test();
-		nextIndividuals[i] -> mutate(mutationProbability, mutationAttempts, mutationParameter);
+		nextIndividuals[i] -> mutate(// mutationProbability, mutationAttempts, mutationParameter
+			);
 		nextIndividuals[i] -> test();
 	}
 
@@ -180,7 +182,8 @@ void Genetic::Generation <Individual>::init(double dnaGenerateParameter)
 
 	for(int i = 0; i < individualsNum; ++i)
 	{
-		tmpIndividual = new Individual(true, dnaGenerateParameter);
+		tmpIndividual = new Individual(true// , dnaGenerateParameter
+			);
 		individuals.push_back(tmpIndividual);
 	}
 }

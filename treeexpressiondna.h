@@ -19,6 +19,7 @@ namespace Genetic
 		TreeExpressionDna(int currentDepth);
 		void operator=(TreeExpressionDna& dna);
 		void mutate();
+		void generate(int currentDepth);
 		void print() const;
 		double getValue(double x) const;
 	private:
@@ -37,30 +38,7 @@ Genetic::TreeExpressionDna::TreeExpressionDna()
 
 Genetic::TreeExpressionDna::TreeExpressionDna(int currentDepth)
 {
-	range = 10000;
-	value = rand() % 4;
-	if(currentDepth == maxDepth)
-	{
-		value = 3;
-	}
-
-	if(value == 0)
-	{
-		value = rand() % 5;
-		children.resize(1);
-		children[0] = new Genetic::TreeExpressionDna(currentDepth + 1);
-	} else if(value == 1)
-	{
-		value = rand() % 5 + 5;
-		children.resize(2);
-		children[0] = new Genetic::TreeExpressionDna(currentDepth + 1);
-		children[1] = new Genetic::TreeExpressionDna(currentDepth + 1);
-	} else if(value == 3)
-	{
-		value = 10;
-	} else {
-		value = rand() % (2 * range + 1) + 20;
-	}
+	generate(currentDepth);
 }
 
 void Genetic::TreeExpressionDna::operator=(TreeExpressionDna& dna)
@@ -90,14 +68,48 @@ void Genetic::TreeExpressionDna::mutate()
 
 	// 10 - x
 
-	if(value <= 4)
+	// if(value <= 4)
+	// {
+	// 	value = rand() % 5;
+	// } else if(value <= 9)
+	// {
+	// 	value = rand() % 5 + 5;
+	// } else if(value > 10)
+	// {
+	// 	value = rand() % (2 * range + 1) + 20;
+	// }
+	dynamic_cast<TreeExpressionDna*>(getRandom()) -> generate(1);
+}
+
+void Genetic::TreeExpressionDna::generate(int currentDepth)
+{
+	for(int i = 0; i < children.size(); ++i)
+	{
+		delete children[i];
+	}
+	children.clear();
+	range = 10000;
+	value = rand() % 3;
+	if(currentDepth == maxDepth)
+	{
+		value = 2;
+	}
+
+	if(value == 0)
 	{
 		value = rand() % 5;
-	} else if(value <= 9)
+		children.resize(1);
+		children[0] = new Genetic::TreeExpressionDna(currentDepth + 1);
+	} else if(value == 1)
 	{
 		value = rand() % 5 + 5;
-	} else if(value > 10)
+		children.resize(2);
+		children[0] = new Genetic::TreeExpressionDna(currentDepth + 1);
+		children[1] = new Genetic::TreeExpressionDna(currentDepth + 1);
+	} else if(value == 2)
 	{
+		value = 10;
+	} else {
 		value = rand() % (2 * range + 1) + 20;
 	}
 }
@@ -191,7 +203,7 @@ double Genetic::TreeExpressionDna::getValue(double x) const
 			        dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x));
 			break;
 		case 10:
-			return value;
+			return x;
 			break;
 		default:
 			return 0.0;

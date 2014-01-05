@@ -9,10 +9,10 @@
 #include "generation.h"
 #include "population.h"
 
-//#include "treeindividual.h"
-//#include "testindividual.h"
-//#include "treeexpressionindividual.h"
-#include "minsearchindividual.h"
+#include "treeindividual.h"
+#include "testindividual.h"
+#include "treeexpressionindividual.h"
+// #include "minsearchindividual.h"
 
 using namespace std;
 using namespace Genetic;
@@ -205,10 +205,25 @@ public:
     }
 };
 
+double func(double x)
+{
+	return x * x;
+}
+
+void generateFunctionValues()
+{
+	ofstream out("tests.txt");
+	for(int i = 0; i < 100; ++i)
+	{
+		double current = static_cast<double>(rand() % 10000) / 100.0;
+		out << current << " " << func(current) << endl;
+	}
+}
+
 int main()
 {
 	// srand(time(NULL));
-
+	generateFunctionValues();
 #ifdef ENABLE_TESTS
 
 	testRecombination();
@@ -225,11 +240,11 @@ int main()
 	// 	test.genNextGeneration();
 	// }
 
-	Population < Generation < MinSearchIndividual <MyTargetFunction> > > test(100, ELITE_SELECTION, CROSSOVER, 1, 0.75, 3, 17);
+	// Population < Generation < MinSearchIndividual <MyTargetFunction> > > test(100, ELITE_SELECTION, CROSSOVER, 1, 0.75, 3, 17);
+	Population <Generation <TreeExpressionIndividual> > test;
 	test.init(time(NULL), 3);
-//	test.
 
-	for(int i = 0; i < 100; ++i)
+	for(int i = 0; i < 1000; ++i)
 	{
 		dnalog << "Step: " << i << endl;
 		test.genNextGeneration();
