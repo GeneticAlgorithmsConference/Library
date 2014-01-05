@@ -46,6 +46,10 @@ namespace Genetic {
 		int generationSize;
 		NewPopulationSelectionType selectionType;
 
+		RecombinationType recombinationType;
+		double recombine_param;
+		int crossover_points_num;
+
 	public:
 
 		/**
@@ -71,6 +75,9 @@ Genetic::Population <Generation>::Population()
 	currentGeneration = nullptr;
 	generationSize = 10;
 	selectionType = ELITE_SELECTION;
+	recombinationType = CROSSOVER;
+	crossover_points_num = 1;
+	recombine_param =1;
 }
 
 template <typename Generation>
@@ -103,7 +110,9 @@ void Genetic::Population <Generation>::init(unsigned int seed)
 template <typename Generation>
 void Genetic::Population <Generation>::genNextGeneration()
 {
-	currentGeneration -> genNext();
+	currentGeneration -> genNext(recombinationType,
+                                 recombine_param,
+                                 crossover_points_num);
 }
 
 template <typename Generation>

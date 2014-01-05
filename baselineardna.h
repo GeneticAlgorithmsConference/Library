@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include "log.h"
+
 namespace Genetic
 {
 
@@ -13,7 +15,8 @@ namespace Genetic
 		T& operator[](int id);
 		int size() const;
 		void resize(int newSize);
-		virtual void mutate() = 0;
+		virtual void mutate(double parameter = 1.0) = 0;
+        void print();
 	protected:
 		std::vector <T> dna;
 	};
@@ -36,6 +39,17 @@ template <typename T>
 void Genetic::BaseLinearDna <T>::resize(int newSize)
 {
 	dna.resize(newSize);
+}
+
+template <typename T>
+void Genetic::BaseLinearDna <T>::print()
+{
+	for(int i = 0; i < dna.size(); ++i)
+    {
+        dnalog.width(10);
+        dnalog << dna[i];
+    }
+    dnalog << '\n';
 }
 
 #endif

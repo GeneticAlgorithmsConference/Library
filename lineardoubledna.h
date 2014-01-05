@@ -1,6 +1,8 @@
 #ifndef LINEARDOUBLEDNA_H
 #define LINEARDOUBLEDNA_H
 
+#include <math.h>
+
 namespace Genetic
 {
 	class LinearDoubleDna : public BaseLinearDna<double>

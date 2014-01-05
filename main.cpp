@@ -3,16 +3,19 @@
 #include <cstdlib>
 #include <iomanip>
 
-#include "treeindividual.h"
+#include "log.h"
+#include "dnatypes.h"
 #include "individual.h"
 #include "generation.h"
 #include "population.h"
-#include "testindividual.h"
-#include "dnatypes.h"
-#include "treeexpressionindividual.h"
-#include "log.h"
+
+//#include "treeindividual.h"
+//#include "testindividual.h"
+//#include "treeexpressionindividual.h"
+#include "minsearchindividual.h"
 
 using namespace std;
+using namespace Genetic;
 
 #ifdef ENABLE_TESTS
 
@@ -190,6 +193,16 @@ void testMutation()
 
 #endif
 
+class MyTargetFunction
+{
+public:
+    static double getResult(LinearDoubleDna &arguments)
+    {
+        double x = arguments[0];
+        return x * x;
+    }
+};
+
 int main()
 {
 	// srand(time(NULL));
@@ -210,10 +223,11 @@ int main()
 	// 	test.genNextGeneration();
 	// }
 
-	Population < Generation < TreeExpressionIndividual > > test;
+	Population < Generation < MinSearchIndividual <MyTargetFunction> > > test;
+
 	test.init(time(NULL));
 
-	for(int i = 0; i < 1000; ++i)
+	for(int i = 0; i < 100; ++i)
 	{
 		dnalog << "Step: " << i << endl;
 		test.genNextGeneration();

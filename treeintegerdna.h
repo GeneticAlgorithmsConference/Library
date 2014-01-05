@@ -5,12 +5,10 @@
 
 namespace Genetic
 {
-
 	class TreeIntegerDna : public BaseTreeDna <int>
 	{
-	
-	};
 
+	};
 }
 
 #endif

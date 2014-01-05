@@ -12,6 +12,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
 				</Compiler>
 			</Target>
@@ -40,8 +41,12 @@
 		<Unit filename="genetic.h" />
 		<Unit filename="individual.h" />
 		<Unit filename="linearbinarydna.h" />
+		<Unit filename="lineardoubledna.h" />
+		<Unit filename="log.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="minsearchindividual.h" />
 		<Unit filename="population.h" />
+		<Unit filename="targetFunction.h" />
 		<Unit filename="testindividual.h" />
 		<Unit filename="treeexpressiondna.h" />
 		<Unit filename="treeexpressionindividual.h" />

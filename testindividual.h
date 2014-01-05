@@ -11,17 +11,16 @@ using namespace Genetic;
 class TestIndividual : public Individual <LinearBinaryDna>
 {
 public:
-	TestIndividual();
+	TestIndividual(bool generateDna);
 	void test();
 	void mutate();
 private:
 	const int desiredValue = 123498;
 };
 
-TestIndividual::TestIndividual()
+TestIndividual::TestIndividual(bool generateDna)
 {
 	dna.resize(20);
-
 	for(int i = 0; i < dna.size(); ++i)
 	{
 		dna[i] = rand() % 2;

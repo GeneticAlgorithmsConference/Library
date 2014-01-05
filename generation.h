@@ -42,7 +42,9 @@ namespace Genetic {
 		 */
 		virtual void test();
 
-		virtual void genNext();
+		virtual void genNext(Genetic::RecombinationType recombinationType,
+                             double recombinationParam,
+                             int crossoverPointsNum);
 
 		/**
 		 * @param  seed
@@ -55,7 +57,7 @@ namespace Genetic {
 		int individualsNum;
 		double mutationProbability;
 		int mutationAttempts;
-		int crossoverPointsNum;
+
 
 	public:
 
@@ -108,17 +110,17 @@ namespace Genetic {
 		 */
 		int getMutationAttempts();
 
-		/**
-		 * Set the value of crossoverPointsNum
-		 * @param new_var the new value of crossoverPointsNum
-		 */
-		void setCrossoverPointsNum(int value);
-
-		/**
-		 * Get the value of crossoverPointsNum
-		 * @return the value of crossoverPointsNum
-		 */
-		int getCrossoverPointsNum();
+//		/**
+//		 * Set the value of crossoverPointsNum
+//		 * @param new_var the new value of crossoverPointsNum
+//		 */
+//		void setCrossoverPointsNum(int value);
+//
+//		/**
+//		 * Get the value of crossoverPointsNum
+//		 * @return the value of crossoverPointsNum
+//		 */
+//		int getCrossoverPointsNum();
 	};
 }; // end of package namespace
 
@@ -145,13 +147,17 @@ void Genetic::Generation <Individual>::test()
 }
 
 template <typename Individual>
-void Genetic::Generation <Individual>::genNext()
+void Genetic::Generation <Individual>::genNext(Genetic::RecombinationType recombinationType,
+                                               double recombine_param,
+                                               int crossover_points_num)
 {
 	std::vector <Individual*> nextIndividuals(individualsNum);
 	for(int i = 0; i < individualsNum; ++i)
 	{
 		nextIndividuals[i] = new Individual(false);
 	}
+
+    // Recombination
 	int firstParent, secondParent;
 	for(int i = 0; i < individualsNum / 2; ++i)
 	{
@@ -161,27 +167,33 @@ void Genetic::Generation <Individual>::genNext()
 		{
 			++secondParent;
 		}
-		// dnalog << "Before:" << endl;;
-		// individuals[firstParent] -> getDna() -> print();
-		// dnalog << endl;
-		// individuals[secondParent] -> getDna() -> print();
-		// dnalog << endl;
-		// nextIndividuals[i * 2] -> getDna() -> print();
-		// dnalog << endl;
-		// nextIndividuals[i * 2 + 1] -> getDna() -> print();
-		// dnalog << endl;
-		Individual::recombine(individuals[firstParent], individuals[secondParent],
-		                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]);
-		// dnalog << "After:" << endl;
-		// individuals[firstParent] -> getDna() -> print();
-		// dnalog << endl;
-		// individuals[secondParent] -> getDna() -> print();
-		// dnalog << endl;
-		// nextIndividuals[i * 2] -> getDna() -> print();
-		// dnalog << endl;
-		// nextIndividuals[i * 2 + 1] -> getDna() -> print();
-		// dnalog << endl;
+
+//		 dnalog << "Before:" << endl;;
+//		 individuals[firstParent] -> getDna() -> print();
+//		 dnalog << endl;
+//		 individuals[secondParent] -> getDna() -> print();
+//		 dnalog << endl;
+//		 nextIndividuals[i * 2] -> getDna() -> print();
+//		 dnalog << endl;
+//		 nextIndividuals[i * 2 + 1] -> getDna() -> print();
+//		 dnalog << endl;
+
+		 Individual::recombine(individuals[firstParent], individuals[secondParent],
+		                       nextIndividuals[i * 2], nextIndividuals[i * 2 + 1],
+                               recombinationType, recombine_param, crossover_points_num);
+
+//		 dnalog << "After:" << endl;
+//		 individuals[firstParent] -> getDna() -> print();
+//		 dnalog << endl;
+//		 individuals[secondParent] -> getDna() -> print();
+//		 dnalog << endl;
+//		 nextIndividuals[i * 2] -> getDna() -> print();
+//		 dnalog << endl;
+//		 nextIndividuals[i * 2 + 1] -> getDna() -> print();
+//		 dnalog << endl;
 	}
+
+	// Testing
 	for(int i = 0; i < individualsNum; ++i)
 	{
 		nextIndividuals.push_back(individuals[i]);
@@ -189,11 +201,12 @@ void Genetic::Generation <Individual>::genNext()
 		nextIndividuals[i] -> mutate();
 		nextIndividuals[i] -> test();
 	}
+
 	individuals.clear();
 	sort(nextIndividuals.begin(), nextIndividuals.end(), individualComparator<Individual>);
 	dnalog << "Best: ";
-	nextIndividuals[0] -> getDna() -> print();
-	dnalog << std::endl;
+    nextIndividuals[0] -> getDna() -> print();
+    dnalog << " with score " << nextIndividuals[0] -> getScore() << std::endl;
 	for(int i = 0; i < individualsNum; ++i)
 	{
 		individuals.push_back(nextIndividuals[i]);
@@ -262,16 +275,16 @@ int Genetic::Generation <Individual>::getMutationAttempts()
 	return mutationAttempts;
 }
 
-template <typename Individual>
-void Genetic::Generation <Individual>::setCrossoverPointsNum(int value)
-{
-	crossoverPointsNum = value;
-}
-
-template <typename Individual>
-int Genetic::Generation <Individual>::getCrossoverPointsNum()
-{
-	return crossoverPointsNum;
-}
+//template <typename Individual>
+//void Genetic::Generation <Individual>::setCrossoverPointsNum(int value)
+//{
+//	crossoverPointsNum = value;
+//}
+//
+//template <typename Individual>
+//int Genetic::Generation <Individual>::getCrossoverPointsNum()
+//{
+//	return crossoverPointsNum;
+//}
 
 #endif // GENERATION_H

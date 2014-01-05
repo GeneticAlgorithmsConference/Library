@@ -57,25 +57,25 @@ namespace Genetic {
 		 * Set the value of score
 		 * @param new_var the new value of score
 		 */
-		void setScore(int value);
+		void setScore(double value);
 
 		/**
 		 * Get the value of score
 		 * @return the value of score
 		 */
-		int getScore();
+		double getScore();
 
 		/**
 		 * Set the value of dna
 		 * @param new_var the new value of dna
 		 */
-		void setDNA(D& value);
+		void setDna(D& value);
 
 		/**
 		 * Get the value of dna
 		 * @return the value of dna
 		 */
-		const D& getDNA() const;
+		D* getDna();
 
 	protected:
 
@@ -85,7 +85,7 @@ namespace Genetic {
 		// Protected attributes
 		//
 
-		int score;	///< Score value
+		double score;	///< Score value
 		D dna;
 	};
 };
@@ -112,6 +112,10 @@ void Genetic::Individual <D>::recombine(Genetic::Individual <D>* parent_individu
                                         double recombine_param,
                                         int crossover_points_num)
 {
+    assert(parent_individual1 -> dna.size() == parent_individual2 -> dna.size());
+    child_individual1 -> dna.resize(parent_individual1 -> dna.size());
+    child_individual2 -> dna.resize(parent_individual1 -> dna.size());
+
 	switch(rec_type)
 	{
 	case DISCRETE:
@@ -163,7 +167,6 @@ void Genetic::Individual <D>::recombine(Genetic::Individual <D>* parent_individu
 	}
 	case CROSSOVER:
 	{
-		assert(parent_individual1 -> dna.size() == parent_individual2 -> dna.size());
 		assert(parent_individual1 -> dna.size() > 1);
 		assert(parent_individual1 -> dna.size() >= crossover_points_num);
 		assert(crossover_points_num > 0);
@@ -269,59 +272,60 @@ void Genetic::Individual <D>::recombine(Genetic::Individual <D>* parent_individu
 
 template <typename D>
 void Genetic::Individual <D>::mutate(MutationType mut_type,
-                                           double probability, int attempts,
-                                           double parameter)
+                                     double probability, int attempts,
+                                     double parameter)
 {
 	for(int attemptNo = 0; attemptNo < attempts; ++attemptNo)
 	{
 		if(static_cast<double>(rand() % 10000) / 10000.0 <= probability)
 		{
-			switch(mut_type)
-			{
-			case REAL_VALUE_MUTATION:
-			{
-				double dlt = 0.0;
-				for(double i = 1.0; i < parameter; ++i)
-				{
-					if(static_cast<double>(rand()%10000) / 10000.0 <= 1.0 / parameter)
-					{
-						dlt += pow(2.0, -i);
-					}
-				}
-
-				if(rand() & 1)
-				{
-					dlt = -dlt;
-				}
-
-				dlt *= 0.5;
-				int a = rand() % dna.size();
-
-				dna[a] += dlt;
-				break;
-			}
-			case BINARY_MUTATION:
-			{
-				int a = rand() % dna.size();
-				dna[a] = static_cast<int>(dna[a]) ^ 1;
-				break;
-			}
-			case DENSITY_MUTATION:
-			{
-				break;
-			}
-			case SWAP_MUTATION:
-			{
-				int a = rand() % (dna.size());
-				int b = rand() % (dna.size() - 1);
-				if(b >= a)
-				{
-					++b;
-				}
-				std::swap(dna[a], dna[b]);
-				break;
-			}
-			}
+		    dna.mutate(parameter);
+//			switch(mut_type)
+//			{
+//			case REAL_VALUE_MUTATION:
+//			{
+//				double dlt = 0.0;
+//				for(double i = 1.0; i < parameter; ++i)
+//				{
+//					if(static_cast<double>(rand()%10000) / 10000.0 <= 1.0 / parameter)
+//					{
+//						dlt += pow(2.0, -i);
+//					}
+//				}
+//
+//				if(rand() & 1)
+//				{
+//					dlt = -dlt;
+//				}
+//
+//				dlt *= 0.5;
+//				int a = rand() % dna.size();
+//
+//				dna[a] += dlt;
+//				break;
+//			}
+//			case BINARY_MUTATION:
+//			{
+//				int a = rand() % dna.size();
+//				dna[a] = static_cast<int>(dna[a]) ^ 1;
+//				break;
+//			}
+//			case DENSITY_MUTATION:
+//			{
+//				break;
+//			}
+//			case SWAP_MUTATION:
+//			{
+//				int a = rand() % (dna.size());
+//				int b = rand() % (dna.size() - 1);
+//				if(b >= a)
+//				{
+//					++b;
+//				}
+//				std::swap(dna[a], dna[b]);
+//				break;
+//			}
+//			}
 		}
 	}
 }
@@ -337,27 +341,27 @@ void Genetic::Individual <D>::updateParameters()
 }
 
 template <typename D>
-void Genetic::Individual <D>::setScore(int value)
+void Genetic::Individual <D>::setScore(double value)
 {
 	score = value;
 }
 
 template <typename D>
-int Genetic::Individual <D>::getScore()
+double Genetic::Individual <D>::getScore()
 {
 	return score;
 }
 
 template <typename D>
-void Genetic::Individual <D>::setDNA(D& value)
+void Genetic::Individual <D>::setDna(D& value)
 {
 	dna = value;
 }
 
 template <typename D>
-const D& Genetic::Individual <D>::getDNA() const
+D* Genetic::Individual <D>::getDna()
 {
-	return dna;
+	return &dna;
 }
 
 #endif // INDIVIDUAL_H
