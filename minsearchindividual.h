@@ -15,7 +15,6 @@ namespace Genetic
         MinSearchIndividual(bool generateDna = false, double dnaGenerateParameter = 2.0);
 
         void test();
-        void mutate();
     };
 }
 
@@ -32,12 +31,6 @@ template <class F>
 void Genetic::MinSearchIndividual <F>::test()
 {
     score = (F::getResult(dna));
-}
-
-template <class F>
-void Genetic::MinSearchIndividual <F>::mutate()
-{
-	dna.mutate(3);
 }
 
 #endif // MINSEARCHINDIVIDUAL_H

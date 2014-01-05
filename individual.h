@@ -47,16 +47,13 @@ namespace Genetic {
 		                      int crossover_points_num = 1);
 
 		/// Mutate method.
-		void mutate(MutationType mut_type, double probability, int attempts,
-		            double parameter);
+		void mutate(double probability, int attempts, double parameter);
 
 		/// Generate method.
 		virtual void generate();
 
 		/// Update parameters from dna.
 		virtual void updateParameters();
-
-		virtual void mutate() = 0;
 
 		/**
 		 * Set the value of score
@@ -277,9 +274,7 @@ void Genetic::Individual <D>::recombine(Genetic::Individual <D>* parent_individu
 }
 
 template <typename D>
-void Genetic::Individual <D>::mutate(MutationType mut_type,
-                                     double probability, int attempts,
-                                     double parameter)
+void Genetic::Individual <D>::mutate(double probability, int attempts, double parameter)
 {
 	for(int attemptNo = 0; attemptNo < attempts; ++attemptNo)
 	{

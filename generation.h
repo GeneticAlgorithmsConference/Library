@@ -31,7 +31,7 @@ namespace Genetic {
 		/**
 		 * Empty Constructor
 		 */
-		Generation(int individualsNum);
+		Generation(int _individualsNum);
 
 		/**
 		 * Empty Destructor
@@ -42,9 +42,8 @@ namespace Genetic {
 		 */
 		virtual void test();
 
-		virtual void genNext(Genetic::RecombinationType recombinationType,
-                             double recombinationParam,
-                             int crossoverPointsNum);
+		void genNext(RecombinationType recombinationType, double recombinationParameter, int crossover_points_num,
+                     double mutationProbability, int mutationAttempts, double mutationParameter);
 
 		/**
 		 * @param  parameter for dna generator
@@ -55,12 +54,8 @@ namespace Genetic {
 
 		std::vector <Individual*> individuals;
 		int individualsNum;
-		double mutationProbability;
-		int mutationAttempts;
-
 
 	public:
-
 
 		/**
 		 * Set the value of individuals
@@ -85,37 +80,18 @@ namespace Genetic {
 		 * @return the value of individualsNum
 		 */
 		int getIndividualsNum();
-
-		/**
-		 * Set the value of mutationProbability
-		 * @param new_var the new value of mutationProbability
-		 */
-		void setMutationProbability(double value);
-
-		/**
-		 * Get the value of mutationProbability
-		 * @return the value of mutationProbability
-		 */
-		double getMutationProbability();
-
-		/**
-		 * Set the value of mutationAttempts
-		 * @param new_var the new value of mutationAttempts
-		 */
-		void setMutationAttempts(int value);
-
-		/**
-		 * Get the value of mutationAttempts
-		 * @return the value of mutationAttempts
-		 */
-		int getMutationAttempts();
-
 	};
 }; // end of package namespace
 
 template <typename Individual>
 Genetic::Generation <Individual>::Generation(int _individualsNum)
 {
+    for(int i = 0; i < individuals.size(); ++i)
+	{
+		delete individuals[i];
+	}
+	individuals.clear();
+
 	individualsNum = _individualsNum;
 	assert(individualsNum % 2 == 0);
 }
@@ -136,9 +112,8 @@ void Genetic::Generation <Individual>::test()
 }
 
 template <typename Individual>
-void Genetic::Generation <Individual>::genNext(Genetic::RecombinationType recombinationType,
-                                               double recombine_param,
-                                               int crossover_points_num)
+void Genetic::Generation <Individual>::genNext(RecombinationType recombinationType, double recombinationParameter, int crossover_points_num,
+                                               double mutationProbability, int mutationAttempts, double mutationParameter)
 {
 	std::vector <Individual*> nextIndividuals(individualsNum);
 	for(int i = 0; i < individualsNum; ++i)
@@ -169,7 +144,7 @@ void Genetic::Generation <Individual>::genNext(Genetic::RecombinationType recomb
 
 		 Individual::recombine(individuals[firstParent], individuals[secondParent],
 		                       nextIndividuals[i * 2], nextIndividuals[i * 2 + 1],
-                               recombinationType, recombine_param, crossover_points_num);
+                               recombinationType, recombinationParameter, crossover_points_num);
 
 //		 dnalog << "After:" << endl;
 //		 individuals[firstParent] -> getDna() -> print();
@@ -187,7 +162,7 @@ void Genetic::Generation <Individual>::genNext(Genetic::RecombinationType recomb
 	{
 		nextIndividuals.push_back(individuals[i]);
 		individuals[i] -> test();
-		nextIndividuals[i] -> mutate();
+		nextIndividuals[i] -> mutate(mutationProbability, mutationAttempts, mutationParameter);
 		nextIndividuals[i] -> test();
 	}
 
@@ -238,30 +213,6 @@ template <typename Individual>
 int Genetic::Generation <Individual>::getIndividualsNum()
 {
 	return individualsNum;
-}
-
-template <typename Individual>
-void Genetic::Generation <Individual>::setMutationProbability(double value)
-{
-	mutationProbability = value;
-}
-
-template <typename Individual>
-double Genetic::Generation <Individual>::getMutationProbability()
-{
-	return mutationProbability;
-}
-
-template <typename Individual>
-void Genetic::Generation <Individual>::setMutationAttempts(int value)
-{
-	mutationAttempts = value;
-}
-
-template <typename Individual>
-int Genetic::Generation <Individual>::getMutationAttempts()
-{
-	return mutationAttempts;
 }
 
 #endif // GENERATION_H

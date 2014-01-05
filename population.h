@@ -47,8 +47,12 @@ namespace Genetic {
 		NewPopulationSelectionType selectionType;
 
 		RecombinationType recombinationType;
-		double recombine_param;
+		double recombinationParameter;
 		int crossover_points_num;
+
+		double mutationProbability;
+		int mutationAttempts;
+		double mutationParameter;
 
 	public:
 
@@ -64,6 +68,42 @@ namespace Genetic {
 		 */
 		Generation* getCurrentGeneration();
 
+		/**
+		 * Set the value of mutationParameter
+		 * @param new_var the new value of mutationParameter
+		 */
+		void setMutationParameter(double value);
+
+		/**
+		 * Get the value of mutationParameter
+		 * @return the value of mutationParameter
+		 */
+		double getMutationParameter();
+
+		/**
+		 * Set the value of mutationProbability
+		 * @param new_var the new value of mutationProbability
+		 */
+		void setMutationProbability(double value);
+
+		/**
+		 * Get the value of mutationProbability
+		 * @return the value of mutationProbability
+		 */
+		double getMutationProbability();
+
+		/**
+		 * Set the value of mutationAttempts
+		 * @param new_var the new value of mutationAttempts
+		 */
+		void setMutationAttempts(int value);
+
+		/**
+		 * Get the value of mutationAttempts
+		 * @return the value of mutationAttempts
+		 */
+		int getMutationAttempts();
+
 	};
 };
 
@@ -73,9 +113,14 @@ Genetic::Population <Generation>::Population()
 	currentGeneration = nullptr;
 	generationSize = 10;
 	selectionType = ELITE_SELECTION;
+
 	recombinationType = CROSSOVER;
 	crossover_points_num = 1;
-	recombine_param =1;
+	recombinationParameter = 1;
+
+	mutationProbability = 0.3;
+	mutationParameter = 3;
+	mutationAttempts = 1;
 }
 
 template <typename Generation>
@@ -109,8 +154,11 @@ template <typename Generation>
 void Genetic::Population <Generation>::genNextGeneration()
 {
 	currentGeneration -> genNext(recombinationType,
-                                 recombine_param,
-                                 crossover_points_num);
+                                 recombinationParameter,
+                                 crossover_points_num,
+                                 mutationProbability,
+                                 mutationAttempts,
+                                 mutationParameter);
 }
 
 template <typename Generation>
@@ -123,6 +171,41 @@ template <typename Generation>
 Generation* Genetic::Population <Generation>::getCurrentGeneration()
 {
 	return currentGeneration;
+}
+
+template <typename Generation>
+void Genetic::Population <Generation>::setMutationProbability(double value)
+{
+	mutationProbability = value;
+}
+
+template <typename Generation>
+double Genetic::Population <Generation>::getMutationProbability()
+{
+	return mutationProbability;
+}
+
+template <typename Generation>
+void Genetic::Population <Generation>::setMutationAttempts(int value)
+{
+	mutationAttempts = value;
+}
+
+template <typename Generation>
+int Genetic::Population <Generation>::getMutationAttempts()
+{
+	return mutationAttempts;
+}
+template <typename Generation>
+void Genetic::Population <Generation>::setMutationParameter(double value)
+{
+	mutationParameter = value;
+}
+
+template <typename Generation>
+double Genetic::Population <Generation>::getMutationParameter()
+{
+	return mutationParameter;
 }
 
 #endif // POPULATION_H

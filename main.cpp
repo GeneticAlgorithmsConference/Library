@@ -226,8 +226,8 @@ int main()
 	// }
 
 	Population < Generation < MinSearchIndividual <MyTargetFunction> > > test;
-
 	test.init(time(NULL), 6);
+//	test.
 
 	for(int i = 0; i < 100; ++i)
 	{
