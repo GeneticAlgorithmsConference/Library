@@ -20,8 +20,8 @@ namespace Genetic {
 
 
 /**
- * class Generation
- *
+ * @class Generation
+ * This class implements a single generation.
  */
 
 	template <typename Individual>
@@ -42,7 +42,7 @@ namespace Genetic {
 		 */
 		virtual void test();
 
-		void genNext(RecombinationType recombinationType, double recombinationParameter, int crossover_points_num,
+		void genNext(RecombinationType recombinationType, double recombinationParameter,
                      double mutationProbability, int mutationAttempts, double mutationParameter);
 
 		/**
@@ -106,7 +106,7 @@ void Genetic::Generation <Individual>::test()
 }
 
 template <typename Individual>
-void Genetic::Generation <Individual>::genNext(RecombinationType recombinationType, double recombinationParameter, int crossover_points_num,
+void Genetic::Generation <Individual>::genNext(RecombinationType recombinationType, double recombinationParameter,
                                                double mutationProbability, int mutationAttempts, double mutationParameter)
 {
 	std::vector <Individual*> nextIndividuals(individualsNum);
@@ -138,7 +138,7 @@ void Genetic::Generation <Individual>::genNext(RecombinationType recombinationTy
 
 		 Individual::recombine(individuals[firstParent], individuals[secondParent],
 		                       nextIndividuals[i * 2], nextIndividuals[i * 2 + 1],
-                               recombinationType, recombinationParameter, crossover_points_num);
+                               recombinationType, recombinationParameter);
 
 //		 dnalog << "After:" << endl;
 //		 individuals[firstParent] -> getDna() -> print();

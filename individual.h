@@ -43,8 +43,7 @@ namespace Genetic {
 		                      Genetic::Individual <D>* child_individual1,
 		                      Genetic::Individual <D>* child_individual2,
 		                      Genetic::RecombinationType rec_type,
-		                      double recombine_param = 1.0,
-		                      int crossover_points_num = 1);
+		                      double recombine_param = 1.0);
 
 		/// Mutate method.
 		void mutate(double probability, int attempts, double parameter);
@@ -112,8 +111,7 @@ void Genetic::Individual <D>::recombine(Genetic::Individual <D>* parent_individu
                                         Genetic::Individual <D>* child_individual1,
                                         Genetic::Individual <D>* child_individual2,
                                         Genetic::RecombinationType rec_type,
-                                        double recombine_param,
-                                        int crossover_points_num)
+                                        double recombine_param)
 {
     assert(parent_individual1 -> dna.size() == parent_individual2 -> dna.size());
     child_individual1 -> dna.resize(parent_individual1 -> dna.size());
@@ -170,6 +168,7 @@ void Genetic::Individual <D>::recombine(Genetic::Individual <D>* parent_individu
 	}
 	case CROSSOVER:
 	{
+	    int crossover_points_num = recombine_param;
 		assert(parent_individual1 -> dna.size() > 1);
 		assert(parent_individual1 -> dna.size() >= crossover_points_num);
 		assert(crossover_points_num > 0);
@@ -257,7 +256,7 @@ void Genetic::Individual <D>::recombine(Genetic::Individual <D>* parent_individu
 		}
 		recombine(parent_individual1, parent_individual2,
 		          child_individual1, child_individual2,
-		          CROSSOVER, recombine_param, crossover_points_num);
+		          CROSSOVER, recombine_param);
 		for(int i = 0; i < parent_individual1 -> dna.size(); ++i)
 		{
 			if(rand() & 1)
@@ -278,43 +277,10 @@ void Genetic::Individual <D>::mutate(double probability, int attempts, double pa
 {
 	for(int attemptNo = 0; attemptNo < attempts; ++attemptNo)
 	{
-		if(static_cast<double>(rand() % 10000) / 10000.0 <= probability)
+	    double rndVal = static_cast<double>(rand() % 10000) / 10000.0;
+		if(rndVal <= probability)
 		{
 		    dna.mutate(parameter);
-//			switch(mut_type)
-//			{
-//			case REAL_VALUE_MUTATION:
-//			{
-//				double dlt = 0.0;
-//				for(double i = 1.0; i < parameter; ++i)
-//				{
-//					if(static_cast<double>(rand()%10000) / 10000.0 <= 1.0 / parameter)
-//					{
-//						dlt += pow(2.0, -i);
-//					}
-//				}
-//
-//				if(rand() & 1)
-//				{
-//					dlt = -dlt;
-//				}
-//
-//				dlt *= 0.5;
-//				int a = rand() % dna.size();
-//
-//				dna[a] += dlt;
-//				break;
-//			}
-//			case BINARY_MUTATION:
-//			{
-//				int a = rand() % dna.size();
-//				dna[a] = static_cast<int>(dna[a]) ^ 1;
-//				break;
-//			}
-//			case DENSITY_MUTATION:
-//			{
-//				break;
-//			}
 //			case SWAP_MUTATION:
 //			{
 //				int a = rand() % (dna.size());
@@ -325,7 +291,6 @@ void Genetic::Individual <D>::mutate(double probability, int attempts, double pa
 //				}
 //				std::swap(dna[a], dna[b]);
 //				break;
-//			}
 //			}
 		}
 	}

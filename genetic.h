@@ -14,7 +14,7 @@ namespace Genetic
         SHUFFLER_CROSSOVER,
         CROSSOVER_WITH_REDUCED_SURROGATE
     };
-    enum NewPopulationSelectionType
+    enum NewGenerationSelectionType
     {
         TRUNCATION_SELECTION = 0x200,
         ELITE_SELECTION,

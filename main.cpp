@@ -225,8 +225,8 @@ int main()
 	// 	test.genNextGeneration();
 	// }
 
-	Population < Generation < MinSearchIndividual <MyTargetFunction> > > test;
-	test.init(time(NULL), 6);
+	Population < Generation < MinSearchIndividual <MyTargetFunction> > > test(100, ELITE_SELECTION, CROSSOVER, 1, 0.75, 3, 17);
+	test.init(time(NULL), 3);
 //	test.
 
 	for(int i = 0; i < 100; ++i)
