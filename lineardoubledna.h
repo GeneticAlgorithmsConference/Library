@@ -10,7 +10,7 @@ namespace Genetic
 	{
 	public:
 		void mutate(double parameter);
-		void generate(double parameter);
+		void generate(double dnaSize);
 	};
 
 }
@@ -37,9 +37,9 @@ void Genetic::LinearDoubleDna::mutate(double parameter)
     dna[a] += dlt;
 }
 
-void Genetic::LinearDoubleDna::generate(double parameter)
+void Genetic::LinearDoubleDna::generate(double dnaSize)
 {
-    dna.resize(parameter);
+    dna.resize(dnaSize);
     for(int i = 0; i < dna.size(); ++i)
     {
         dna[i] = ((double)(rand() % 1000000)) / 1000.0;
