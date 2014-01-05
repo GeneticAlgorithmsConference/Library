@@ -86,12 +86,6 @@ namespace Genetic {
 template <typename Individual>
 Genetic::Generation <Individual>::Generation(int _individualsNum)
 {
-    for(int i = 0; i < individuals.size(); ++i)
-	{
-		delete individuals[i];
-	}
-	individuals.clear();
-
 	individualsNum = _individualsNum;
 	assert(individualsNum % 2 == 0);
 }
