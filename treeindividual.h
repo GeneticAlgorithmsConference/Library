@@ -21,7 +21,7 @@ namespace Genetic {
  *
  */
 
-	template <typename D>
+	template <typename D, typename S>
 	class TreeIndividual
 	{
 	public:
@@ -51,13 +51,13 @@ namespace Genetic {
 		 * Set the value of score
 		 * @param new_var the new value of score
 		 */
-		void setScore(double value);
+		void setScore(S value);
 
 		/**
 		 * Get the value of score
 		 * @return the value of score
 		 */
-		double getScore();
+		S getScore();
 
 		/**
 		 * Set the value of dna
@@ -73,7 +73,7 @@ namespace Genetic {
 
 	protected:
 
-		double score;	///< Score value
+		S score;	///< Score value
 		D* dna;
 	};
 };
@@ -81,23 +81,23 @@ namespace Genetic {
 /**
  * Detailed description of empty constructor.
  */
-template <typename D>
-Genetic::TreeIndividual <D>::TreeIndividual()
+template <typename D, typename S>
+Genetic::TreeIndividual <D, S>::TreeIndividual()
 {
 
 }
 
-template <typename D>
-Genetic::TreeIndividual <D>::~TreeIndividual()
+template <typename D, typename S>
+Genetic::TreeIndividual <D, S>::~TreeIndividual()
 {
 	delete dna;
 }
 
-template <typename D>
-void Genetic::TreeIndividual <D>::recombine(Genetic::TreeIndividual <D>* parentIndividual1,
-                                            Genetic::TreeIndividual <D>* parentIndividual2,
-                                            Genetic::TreeIndividual <D>* childIndividual1,
-                                            Genetic::TreeIndividual <D>* childIndividual2)
+template <typename D, typename S>
+void Genetic::TreeIndividual <D, S>::recombine(Genetic::TreeIndividual <D, S>* parentIndividual1,
+                                               Genetic::TreeIndividual <D, S>* parentIndividual2,
+                                               Genetic::TreeIndividual <D, S>* childIndividual1,
+                                               Genetic::TreeIndividual <D, S>* childIndividual2)
 {
 	D* dna1;
 	D* dna2;
@@ -128,42 +128,42 @@ void Genetic::TreeIndividual <D>::recombine(Genetic::TreeIndividual <D>* parentI
 	}
 }
 
-template <typename D>        
-void Genetic::TreeIndividual <D>::mutate()
+template <typename D, typename S>        
+void Genetic::TreeIndividual <D, S>::mutate()
 {
 	dna -> getRandom() -> mutate();
 }
 
-template <typename D>
-void Genetic::TreeIndividual <D>::generate()
+template <typename D, typename S>
+void Genetic::TreeIndividual <D, S>::generate()
 {
 }
 
-template <typename D>
-void Genetic::TreeIndividual <D>::updateParameters()
+template <typename D, typename S>
+void Genetic::TreeIndividual <D, S>::updateParameters()
 {
 }
 
-template <typename D>
-void Genetic::TreeIndividual <D>::setScore(double value)
+template <typename D, typename S>
+void Genetic::TreeIndividual <D, S>::setScore(S value)
 {
 	score = value;
 }
 
-template <typename D>
-double Genetic::TreeIndividual <D>::getScore()
+template <typename D, typename S>
+S Genetic::TreeIndividual <D, S>::getScore()
 {
 	return score;
 }
 
-template <typename D>
-void Genetic::TreeIndividual <D>::setDna(D* value)
+template <typename D, typename S>
+void Genetic::TreeIndividual <D, S>::setDna(D* value)
 {
 	dna = value;
 }
 
-template <typename D>
-const D* Genetic::TreeIndividual <D>::getDna() const
+template <typename D, typename S>
+const D* Genetic::TreeIndividual <D, S>::getDna() const
 {
 	return dna;
 }

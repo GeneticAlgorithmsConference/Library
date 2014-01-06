@@ -78,7 +78,9 @@ void Genetic::TreeExpressionDna::mutate()
 	// {
 	// 	value = rand() % (2 * range + 1) + 20;
 	// }
-	dynamic_cast<TreeExpressionDna*>(getRandom()) -> generate(1);
+	int depth;
+	TreeExpressionDna* target = dynamic_cast<TreeExpressionDna*>(getRandom(depth));
+	target -> generate(depth);
 }
 
 void Genetic::TreeExpressionDna::generate(int currentDepth)

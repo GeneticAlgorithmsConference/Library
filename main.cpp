@@ -207,13 +207,15 @@ public:
 
 double func(double x)
 {
-	return x * x;
+	return x * x * x;
 }
 
 void generateFunctionValues()
 {
 	ofstream out("tests.txt");
-	for(int i = 0; i < 100; ++i)
+	int testsNumber = 100;
+	out << testsNumber << endl;
+	for(int i = 0; i < testsNumber; ++i)
 	{
 		double current = static_cast<double>(rand() % 10000) / 100.0;
 		out << current << " " << func(current) << endl;

@@ -21,6 +21,7 @@ namespace Genetic
 		                         BaseTreeDna <T>* dna2, int id2);
 		
 		BaseTreeDna <T>* getRandom();
+		BaseTreeDna <T>* getRandom(int& depth);
 		BaseTreeDna <T>* getRandomWithChildren();
 
 		int getChildrenNum() const;
@@ -70,8 +71,16 @@ void Genetic::BaseTreeDna <T>::swapRandomChildren(BaseTreeDna <T>* dna1,
 template <typename T>
 Genetic::BaseTreeDna <T>* Genetic::BaseTreeDna <T>::getRandom()
 {
+	int depth;
+	return getRandom(depth);
+}
+
+template <typename T>
+Genetic::BaseTreeDna <T>* Genetic::BaseTreeDna <T>::getRandom(int& depth)
+{
 	BaseTreeDna <T>* current = this;
 	int id;
+	depth = 1;
 	while(true)
 	{
 		id = rand() % (current -> getChildrenNum() + 1);
@@ -80,6 +89,7 @@ Genetic::BaseTreeDna <T>* Genetic::BaseTreeDna <T>::getRandom()
 			break;
 		} else {
 			current = current -> getChild(id);
+			++depth;
 		}
 	}
 	return current;

@@ -51,15 +51,19 @@ TreeExpressionIndividual::TreeExpressionIndividual(bool generateDna)
 void TreeExpressionIndividual::test()
 {
 	double currentSum = 0.0;
+	// dna -> print();
+	// dnalog << endl;
 	for(int i = 0; i < tests.size(); ++i)
 	{
 		currentSum += fabs(tests[i].second - dna -> getValue(tests[i].first));
+		// dnalog << tests[i].first << " " << tests[i].second << " " << currentSum << endl;
 	}
+	// dnalog << "-----------------------------" << endl;
 	// currentSum /= tests.size();
 	score = currentSum;
 	if(std::isnan(score))
 	{
-		score = 100000.0;
+		score = 1.0e20;
 	}
 }
 

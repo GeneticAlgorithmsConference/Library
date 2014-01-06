@@ -43,7 +43,7 @@ namespace Genetic {
 		virtual void test();
 
 		void genNext(RecombinationType recombinationType, double recombinationParameter,
-                     double mutationProbability, int mutationAttempts, double mutationParameter);
+		             double mutationProbability, int mutationAttempts, double mutationParameter);
 
 		/**
 		 * @param  parameter for dna generator
@@ -115,7 +115,7 @@ void Genetic::Generation <Individual>::genNext(RecombinationType recombinationTy
 		nextIndividuals[i] = new Individual(false);
 	}
 
-    // Recombination
+	// Recombination
 	int firstParent, secondParent;
 	for(int i = 0; i < individualsNum / 2; ++i)
 	{
@@ -136,10 +136,10 @@ void Genetic::Generation <Individual>::genNext(RecombinationType recombinationTy
 //		 nextIndividuals[i * 2 + 1] -> getDna() -> print();
 //		 dnalog << endl;
 
-		 Individual::recombine(individuals[firstParent], individuals[secondParent],
-		                       nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]
-                               // ,recombinationType, recombinationParameter
-			 );
+		Individual::recombine(individuals[firstParent], individuals[secondParent],
+		                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]
+		                      // ,recombinationType, recombinationParameter
+			);
 
 //		 dnalog << "After:" << endl;
 //		 individuals[firstParent] -> getDna() -> print();
@@ -165,8 +165,8 @@ void Genetic::Generation <Individual>::genNext(RecombinationType recombinationTy
 	individuals.clear();
 	sort(nextIndividuals.begin(), nextIndividuals.end(), individualComparator<Individual>);
 	dnalog << "Best: ";
-    nextIndividuals[0] -> getDna() -> print();
-    dnalog << " with score " << nextIndividuals[0] -> getScore() << std::endl;
+	nextIndividuals[0] -> getDna() -> print();
+	dnalog << " with score " << nextIndividuals[0] -> getScore() << std::endl;
 	for(int i = 0; i < individualsNum; ++i)
 	{
 		individuals.push_back(nextIndividuals[i]);
