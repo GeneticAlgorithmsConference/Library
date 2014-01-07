@@ -49,6 +49,13 @@ void Genetic::LinearRealDna::generate(double dnaSize)
 
 double Genetic::LinearRealDna::getDistance(Genetic::BaseLinearDna <double>* other)
 {
+	double distance = 0.0;
+	// for(int i = 0; i < dna.size(); ++i)
+	// {
+	// 	distance += (dna[i] - other -> dna[i]) * (dna[i] - other -> dna[i]);
+	// }
+	distance = sqrt(distance);
+	return distance;
 }
 
 #endif // LINEARDOUBLEDNA_H

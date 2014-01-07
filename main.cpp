@@ -246,7 +246,7 @@ int main()
 	// Population <Generation <TreeExpressionIndividual> > test;
 	// test.init(time(NULL), 3);
 
-	Population < Generation < MinSearchIndividual <MyTargetFunction> > > test(100);
+	Population < Generation < MinSearchIndividual <MyTargetFunction> > > test(100, ELITE_SELECTION, INBREEDING_FENOTYPE);
 	test.initGeneration(time(NULL));
 	
 	for(int i = 0; i < 10000; ++i)

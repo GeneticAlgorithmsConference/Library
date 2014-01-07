@@ -138,9 +138,7 @@ void Genetic::Generation <Individual>::genNext(ParentsSelectionType parentsSelec
 //		 dnalog << endl;
 
 			Individual::recombine(individuals[firstParent], individuals[secondParent],
-			                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]
-			                      // ,recombinationType, recombinationParameter
-				);
+			                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]);
 
 //		 dnalog << "After:" << endl;
 //		 individuals[firstParent] -> getDna() -> print();
@@ -157,13 +155,110 @@ void Genetic::Generation <Individual>::genNext(ParentsSelectionType parentsSelec
 	case INBREEDING_FENOTYPE:
 	{
 		int firstParent, secondParent;
-		double min_distance;
+		double minDistance;
+		double currentDistance;
 		for(int i = 0; i < individualsNum / 2; ++i)
 		{
 			firstParent = rand() % individualsNum;
-			min_distance = (firstParent == 0) ? (individuals[0] -> getDna() -> getDistance(individuals[1] -> getDna()))
+			minDistance = (firstParent == 0) ? (individuals[0] -> getDna() -> getDistance(individuals[1] -> getDna()))
 				: individuals[0] -> getDna() -> getDistance(individuals[firstParent] -> getDna());
+			secondParent = (firstParent == 0) ? 1 : 0;
+			for(int j = 0; j < individualsNum; ++j)
+			{
+				if((j != firstParent)
+				   && (minDistance > (currentDistance = individuals[firstParent]
+				                      -> getDna() -> getDistance(individuals[j] -> getDna()))))
+				{
+					minDistance = currentDistance;
+					secondParent = j;
+				}
+			}
+
+			Individual::recombine(individuals[firstParent], individuals[secondParent],
+			                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]);
 		}
+		break;
+	}
+	case INBREEDING_GENOTYPE:
+	{
+		int firstParent, secondParent;
+		double minDistance;
+		double currentDistance;
+		for(int i = 0; i < individualsNum / 2; ++i)
+		{
+			firstParent = rand() % individualsNum;
+			minDistance = (firstParent == 0) ? fabs(individuals[0] -> getScore() - individuals[1] -> getScore())
+				: fabs(individuals[0] -> getScore() - individuals[firstParent] -> getScore());
+			secondParent = (firstParent == 0) ? 1 : 0;
+			for(int j = 0; j < individualsNum; ++j)
+			{
+				if((j != firstParent)
+				   && (minDistance > (currentDistance =
+				                      fabs(individuals[firstParent] -> getScore() - individuals[j] -> getScore()))))
+				{
+					minDistance = currentDistance;
+					secondParent = j;
+				}
+			}
+
+			Individual::recombine(individuals[firstParent], individuals[secondParent],
+			                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]);
+		}
+		break;
+	}
+	case OUTBREEDING_FENOTYPE:
+	{
+		int firstParent, secondParent;
+		double maxDistance;
+		double currentDistance;
+		for(int i = 0; i < individualsNum / 2; ++i)
+		{
+			firstParent = rand() % individualsNum;
+			maxDistance = (firstParent == 0) ? (individuals[0] -> getDna() -> getDistance(individuals[1] -> getDna()))
+				: individuals[0] -> getDna() -> getDistance(individuals[firstParent] -> getDna());
+			secondParent = (firstParent == 0) ? 1 : 0;
+			for(int j = 0; j < individualsNum; ++j)
+			{
+				if((j != firstParent)
+				   && (maxDistance < (currentDistance = individuals[firstParent]
+				                      -> getDna() -> getDistance(individuals[j] -> getDna()))))
+				{
+					maxDistance = currentDistance;
+					secondParent = j;
+				}
+			}
+
+			Individual::recombine(individuals[firstParent], individuals[secondParent],
+			                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]);
+		}
+		break;
+	}
+	case OUTBREEDING_GENOTYPE:
+	{
+		int firstParent, secondParent;
+		double maxDistance;
+		double currentDistance;
+		for(int i = 0; i < individualsNum / 2; ++i)
+		{
+			firstParent = rand() % individualsNum;
+			maxDistance = (firstParent == 0) ? fabs(individuals[0] -> getScore() - individuals[1] -> getScore())
+				: fabs(individuals[0] -> getScore() - individuals[firstParent] -> getScore());
+			secondParent = (firstParent == 0) ? 1 : 0;
+			for(int j = 0; j < individualsNum; ++j)
+			{
+				if((j != firstParent)
+				   && (maxDistance < (currentDistance =
+				                      fabs(individuals[firstParent] -> getScore() - individuals[j] -> getScore()))))
+				{
+					maxDistance = currentDistance;
+					secondParent = j;
+				}
+			}
+
+			Individual::recombine(individuals[firstParent], individuals[secondParent],
+			                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]);
+		}
+		break;
 	}
 	}
 
@@ -197,6 +292,7 @@ void Genetic::Generation <Individual>::init()
 	for(int i = 0; i < individualsNum; ++i)
 	{
 		tmpIndividual = new Individual(true);
+		tmpIndividual -> test();
 		individuals.push_back(tmpIndividual);
 	}
 }
