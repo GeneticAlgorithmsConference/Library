@@ -42,14 +42,12 @@ namespace Genetic {
 		 */
 		virtual void test();
 
-		void genNext(ParentsSelectionType parentSelectionType,
-		             RecombinationType recombinationType, double recombinationParameter,
-		             double mutationProbability, int mutationAttempts, double mutationParameter);
+		void genNext(ParentsSelectionType parentSelectionType);
 
 		/**
 		 * @param  parameter for dna generator
 		 */
-		void init(double dnaGenerateParameter);
+		void init();
 
 	protected:
 
@@ -107,9 +105,7 @@ void Genetic::Generation <Individual>::test()
 }
 
 template <typename Individual>
-void Genetic::Generation <Individual>::genNext(ParentsSelectionType parentsSelectionType,
-                                               RecombinationType recombinationType, double recombinationParameter,
-                                               double mutationProbability, int mutationAttempts, double mutationParameter)
+void Genetic::Generation <Individual>::genNext(ParentsSelectionType parentsSelectionType)
 {
 	std::vector <Individual*> nextIndividuals(individualsNum);
 	for(int i = 0; i < individualsNum; ++i)
@@ -160,7 +156,14 @@ void Genetic::Generation <Individual>::genNext(ParentsSelectionType parentsSelec
 	}
 	case INBREEDING_FENOTYPE:
 	{
-		
+		int firstParent, secondParent;
+		double min_distance;
+		for(int i = 0; i < individualsNum / 2; ++i)
+		{
+			firstParent = rand() % individualsNum;
+			min_distance = (firstParent == 0) ? (individuals[0] -> getDna() -> getDistance(individuals[1] -> getDna()))
+				: individuals[0] -> getDna() -> getDistance(individuals[firstParent] -> getDna());
+		}
 	}
 	}
 
@@ -169,8 +172,7 @@ void Genetic::Generation <Individual>::genNext(ParentsSelectionType parentsSelec
 	{
 		nextIndividuals.push_back(individuals[i]);
 		individuals[i] -> test();
-		nextIndividuals[i] -> mutate(// mutationProbability, mutationAttempts, mutationParameter
-			);
+		nextIndividuals[i] -> mutate();
 		nextIndividuals[i] -> test();
 	}
 
@@ -188,14 +190,13 @@ void Genetic::Generation <Individual>::genNext(ParentsSelectionType parentsSelec
 }
 
 template <typename Individual>
-void Genetic::Generation <Individual>::init(double dnaGenerateParameter)
+void Genetic::Generation <Individual>::init()
 {
 	Individual* tmpIndividual;
 
 	for(int i = 0; i < individualsNum; ++i)
 	{
-		tmpIndividual = new Individual(true// , dnaGenerateParameter
-			);
+		tmpIndividual = new Individual(true);
 		individuals.push_back(tmpIndividual);
 	}
 }

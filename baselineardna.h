@@ -15,10 +15,11 @@ namespace Genetic
 		T& operator[](int id);
 		int size() const;
 		void resize(int newSize);
-        void print();
 
 		virtual void mutate(double parameter = 1.0) = 0;
 		virtual void generate(double parameter = 6.0) = 0;
+	    virtual double getDistance(BaseLinearDna <T>* dna) = 0;
+		virtual void print();
 
 	protected:
 		std::vector <T> dna;

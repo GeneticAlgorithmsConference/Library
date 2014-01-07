@@ -12,7 +12,7 @@
 #include "treeindividual.h"
 #include "testindividual.h"
 #include "treeexpressionindividual.h"
-// #include "minsearchindividual.h"
+#include "minsearchindividual.h"
 
 using namespace std;
 using namespace Genetic;
@@ -196,7 +196,7 @@ void testMutation()
 class MyTargetFunction
 {
 public:
-    static double getResult(LinearDoubleDna &arguments)
+    static double getResult(LinearRealDna &arguments)
     {
         double x = arguments[0];
 //        double y = arguments[1];
@@ -235,20 +235,19 @@ int main()
 
 #endif
 
-	// Population < Generation < TestIndividual > > test(10, ELITE_SELECTION);
-	// test.init(time(NULL));
+	// Population < Generation < TestIndividual > > test(10);
+	// test.initGeneration(time(NULL));
 
 	// for(int i = 0; i < 1000; ++i)
 	// {
 	// 	test.genNextGeneration();
 	// }
 
-	// Population < Generation < MinSearchIndividual <MyTargetFunction> > > test(100, ELITE_SELECTION, CROSSOVER, 1, 0.75, 3, 17);
-	Population <Generation <TreeExpressionIndividual> > test;
-	test.init(time(NULL), 3);
+	// Population <Generation <TreeExpressionIndividual> > test;
+	// test.init(time(NULL), 3);
 
-	// Population < Generation < MinSearchIndividual <MyTargetFunction> > > test(100, ELITE_SELECTION, CROSSOVER, 1, 1, 100, 17);
-	// test.initGeneration(time(NULL), 3);
+	Population < Generation < MinSearchIndividual <MyTargetFunction> > > test(100);
+	test.initGeneration(time(NULL));
 	
 	for(int i = 0; i < 10000; ++i)
 	{

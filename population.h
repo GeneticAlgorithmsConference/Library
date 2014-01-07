@@ -28,9 +28,7 @@ namespace Genetic {
 		 * The meaning of all parameters can be easily found in description of class attributes
 		 */
 		Population(int _generationSize = 10, NewGenerationSelectionType _newGenerationSelectionType = ELITE_SELECTION,
-		           ParentsSelectionType parentsSelectionType = PANMIXIA,
-		           RecombinationType _recombinationType = CROSSOVER, double _recombinationParameter = 1.0,
-		           double _mutationProbability = 0.3, int _mutationAttempts = 1, double _mutationParameter = 0.0);
+		           ParentsSelectionType parentsSelectionType = PANMIXIA);
 
 		///@brief Destructor. Deletes current generation.
 		~Population();
@@ -45,7 +43,7 @@ namespace Genetic {
 		 * @param seed Seed which is used for random initialization.
 		 * @param dnaGenerateParameter An argument which will be transmitted to the DNA generator
 		 */
-		void initGeneration(unsigned int seed, double dnaGenerateParameter = 10.0);
+		void initGeneration(unsigned int seed);
 
 		/**@brief
 		 * Generates next generation by calling genNext method for current genertion
@@ -199,21 +197,19 @@ namespace Genetic {
 
 template <typename Generation>
 Genetic::Population <Generation>::Population(int _generationSize, NewGenerationSelectionType _newGenerationSelectionType,
-                                             ParentsSelectionType _parentsSelectionType,
-                                             RecombinationType _recombinationType, double _recombinationParameter,
-                                             double _mutationProbability, int _mutationAttempts, double _mutationParameter)
+                                             ParentsSelectionType _parentsSelectionType)
 {
 	currentGeneration = nullptr;
 	generationSize = _generationSize;
 	parentsSelectionType = _parentsSelectionType;
 	newGenerationSelectionType = _newGenerationSelectionType;
 
-	recombinationType = _recombinationType;
-	recombinationParameter = _recombinationParameter;
+	// recombinationType = _recombinationType;
+	// recombinationParameter = _recombinationParameter;
 
-	mutationProbability = _mutationProbability;
-	mutationParameter = _mutationParameter;
-	mutationAttempts = _mutationAttempts;
+	// mutationProbability = _mutationProbability;
+	// mutationParameter = _mutationParameter;
+	// mutationAttempts = _mutationAttempts;
 }
 
 template <typename Generation>
@@ -223,7 +219,7 @@ Genetic::Population <Generation>::~Population()
 }
 
 template <typename Generation>
-void Genetic::Population <Generation>::initGeneration(unsigned int seed, double dnaGenerateParameter)
+void Genetic::Population <Generation>::initGeneration(unsigned int seed)
 {
 	srand(seed);
 	if(currentGeneration != nullptr)
@@ -231,18 +227,13 @@ void Genetic::Population <Generation>::initGeneration(unsigned int seed, double 
 		delete currentGeneration;
 	}
 	currentGeneration = new Generation(generationSize);
-	currentGeneration -> init(dnaGenerateParameter);
+	currentGeneration -> init();
 }
 
 template <typename Generation>
 void Genetic::Population <Generation>::genNextGeneration()
 {
-	currentGeneration -> genNext(parentsSelectionType,
-	                             recombinationType,
-                                 recombinationParameter,
-                                 mutationProbability,
-                                 mutationAttempts,
-                                 mutationParameter);
+	currentGeneration -> genNext(parentsSelectionType);
 }
 
 template <typename Generation>

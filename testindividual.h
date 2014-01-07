@@ -14,13 +14,17 @@ public:
 	TestIndividual(bool generateDna);
 	void test();
 	void mutate();
+	static void recombine(Genetic::Individual <LinearBinaryDna>* parentIndividual1,
+	                      Genetic::Individual <LinearBinaryDna>* parentIndividual2,
+	                      Genetic::Individual <LinearBinaryDna>* childIndividual1,
+	                      Genetic::Individual <LinearBinaryDna>* childIndividual2);
 private:
-	const int desiredValue = 123498;
+	const int desiredValue = 13;
 };
 
 TestIndividual::TestIndividual(bool generateDna)
 {
-	dna.resize(20);
+	dna.resize(10);
 	for(int i = 0; i < dna.size(); ++i)
 	{
 		dna[i] = rand() % 2;
@@ -47,6 +51,18 @@ void TestIndividual::test()
 void TestIndividual::mutate()
 {
 	dna.mutate();
+}
+
+void TestIndividual::recombine(Genetic::Individual <LinearBinaryDna>* parentIndividual1,
+                               Genetic::Individual <LinearBinaryDna>* parentIndividual2,
+                               Genetic::Individual <LinearBinaryDna>* childIndividual1,
+                               Genetic::Individual <LinearBinaryDna>* childIndividual2)
+{
+	Individual <LinearBinaryDna>::recombine(parentIndividual1,
+	                                        parentIndividual2,
+	                                        childIndividual1,
+	                                        childIndividual2,
+	                                        CROSSOVER, 2);
 }
 
 #endif
