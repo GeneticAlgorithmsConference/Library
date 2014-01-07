@@ -34,10 +34,10 @@ namespace Genetic {
 		virtual void test() = 0;
 
 		/// Recombine method.
-		static void recombine(Genetic::TreeIndividual <D>* parentIndividual1,
-		                      Genetic::TreeIndividual <D>* parentIndividual2,
-		                      Genetic::TreeIndividual <D>* childIndividual1,
-		                      Genetic::TreeIndividual <D>* childIndividual2);
+		static void recombine(Genetic::TreeIndividual <D, S>* parentIndividual1,
+		                      Genetic::TreeIndividual <D, S>* parentIndividual2,
+		                      Genetic::TreeIndividual <D, S>* childIndividual1,
+		                      Genetic::TreeIndividual <D, S>* childIndividual2);
 
 		/// Generate method.
 		virtual void generate();

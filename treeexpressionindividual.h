@@ -22,7 +22,7 @@ std::vector <std::pair <double, double> > loadTests(const char* fileName)
 	return tests;
 }
 
-class TreeExpressionIndividual : public TreeIndividual < TreeExpressionDna >
+class TreeExpressionIndividual : public TreeIndividual < TreeExpressionDna , double>
 {
 public:
 	TreeExpressionIndividual(bool generateDna);

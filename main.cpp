@@ -207,13 +207,13 @@ public:
 
 double func(double x)
 {
-	return x * x * x;
+	return x * sin(x);
 }
 
 void generateFunctionValues()
 {
 	ofstream out("tests.txt");
-	int testsNumber = 100;
+	int testsNumber = 1000;
 	out << testsNumber << endl;
 	for(int i = 0; i < testsNumber; ++i)
 	{

@@ -21,17 +21,14 @@ namespace Genetic
         EXCLUSION_SELECTION,
         BOLZMAN_SELECTION
     };
-    enum ParentsChooseType
+    enum ParentsSelectionType
     {
         PANMIXIA = 0x300,
         INBREEDING_FENOTYPE,
         INBREEDING_GENOTYPE,
         OUTBREEDING_FENOTYPE,
-        OUTBREEDING_GENOTYPE
-    };
-    enum ParentsSelectionType
-    {
-        TOURNAMENT = 0x400,
+        OUTBREEDING_GENOTYPE,
+        TOURNAMENT,
         ROULETTE_WHEEL
     };
     enum MutationType

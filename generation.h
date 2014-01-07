@@ -42,7 +42,8 @@ namespace Genetic {
 		 */
 		virtual void test();
 
-		void genNext(RecombinationType recombinationType, double recombinationParameter,
+		void genNext(ParentsSelectionType parentSelectionType,
+		             RecombinationType recombinationType, double recombinationParameter,
 		             double mutationProbability, int mutationAttempts, double mutationParameter);
 
 		/**
@@ -106,7 +107,8 @@ void Genetic::Generation <Individual>::test()
 }
 
 template <typename Individual>
-void Genetic::Generation <Individual>::genNext(RecombinationType recombinationType, double recombinationParameter,
+void Genetic::Generation <Individual>::genNext(ParentsSelectionType parentsSelectionType,
+                                               RecombinationType recombinationType, double recombinationParameter,
                                                double mutationProbability, int mutationAttempts, double mutationParameter)
 {
 	std::vector <Individual*> nextIndividuals(individualsNum);
@@ -114,17 +116,20 @@ void Genetic::Generation <Individual>::genNext(RecombinationType recombinationTy
 	{
 		nextIndividuals[i] = new Individual(false);
 	}
-
-	// Recombination
-	int firstParent, secondParent;
-	for(int i = 0; i < individualsNum / 2; ++i)
+	switch(parentsSelectionType)
 	{
-		firstParent = rand() % individualsNum;
-		secondParent = rand() % (individualsNum - 1);
-		if(secondParent >= firstParent)
+	case PANMIXIA:
+	{
+		// Recombination
+		int firstParent, secondParent;
+		for(int i = 0; i < individualsNum / 2; ++i)
 		{
-			++secondParent;
-		}
+			firstParent = rand() % individualsNum;
+			secondParent = rand() % (individualsNum - 1);
+			if(secondParent >= firstParent)
+			{
+				++secondParent;
+			}
 
 //		 dnalog << "Before:" << endl;;
 //		 individuals[firstParent] -> getDna() -> print();
@@ -136,10 +141,10 @@ void Genetic::Generation <Individual>::genNext(RecombinationType recombinationTy
 //		 nextIndividuals[i * 2 + 1] -> getDna() -> print();
 //		 dnalog << endl;
 
-		Individual::recombine(individuals[firstParent], individuals[secondParent],
-		                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]
-		                      // ,recombinationType, recombinationParameter
-			);
+			Individual::recombine(individuals[firstParent], individuals[secondParent],
+			                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]
+			                      // ,recombinationType, recombinationParameter
+				);
 
 //		 dnalog << "After:" << endl;
 //		 individuals[firstParent] -> getDna() -> print();
@@ -150,6 +155,13 @@ void Genetic::Generation <Individual>::genNext(RecombinationType recombinationTy
 //		 dnalog << endl;
 //		 nextIndividuals[i * 2 + 1] -> getDna() -> print();
 //		 dnalog << endl;
+		}
+		break;
+	}
+	case INBREEDING_FENOTYPE:
+	{
+		
+	}
 	}
 
 	// Testing

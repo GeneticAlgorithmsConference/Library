@@ -23,8 +23,9 @@ namespace Genetic {
 		 *
 		 */
 		Population(int _generationSize = 10, NewGenerationSelectionType _newGenerationSelectionType = ELITE_SELECTION,
-             RecombinationType _recombinationType = CROSSOVER, double _recombinationParameter = 1.0,
-             double _mutationProbability = 0.3, int _mutationAttempts = 1, double _mutationParameter = 0.0);
+		           ParentsSelectionType parentsSelectionType = PANMIXIA,
+		           RecombinationType _recombinationType = CROSSOVER, double _recombinationParameter = 1.0,
+		           double _mutationProbability = 0.3, int _mutationAttempts = 1, double _mutationParameter = 0.0);
 
 		/// Destructor. Deletes current generation.
 		~Population();
@@ -74,6 +75,8 @@ namespace Genetic {
         /// @brief
         /// Type of selection of individual for new generation that will be used in generating a new generation
 		NewGenerationSelectionType newGenerationSelectionType;
+
+		ParentsSelectionType parentsSelectionType;
 
         /// @brief
         /// Type of recombination that will be used in generating a new generation
@@ -185,11 +188,13 @@ namespace Genetic {
 
 template <typename Generation>
 Genetic::Population <Generation>::Population(int _generationSize, NewGenerationSelectionType _newGenerationSelectionType,
+                                             ParentsSelectionType _parentsSelectionType,
                                              RecombinationType _recombinationType, double _recombinationParameter,
                                              double _mutationProbability, int _mutationAttempts, double _mutationParameter)
 {
 	currentGeneration = nullptr;
 	generationSize = _generationSize;
+	parentsSelectionType = _parentsSelectionType;
 	newGenerationSelectionType = _newGenerationSelectionType;
 
 	recombinationType = _recombinationType;
@@ -221,7 +226,8 @@ void Genetic::Population <Generation>::init(unsigned int seed, double dnaGenerat
 template <typename Generation>
 void Genetic::Population <Generation>::genNextGeneration()
 {
-	currentGeneration -> genNext(recombinationType,
+	currentGeneration -> genNext(parentsSelectionType,
+	                             recombinationType,
                                  recombinationParameter,
                                  mutationProbability,
                                  mutationAttempts,
