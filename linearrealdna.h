@@ -50,10 +50,12 @@ void Genetic::LinearRealDna::generate(double dnaSize)
 double Genetic::LinearRealDna::getDistance(Genetic::BaseLinearDna <double>* other)
 {
 	double distance = 0.0;
-	// for(int i = 0; i < dna.size(); ++i)
-	// {
-	// 	distance += (dna[i] - other -> dna[i]) * (dna[i] - other -> dna[i]);
-	// }
+	double delta;
+	for(int i = 0; i < dna.size(); ++i)
+	{
+		delta = (dna[i] - dynamic_cast<LinearRealDna*>(other) -> dna[i]);
+		distance += delta * delta;
+	}
 	distance = sqrt(distance);
 	return distance;
 }

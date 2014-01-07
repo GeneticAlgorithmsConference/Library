@@ -37,10 +37,10 @@ double Genetic::LinearBinaryDna::getDistance(BaseLinearDna <unsigned char>* othe
 	double distance = 0.0;
 	for(int i = 0; i < dna.size(); ++i)
 	{
-		// if(dna[i] != otherDna -> dna[i])
-		// {
-		// 	distance += 1.0;
-		// }
+		if(dna[i] != dynamic_cast<LinearBinaryDna*>(otherDna) -> dna[i])
+		{
+			distance += 1.0;
+		}
 	}
 	return distance;
 }
