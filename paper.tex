@@ -1,6 +1,9 @@
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
+\usepackage{pgf}
+\usepackage{tikz}
+\usepackage{pgf-umlcd}
 \title{\textbf{Генетические алгоритмы}}
 \author{Ильин Андрей\\Павлович Владислав}
 \date{}
@@ -9,5 +12,51 @@
 \maketitle
 
 \section{Введение}
+
+\section{Описание библиотеки}
+\subsection{Общая структура}
+
+Библиотека состоит из четырёх основных компонентов (каждый из них - шаблонный класс), каждй из которых может быть заменён по выбору пользователя. Таким образом разработанная библиотека предоставляет набор модулей, из затем составляется необходимая пользователю утилита.
+
+\begin{tikzpicture}[show background grid]
+  \begin{package}{Genetic}
+    \begin{class}{Population}{3,0}
+      \attribute{\# dna : BaseLinearDna}
+      \operation{+ test ()}
+    \end{class}
+
+    \begin{class}{Generation}{3,-3}
+    \end{class}
+    
+    \begin{class}{Individual}{3,-6}
+    \end{class}
+    
+    \begin{class}{Dna}{3,-9}
+    \end{class}
+    
+    \aggregation{Population}{generation}{1}{Generation}
+    \aggregation{Generation}{individuals}{2..*}{Individual}
+    \composition{Individual}{dna}{1}{Dna}
+  \end{package}
+\end{tikzpicture}
+
+\subsection{Вспомогательные модули}
+\begin{tikzpicture}[show background grid]
+  \begin{package}{Genetic}
+    \begin{abstractclass}[text width=4cm]{Individual}{0,-6}
+      \attribute{\# dna : BaseLinearDna}
+      \operation{+ test ()}
+    \end{abstractclass}
+
+    \begin{class}[text width=6cm]{TestIndividual}{6,-3}
+      \inherit{Individual}
+    \end{class}
+
+    \begin{class}[text width=6cm]{MinSearchIndividual}{6,-6}
+      \inherit{Individual}
+    \end{class}
+  \end{package}
+
+\end{tikzpicture}
 
 \end{document}

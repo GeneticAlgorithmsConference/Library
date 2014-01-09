@@ -14,6 +14,7 @@ structure_auto.xmi
 *.save
 log.txt
 tests.txt
+paper.pdf
 
 # Project files #
 #################
