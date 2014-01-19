@@ -27,6 +27,7 @@ namespace Genetic
 		int getChildrenNum() const;
 		BaseTreeDna <T>* getChild(int id);
 		void setChild(int id, BaseTreeDna <T> *value);
+		double getDistance(const Genetic::BaseTreeDna <T>* dna) const;
 	protected:
 		std::vector < BaseTreeDna <T>* > children;
 		T value;
@@ -131,6 +132,12 @@ template <typename T>
 void Genetic::BaseTreeDna <T>::setChild(int id, BaseTreeDna <T>* value)
 {
 	children[id] = value;
+}
+
+template <typename T>
+double Genetic::BaseTreeDna <T>::getDistance(const Genetic::BaseTreeDna <T>* dna) const
+{
+	return 0.0;
 }
 
 #endif

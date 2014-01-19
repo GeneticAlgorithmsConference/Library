@@ -17,8 +17,8 @@ namespace Genetic
 		void resize(int newSize);
 
 		virtual void mutate(double parameter = 1.0) = 0;
-		virtual void generate(double parameter = 6.0) = 0;
-	    virtual double getDistance(BaseLinearDna <T>* dna) = 0;
+		virtual void generate(int dnaSize) = 0;
+		virtual double getDistance(BaseLinearDna <T>* dna) = 0;
 		virtual void print();
 
 	protected:
@@ -49,11 +49,11 @@ template <typename T>
 void Genetic::BaseLinearDna <T>::print()
 {
 	for(int i = 0; i < dna.size(); ++i)
-    {
-        dnalog.width(10);
-        dnalog << dna[i];
-    }
-    dnalog << '\n';
+	{
+		dnalog.width(10);
+		dnalog << dna[i];
+	}
+	dnalog << '\n';
 }
 
 #endif

@@ -2,6 +2,7 @@
 #define LINEARDOUBLEDNA_H
 
 #include <math.h>
+#include "log.h"
 #include "baselineardna.h"
 
 namespace Genetic
@@ -9,19 +10,20 @@ namespace Genetic
 	class LinearRealDna : public BaseLinearDna<double>
 	{
 	public:
-		void mutate(double parameter);
-		void generate(double dnaSize);
+		void mutate(double param);
+		void generate(int dnaSize);
 		double getDistance(BaseLinearDna <double>* other);
 	};
 
 }
 
-void Genetic::LinearRealDna::mutate(double parameter)
+void Genetic::LinearRealDna::mutate(double param)
 {
+    int attemptsNum = static_cast<int>(param);
     double dlt = 0.0;
-    for(double i = 1.0; i < parameter; ++i)
+    for(int i = 0; i < attemptsNum; ++i)
     {
-        if(static_cast<double>(rand()%10000) / 10000.0 <= 1.0 / parameter)
+        if(static_cast<double>(rand() % 10000) / 10000.0 <= 1.0 / static_cast<double>(attemptsNum))
         {
             dlt += pow(2.0, -i);
         }
@@ -38,7 +40,7 @@ void Genetic::LinearRealDna::mutate(double parameter)
     dna[a] += dlt;
 }
 
-void Genetic::LinearRealDna::generate(double dnaSize)
+void Genetic::LinearRealDna::generate(int dnaSize)
 {
     dna.resize(dnaSize);
     for(int i = 0; i < dna.size(); ++i)

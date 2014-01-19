@@ -199,16 +199,14 @@ public:
     static double getResult(LinearRealDna &arguments)
     {
         double x = arguments[0];
-//        double y = arguments[1];
-//        double z = arguments[2];
-//        return fabs(x * y - y * z + z * x) / (z + x + y);
-        return 2*x*x+8*x-16;
+        double y = arguments[1];
+        return fabs(sin(x) * y + y);
     }
 };
 
 double func(double x)
 {
-	return x * sin(x);
+	return x * x;
 }
 
 void generateFunctionValues()
@@ -243,13 +241,12 @@ int main()
 	// 	test.genNextGeneration();
 	// }
 
-	// Population <Generation <TreeExpressionIndividual> > test;
-	// test.init(time(NULL), 3);
+	Population <Generation <TreeExpressionIndividual> > test(10, ELITE_SELECTION, PANMIXIA);
 
-	Population < Generation < MinSearchIndividual <MyTargetFunction> > > test(100, ELITE_SELECTION, INBREEDING_FENOTYPE);
+// 	Population < Generation < MinSearchIndividual <MyTargetFunction> > > test(10, ELITE_SELECTION, INBREEDING_FENOTYPE);
 	test.initGeneration(time(NULL));
 	
-	for(int i = 0; i < 10000; ++i)
+	for(int i = 0; i < 100; ++i)
 	{
 		dnalog << "Step: " << i << endl;
 		test.genNextGeneration();
