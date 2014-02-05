@@ -250,7 +250,7 @@ int main()
 		test(10, TRUNCATION_SELECTION, INBREEDING_FENOTYPE);
 	test.initGeneration(time(NULL));
 	
-	for(int i = 0; i < 10000; ++i)
+	for(int i = 0; i < 100; ++i)
 	{
 		dnalog << "Step: " << i << endl;
 		test.genNextGeneration();
