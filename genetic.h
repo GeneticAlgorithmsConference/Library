@@ -1,6 +1,8 @@
 #ifndef GENETIC_H
 #define GENETIC_H
 
+#include "parents_selection/panmixia.h"
+
 namespace Genetic
 {
     enum RecombinationType

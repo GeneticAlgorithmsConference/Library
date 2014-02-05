@@ -112,6 +112,10 @@ namespace Genetic {
 		/// Sence of this parameter depends on a used DNA type (DNA`s mutation type).
 		double mutationParameter;
 
+		/// @brief
+		/// A parameter for truncation individuals selection type.
+		double truncationParameter;
+
         /// @}
 
 	public:
@@ -204,6 +208,8 @@ Genetic::Population <Generation>::Population(int _generationSize, NewGenerationS
 	parentsSelectionType = _parentsSelectionType;
 	newGenerationSelectionType = _newGenerationSelectionType;
 
+	truncationParameter = 0.5;
+
 	// recombinationType = _recombinationType;
 	// recombinationParameter = _recombinationParameter;
 
@@ -233,7 +239,7 @@ void Genetic::Population <Generation>::initGeneration(unsigned int seed)
 template <typename Generation>
 void Genetic::Population <Generation>::genNextGeneration()
 {
-	currentGeneration -> genNext(parentsSelectionType);
+	currentGeneration -> genNext(parentsSelectionType, newGenerationSelectionType, truncationParameter);
 }
 
 template <typename Generation>

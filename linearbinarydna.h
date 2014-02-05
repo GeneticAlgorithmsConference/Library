@@ -10,7 +10,7 @@ namespace Genetic
 	{
 	public:
 		void mutate(double parameter = 0.0) override;
-		void generate(double dnaSize) override;
+		void generate(int dnaSize) override;
 		double getDistance(BaseLinearDna <unsigned char>* dna) override;
 		void print();
 	};
@@ -23,13 +23,13 @@ void Genetic::LinearBinaryDna::mutate(double parameter)
 	dna[randomId] = 1 - dna[randomId];
 }
 
-void Genetic::LinearBinaryDna::generate(double dnaSize)
+void Genetic::LinearBinaryDna::generate(int dnaSize)
 {
 	dna.resize(dnaSize);
-    for(int i = 0; i < dna.size(); ++i)
-    {
-        dna[i] = rand() & 1;
-    }
+	for(int i = 0; i < dna.size(); ++i)
+	{
+		dna[i] = rand() & 1;
+	}
 }
 
 double Genetic::LinearBinaryDna::getDistance(BaseLinearDna <unsigned char>* otherDna)

@@ -24,7 +24,7 @@ namespace Genetic {
  * This class implements a single generation.
  */
 
-	template <typename Individual>
+	template <typename Individual, typename ParentsSelection>
 	class Generation
 	{
 	public:
@@ -42,7 +42,9 @@ namespace Genetic {
 		 */
 		virtual void test();
 
-		void genNext(ParentsSelectionType parentSelectionType);
+		void genNext(ParentsSelectionType parentSelectionType,
+		             NewGenerationSelectionType newGenerationSelectionType,
+		             double truncationParameter);
 
 		/**
 		 * @param  parameter for dna generator
@@ -50,6 +52,8 @@ namespace Genetic {
 		void init();
 
 	protected:
+
+		ParentsSelection parentsSelection;
 
 		std::vector <Individual*> individuals;
 		int individualsNum;
@@ -82,15 +86,15 @@ namespace Genetic {
 	};
 }; // end of package namespace
 
-template <typename Individual>
-Genetic::Generation <Individual>::Generation(int _individualsNum)
+template <typename Individual, typename ParentsSelection>
+Genetic::Generation <Individual, ParentsSelection>::Generation(int _individualsNum)
 {
 	individualsNum = _individualsNum;
 	assert(individualsNum % 2 == 0);
 }
 
-template <typename Individual>
-Genetic::Generation <Individual>::~Generation()
+template <typename Individual, typename ParentsSelection>
+Genetic::Generation <Individual, ParentsSelection>::~Generation()
 {
 	for(int i = 0; i < individuals.size(); ++i)
 	{
@@ -99,59 +103,24 @@ Genetic::Generation <Individual>::~Generation()
 	individuals.clear();
 }
 
-template <typename Individual>
-void Genetic::Generation <Individual>::test()
+template <typename Individual, typename ParentsSelection>
+void Genetic::Generation <Individual, ParentsSelection>::test()
 {
 }
 
-template <typename Individual>
-void Genetic::Generation <Individual>::genNext(ParentsSelectionType parentsSelectionType)
+template <typename Individual, typename ParentsSelection>
+void Genetic::Generation <Individual, ParentsSelection>::genNext(ParentsSelectionType parentsSelectionType,
+                                                                 NewGenerationSelectionType newGenerationSelectionType,
+                                                                 double truncationParameter)
 {
 	std::vector <Individual*> nextIndividuals(individualsNum);
 	for(int i = 0; i < individualsNum; ++i)
 	{
 		nextIndividuals[i] = new Individual(false);
 	}
+	parentsSelection.process(individuals, nextIndividuals);
 	switch(parentsSelectionType)
 	{
-	case PANMIXIA:
-	{
-		// Recombination
-		int firstParent, secondParent;
-		for(int i = 0; i < individualsNum / 2; ++i)
-		{
-			firstParent = rand() % individualsNum;
-			secondParent = rand() % (individualsNum - 1);
-			if(secondParent >= firstParent)
-			{
-				++secondParent;
-			}
-
-//		 dnalog << "Before:" << endl;;
-//		 individuals[firstParent] -> getDna() -> print();
-//		 dnalog << endl;
-//		 individuals[secondParent] -> getDna() -> print();
-//		 dnalog << endl;
-//		 nextIndividuals[i * 2] -> getDna() -> print();
-//		 dnalog << endl;
-//		 nextIndividuals[i * 2 + 1] -> getDna() -> print();
-//		 dnalog << endl;
-
-			Individual::recombine(individuals[firstParent], individuals[secondParent],
-			                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1]);
-
-//		 dnalog << "After:" << endl;
-//		 individuals[firstParent] -> getDna() -> print();
-//		 dnalog << endl;
-//		 individuals[secondParent] -> getDna() -> print();
-//		 dnalog << endl;
-//		 nextIndividuals[i * 2] -> getDna() -> print();
-//		 dnalog << endl;
-//		 nextIndividuals[i * 2 + 1] -> getDna() -> print();
-//		 dnalog << endl;
-		}
-		break;
-	}
 	case INBREEDING_FENOTYPE:
 	{
 		int firstParent, secondParent;
@@ -273,19 +242,48 @@ void Genetic::Generation <Individual>::genNext(ParentsSelectionType parentsSelec
 
 	individuals.clear();
 	sort(nextIndividuals.begin(), nextIndividuals.end(), individualComparator<Individual>);
+	// Selection individuals for new generation.
+	switch(newGenerationSelectionType)
+	{
+	case TRUNCATION_SELECTION:
+	{
+		int possibleIndividualsNum = individualsNum * truncationParameter;
+		std::vector <bool> used(nextIndividuals.size(), false);
+		assert(possibleIndividualsNum != 0);
+		for(int i = 0; i < individualsNum; ++i)
+		{
+			int currentId = rand() % possibleIndividualsNum;
+			used[currentId] = true;
+			Individual* tmp = new Individual(false);
+			*tmp = *nextIndividuals[currentId];
+			individuals.push_back(tmp);
+		}
+		for(int i = 0; i < nextIndividuals.size(); ++i)
+		{
+			delete nextIndividuals[i];
+		}
+		break;
+	}
+	case ELITE_SELECTION:
+	{
+		for(int i = 0; i < individualsNum; ++i)
+		{
+			individuals.push_back(nextIndividuals[i]);
+			delete nextIndividuals[individualsNum + i];
+		}
+		break;
+	}
+	default:
+		break;
+	}
 	dnalog << "Best: ";
 	nextIndividuals[0] -> getDna() -> print();
 	dnalog << " with score " << nextIndividuals[0] -> getScore() << std::endl;
-	for(int i = 0; i < individualsNum; ++i)
-	{
-		individuals.push_back(nextIndividuals[i]);
-		delete nextIndividuals[individualsNum + i];
-	}
 	nextIndividuals.clear();
 }
 
-template <typename Individual>
-void Genetic::Generation <Individual>::init()
+template <typename Individual, typename ParentsSelection>
+void Genetic::Generation <Individual, ParentsSelection>::init()
 {
 	Individual* tmpIndividual;
 
@@ -297,26 +295,26 @@ void Genetic::Generation <Individual>::init()
 	}
 }
 
-template <typename Individual>
-void Genetic::Generation <Individual>::setIndividuals(const std::vector <Individual*>& value)
+template <typename Individual, typename ParentsSelection>
+void Genetic::Generation <Individual, ParentsSelection>::setIndividuals(const std::vector <Individual*>& value)
 {
 	individuals = value;
 }
 
-template <typename Individual>
-std::vector <Individual*>& Genetic::Generation <Individual>::getIndividuals()
+template <typename Individual, typename ParentsSelection>
+std::vector <Individual*>& Genetic::Generation <Individual, ParentsSelection>::getIndividuals()
 {
 	return individuals;
 }
 
-template <typename Individual>
-void Genetic::Generation <Individual>::setIndividualsNum(int value)
+template <typename Individual, typename ParentsSelection>
+void Genetic::Generation <Individual, ParentsSelection>::setIndividualsNum(int value)
 {
 	individualsNum = value;
 }
 
-template <typename Individual>
-int Genetic::Generation <Individual>::getIndividualsNum()
+template <typename Individual, typename ParentsSelection>
+int Genetic::Generation <Individual, ParentsSelection>::getIndividualsNum()
 {
 	return individualsNum;
 }

@@ -119,31 +119,47 @@ void Genetic::TreeExpressionDna::generate(int currentDepth)
 void Genetic::TreeExpressionDna::print() const
 {
 	static const char* s[] = {
-		"abs",
-		"sin",
-		"cos",
-		"tan",
-		"ctg",
+		"\\abs",
+		"\\sin",
+		"\\cos",
+		"\\tan",
+		"\\ctg",
 		"+",
 		"-",
-		"*",
+		"\\times",
 		"/",
 		"^",
 		"x"
 	};
 	if(value <= 10)
 	{
-		dnalog << s[value];
-		if(children.size() > 0)
+		if((value <= 4) || (value == 10))
 		{
-			dnalog << " ( ";
-			for(int i = 0; i < static_cast<int>(children.size()) - 1; ++i)
+			dnalog << s[value];
+			if(children.size() > 0)
 			{
-				dynamic_cast<TreeExpressionDna*>(children[i]) -> print();
-				dnalog << ", ";
+				dnalog << " { ";
+				for(int i = 0; i < static_cast<int>(children.size()) - 1; ++i)
+				{
+					dynamic_cast<TreeExpressionDna*>(children[i]) -> print();
+					dnalog << ", ";
+				}
+				dynamic_cast<TreeExpressionDna*>(children[children.size() - 1]) -> print();
+				dnalog << " }";
 			}
-			dynamic_cast<TreeExpressionDna*>(children[children.size() - 1]) -> print();
-			dnalog << " )";
+		} else if(value == 8)
+		{
+			dnalog << "\\frac{";
+			dynamic_cast<TreeExpressionDna*>(children[0]) -> print();
+			dnalog << "}{";
+			dynamic_cast<TreeExpressionDna*>(children[1]) -> print();
+			dnalog << "}";
+		} else {
+			dnalog << "({";
+			dynamic_cast<TreeExpressionDna*>(children[0]) -> print();
+			dnalog << "} " << s[value] << " {";
+			dynamic_cast<TreeExpressionDna*>(children[1]) -> print();
+			dnalog << "})";
 		}
 	} else {
 		dnalog << value;
@@ -186,23 +202,23 @@ double Genetic::TreeExpressionDna::getValue(double x) const
 			break;
 		case 5:
 			return (dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x) + 
-			        dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x));
+			        dynamic_cast<TreeExpressionDna*>(children[1]) -> getValue(x));
 			break;
 		case 6:
 			return (dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x) - 
-			        dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x));
+			        dynamic_cast<TreeExpressionDna*>(children[1]) -> getValue(x));
 			break;
 		case 7:
 			return (dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x) * 
-			        dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x));
+			        dynamic_cast<TreeExpressionDna*>(children[1]) -> getValue(x));
 			break;
 		case 8:
 			return (dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x) / 
-			        dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x));
+			        dynamic_cast<TreeExpressionDna*>(children[1]) -> getValue(x));
 			break;
 		case 9:
 			return pow(dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x),
-			        dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x));
+			        dynamic_cast<TreeExpressionDna*>(children[1]) -> getValue(x));
 			break;
 		case 10:
 			return x;

@@ -14,6 +14,8 @@
 #include "treeexpressionindividual.h"
 #include "minsearchindividual.h"
 
+#include "genetic.h"
+
 using namespace std;
 using namespace Genetic;
 
@@ -199,27 +201,25 @@ public:
     static double getResult(LinearRealDna &arguments)
     {
         double x = arguments[0];
-//        double y = arguments[1];
-//        double z = arguments[2];
-//        return fabs(x * y - y * z + z * x) / (z + x + y);
-        return 2*x*x+8*x-16;
+        double y = arguments[1];
+        return fabs(3.0 * x * x * x - 6.0 * x * x + 12.0 * x - 24.0);
     }
 };
 
 double func(double x)
 {
-	return x * sin(x);
+	return x * tan(cos(x));
 }
 
 void generateFunctionValues()
 {
 	ofstream out("tests.txt");
-	int testsNumber = 1000;
+	int testsNumber = 10;
 	out << testsNumber << endl;
 	for(int i = 0; i < testsNumber; ++i)
 	{
-		double current = static_cast<double>(rand() % 10000) / 100.0;
-		out << current << " " << func(current) << endl;
+		double current = static_cast<double>(rand() % 10000 - 5000) / 100.0;
+		out << setprecision(8) << fixed << current << " " << func(current) << endl;
 	}
 }
 
@@ -243,10 +243,11 @@ int main()
 	// 	test.genNextGeneration();
 	// }
 
-	// Population <Generation <TreeExpressionIndividual> > test;
-	// test.init(time(NULL), 3);
+//	Population <Generation <TreeExpressionIndividual> > test(10, ELITE_SELECTION, PANMIXIA);
 
-	Population < Generation < MinSearchIndividual <MyTargetFunction> > > test(100, ELITE_SELECTION, INBREEDING_FENOTYPE);
+	Population < Generation < MinSearchIndividual <MyTargetFunction>,
+	                          Genetic::ParentsSelection::Panmixia <MinSearchIndividual <MyTargetFunction> > > >
+		test(10, TRUNCATION_SELECTION, INBREEDING_FENOTYPE);
 	test.initGeneration(time(NULL));
 	
 	for(int i = 0; i < 10000; ++i)

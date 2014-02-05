@@ -1,8 +1,7 @@
 #ifndef MINSEARCHINDIVIDUAL_H
 #define MINSEARCHINDIVIDUAL_H
 
-#include <iostream>
-
+#include "log.h"
 #include "individual.h"
 #include "dnatypes.h"
 
@@ -12,7 +11,7 @@ namespace Genetic
 	class MinSearchIndividual : public Genetic::Individual <LinearRealDna>
 	{
 	public:
-		MinSearchIndividual(bool generateDna = false, double dnaGenerateParameter = 2.0);
+		MinSearchIndividual(bool generateDna = false);
 		static void recombine(Genetic::Individual <LinearRealDna>* parentIndividual1,
 		                      Genetic::Individual <LinearRealDna>* parentIndividual2,
 		                      Genetic::Individual <LinearRealDna>* childIndividual1,
@@ -23,11 +22,13 @@ namespace Genetic
 }
 
 template <class F>
-Genetic::MinSearchIndividual <F>::MinSearchIndividual(bool generateDna, double dnaGenerateParameter)
+Genetic::MinSearchIndividual <F>::MinSearchIndividual(bool generateDna)
 {
 	if(generateDna)
 	{
-		dna.generate(dnaGenerateParameter);
+		dna.generate(2);
+	} else {
+		dna.resize(2);
 	}
 }
 
