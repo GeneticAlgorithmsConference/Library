@@ -245,8 +245,7 @@ int main()
 
 //	Population <Generation <TreeExpressionIndividual> > test(10, ELITE_SELECTION, PANMIXIA);
 
-	Population < Generation < MinSearchIndividual <MyTargetFunction>,
-	                          Genetic::ParentsSelection::Panmixia <MinSearchIndividual <MyTargetFunction> > > >
+	Population < Generation < MinSearchIndividual <MyTargetFunction> > >
 		test(10, TRUNCATION_SELECTION, INBREEDING_FENOTYPE);
 	test.initGeneration(time(NULL));
 	
