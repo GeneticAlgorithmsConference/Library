@@ -1,0 +1,22 @@
+=====================
+==                  Hot keys                ==
+=====================
+
+Zoom in : +
+Zoom out : -
+Follow Mode : C
+
+Main menu : ESC
+
+Kill current car : F3
+Restart game : F5 
+
+Quick save : Ctrl+S
+Quick load : Ctrl+L
+
+Screenshot : F12
+Pause: P
+
+Manual engnine control : Space
+
+=====================
