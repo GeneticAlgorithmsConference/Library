@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Genetic-Algorithms" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../Output/bin/Debug/Genetic-Algorithms" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../WorkingDirectory" />
+				<Option object_output="../../Output/obj/Debug" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+					<Add directory="../../Sources" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../../Output/bin/Release/Genetic-Algorithms" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../WorkingDirectory" />
+				<Option object_output="../../Output/obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="../../Sources" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-std=c++11" />
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="../../Sources/baselineardna.h" />
+		<Unit filename="../../Sources/basetreedna.h" />
+		<Unit filename="../../Sources/dnatypes.h" />
+		<Unit filename="../../Sources/generation.h" />
+		<Unit filename="../../Sources/genetic.h" />
+		<Unit filename="../../Sources/individual.h" />
+		<Unit filename="../../Sources/linearbinarydna.h" />
+		<Unit filename="../../Sources/linearrealdna.h" />
+		<Unit filename="../../Sources/log.h" />
+		<Unit filename="../../Sources/minsearchindividual.h" />
+		<Unit filename="../../Sources/population.h" />
+		<Unit filename="../../Sources/testindividual.h" />
+		<Unit filename="../../Sources/treeexpressiondna.h" />
+		<Unit filename="../../Sources/treeexpressionindividual.h" />
+		<Unit filename="../../Sources/treeindividual.h" />
+		<Unit filename="../../Sources/treeintegerdna.h" />
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

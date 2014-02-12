@@ -281,17 +281,6 @@ void Genetic::Individual <D>::mutate(double probability, int attempts, double pa
 		if(rndVal <= probability)
 		{
 		    dna.mutate(parameter);
-//			case SWAP_MUTATION:
-//			{
-//				int a = rand() % (dna.size());
-//				int b = rand() % (dna.size() - 1);
-//				if(b >= a)
-//				{
-//					++b;
-//				}
-//				std::swap(dna[a], dna[b]);
-//				break;
-//			}
 		}
 	}
 }

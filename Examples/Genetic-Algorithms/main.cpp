@@ -246,9 +246,9 @@ int main()
 //	Population <Generation <TreeExpressionIndividual> > test(10, ELITE_SELECTION, PANMIXIA);
 
 	Population < Generation < MinSearchIndividual <MyTargetFunction> > >
-		test(10, TRUNCATION_SELECTION, INBREEDING_FENOTYPE);
+		test(1000, TRUNCATION_SELECTION, INBREEDING_FENOTYPE);
 	test.initGeneration(time(NULL));
-	
+
 	for(int i = 0; i < 100; ++i)
 	{
 		dnalog << "Step: " << i << endl;

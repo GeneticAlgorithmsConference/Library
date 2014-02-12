@@ -271,9 +271,6 @@ void Genetic::Generation <Individual>::genNext(ParentsSelectionType parentsSelec
 			Individual* tmp = new Individual(false);
 			*tmp = *nextIndividuals[currentId];
 			individuals.push_back(tmp);
-		}
-		for(int i = 0; i < nextIndividuals.size(); ++i)
-		{
 			delete nextIndividuals[i];
 		}
 		break;
