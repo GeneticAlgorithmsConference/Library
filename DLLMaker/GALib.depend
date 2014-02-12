@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1353751062 source:d:\programming\github\library\sources\main.cpp
+	"main.h"
+
+1353751062 d:\programming\github\library\sources\main.h
+	<windows.h>
+
+1353751062 source:d:\programming\github\library\dllmaker\main.cpp
+	"main.h"
+
+1353751062 d:\programming\github\library\dllmaker\main.h
+	<windows.h>
+
