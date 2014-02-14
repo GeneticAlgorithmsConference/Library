@@ -43,8 +43,10 @@
 		<Unit filename="../../Sources/dnatypes.h" />
 		<Unit filename="../../Sources/generation.h" />
 		<Unit filename="../../Sources/genetic.h" />
+		<Unit filename="../../Sources/geneticSettings.h" />
 		<Unit filename="../../Sources/individual.h" />
 		<Unit filename="../../Sources/linearbinarydna.h" />
+		<Unit filename="../../Sources/linearindividual.h" />
 		<Unit filename="../../Sources/linearrealdna.h" />
 		<Unit filename="../../Sources/log.h" />
 		<Unit filename="../../Sources/minsearchindividual.h" />
@@ -55,6 +57,7 @@
 		<Unit filename="../../Sources/treeindividual.h" />
 		<Unit filename="../../Sources/treeintegerdna.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="main_old.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

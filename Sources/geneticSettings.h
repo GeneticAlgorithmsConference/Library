@@ -1,6 +1,5 @@
-
-#ifndef POPULATION_H
-#define POPULATION_H
+#ifndef GENETICSETTINGS_H_INCLUDED
+#define GENETICSETTINGS_H_INCLUDED
 
 #include <string>
 #include <vector>
@@ -11,12 +10,12 @@ namespace Genetic {
 
 
 /**
- * @class Population
- * @brief Class 'Population' contains all gentic settings and a pointer to the current Generation.
+ * @class GeneticSettings
+ * @brief Class 'GeneticSettings' contains all gentic settings used by evolution prcess.
  */
 
-	template <typename Generation>
-	class Population
+
+	class GeneticSettings
 	{
 	public:
 
@@ -27,58 +26,17 @@ namespace Genetic {
 		 * Constructor. If no arguments are given, all genetic settings will be set to their defaults.
 		 * The meaning of all parameters can be easily found in description of class attributes
 		 */
-		Population(int _generationSize = 10, NewGenerationSelectionType _newGenerationSelectionType = ELITE_SELECTION,
+		GeneticSettings(int _generationSize = 10, NewGenerationSelectionType _newGenerationSelectionType = ELITE_SELECTION,
              ParentsSelectionType _parentsSelectionType = PANMIXIA, RecombinationType _recombinationType = CROSSOVER);
 
-		///@brief Destructor. Deletes current generation.
-		~Population();
+		///@brief Destructor.
+		~GeneticSettings();
 
         /// @}
-        /// @name Working with generation
-        /// @{
 
-		/**@brief
-         * Initialize a new generation. This method kills all individuals in current generation (if they exist) and
-         * generates new ones.
-		 * @param seed Seed which is used for random initialization.
-		 * @param dnaGenerateParameter An argument which will be transmitted to the DNA generator
-		 */
-		void initGeneration(unsigned int seed);
+    protected:
 
-		/**@brief
-		 * Generates next generation by calling genNext method for current genertion
-		 * with genetic settings that where set for the instance of this class.
-		 */
-		void genNextGeneration();
-
-        /**@brief
-		 * Set the value of currentGeneration
-		 * @param value the new value of currentGeneration
-		 */
-		void setCurrentGeneration(Generation* value);
-
-		/**@brief
-		 * Get the value of currentGeneration
-		 * @return the value of currentGeneration
-		 */
-		Generation* getCurrentGeneration();
-        /// @}
-
-	protected:
-
-        /// @name Generation
-        /// @{
-
-        /// @brief
-        /// A pointer on the current generation
-		Generation* currentGeneration;
-
-        /// @brief
-        /// A number of individuals in each generation
-		int generationSize;
-
-        /// @}
-        /// @name Genetic settings
+        /// @name New generation selection settings
         /// @{
 
         /// @brief
@@ -90,9 +48,13 @@ namespace Genetic {
 		/// Sence of this parameter depends on a used new generation selection type.
 		double newGenerationSelectionParameter;
 
+        /// @}
+        /// @name Recombination settings
+        /// @{
+
         /// @brief
         /// Type of parents selection that will be used
-		RecombinationType parentsSelectionType;
+		ParentsSelectionType parentsSelectionType;
 
         /// @brief
         /// Type of recombination that will be used
@@ -102,6 +64,10 @@ namespace Genetic {
 		/// A parameter which will be transmitted to the 'recombine' method.
 		/// Sence of this parameter depends on a selected recombination method.
 		double recombinationParameter;
+
+        /// @}
+        /// @name Mutation settings
+        /// @{
 
         /// @brief
         /// Type of recombination that will be used in generating a new generation
@@ -118,7 +84,6 @@ namespace Genetic {
 		/// A parameter which will be transmitted to the 'mutate' method.
 		/// Sence of this parameter depends on a used DNA type (DNA`s mutation type).
 		double mutationParameter;
-
 
         /// @}
 
@@ -200,163 +165,130 @@ namespace Genetic {
 		int getMutationAttempts();
 
 		/**@brief
-		 * Set the value of selectionParameter
-		 * @param value the new value of selectionParameter
+		 * Set the value of newGenerationSelectionParameter
+		 * @param value the new value of newGenerationSelectionParameter
 		 */
-		void setSelectionParameter(double value);
+		void setGenerationSelectionParameter(double value);
 
 		/**@brief
-		 * Get the value of selectionParameter
-		 * @return the value of selectionParameter
+		 * Get the value of newGenerationSelectionParameter
+		 * @return the value of newGenerationSelectionParameter
 		 */
-		double getSelectionParameter();
+		double getGenerationSelectionParameter();
+
+		/**@brief
+		 * Set the value of parentsSelectionType
+		 * @param value the new value of parentsSelectionType
+		 */
+		void setParentsSelectionType(ParentsSelectionType value);
+
+		/**@brief
+		 * Get the value of parentsSelectionType
+		 * @return the value of parentsSelectionType
+		 */
+		ParentsSelectionType getParentsSelectionType();
 
         /// @}
 	};
 };
 
-
-
-template <typename Generation>
-Genetic::Population <Generation>::Population(int _generationSize, NewGenerationSelectionType _newGenerationSelectionType,
+Genetic::GeneticSettings::GeneticSettings(int _generationSize, NewGenerationSelectionType _newGenerationSelectionType,
                                              ParentsSelectionType _parentsSelectionType, RecombinationType _recombinationType)
 {
-    currentGeneration = nullptr;
-    generationSize = _generationSize;
     parentsSelectionType = _parentsSelectionType;
     newGenerationSelectionType = _newGenerationSelectionType;
     recombinationType = _recombinationType;
 
-    selectionParameter = 1.0;
+    newGenerationSelectionParameter = 1.0;
     recombinationParameter = 1.0;
     mutationProbability = 0.25;
     mutationParameter = 1.0;
     mutationAttempts = 1;
 }
 
-template <typename Generation>
-Genetic::Population <Generation>::~Population()
+Genetic::GeneticSettings::~GeneticSettings()
 {
-	delete currentGeneration;
+
 }
 
-template <typename Generation>
-void Genetic::Population <Generation>::initGeneration(unsigned int seed)
-{
-	srand(seed);
-	if(currentGeneration != nullptr)
-	{
-		delete currentGeneration;
-	}
-	currentGeneration = new Generation(generationSize);
-	currentGeneration -> init();
-}
-
-template <typename Generation>
-void Genetic::Population <Generation>::genNextGeneration()
-{
-	currentGeneration -> genNext(newGenerationSelectionType, parentsSelectionType, recombinationType,
-                              );
-}
-
-
-
-
-
-template <typename Generation>
-void Genetic::Population <Generation>::setCurrentGeneration(Generation* value)
-{
-	currentGeneration = value;
-}
-
-template <typename Generation>
-Generation* Genetic::Population <Generation>::getCurrentGeneration()
-{
-	return currentGeneration;
-}
-
-template <typename Generation>
-void Genetic::Population <Generation>::setMutationProbability(double value)
+void Genetic::GeneticSettings::setMutationProbability(double value)
 {
 	mutationProbability = value;
 }
 
-template <typename Generation>
-double Genetic::Population <Generation>::getMutationProbability()
+double Genetic::GeneticSettings::getMutationProbability()
 {
 	return mutationProbability;
 }
 
-template <typename Generation>
-void Genetic::Population <Generation>::setMutationAttempts(int value)
+void Genetic::GeneticSettings::setMutationAttempts(int value)
 {
 	mutationAttempts = value;
 }
 
-template <typename Generation>
-int Genetic::Population <Generation>::getMutationAttempts()
+int Genetic::GeneticSettings::getMutationAttempts()
 {
 	return mutationAttempts;
 }
 
-template <typename Generation>
-void Genetic::Population <Generation>::setMutationParameter(double value)
+void Genetic::GeneticSettings::setMutationParameter(double value)
 {
 	mutationParameter = value;
 }
 
-template <typename Generation>
-double Genetic::Population <Generation>::getMutationParameter()
+double Genetic::GeneticSettings::getMutationParameter()
 {
 	return mutationParameter;
 }
 
-template <typename Generation>
-void Genetic::Population <Generation>::setNewGenerationSelectionType( Genetic::NewGenerationSelectionType value)
+void Genetic::GeneticSettings::setNewGenerationSelectionType( Genetic::NewGenerationSelectionType value)
 {
 	newGenerationSelectionType = value;
 }
 
-template <typename Generation>
- Genetic::NewGenerationSelectionType Genetic::Population <Generation>::getNewGenerationSelectionType()
+Genetic::NewGenerationSelectionType Genetic::GeneticSettings::getNewGenerationSelectionType()
 {
 	return newGenerationSelectionType;
 }
 
-template <typename Generation>
-void Genetic::Population <Generation>::setRecombinationType( Genetic::RecombinationType value)
+void Genetic::GeneticSettings::setRecombinationType( Genetic::RecombinationType value)
 {
 	recombinationType = value;
 }
 
-template <typename Generation>
-Genetic::RecombinationType Genetic::Population <Generation>::getRecombinationType()
+Genetic::RecombinationType Genetic::GeneticSettings::getRecombinationType()
 {
 	return recombinationType;
 }
 
-template <typename Generation>
-void Genetic::Population <Generation>::setRecombinationParameter(double value)
+void Genetic::GeneticSettings::setRecombinationParameter(double value)
 {
 	recombinationParameter = value;
 }
 
-template <typename Generation>
-double Genetic::Population <Generation>::getRecombinationParameter()
+double Genetic::GeneticSettings::getRecombinationParameter()
 {
 	return recombinationParameter;
 }
 
-template <typename Generation>
-void Genetic::Population <Generation>::setSelectionParameter(double value)
+void Genetic::GeneticSettings::setGenerationSelectionParameter(double value)
 {
-	SelectionParameter = value;
+	newGenerationSelectionParameter = value;
 }
 
-template <typename Generation>
-double Genetic::Population <Generation>::getSelectionParameter()
+double Genetic::GeneticSettings::getGenerationSelectionParameter()
 {
-	return SelectionParameter;
+	return newGenerationSelectionParameter;
 }
 
-#endif // POPULATION_H
+void Genetic::GeneticSettings::setParentsSelectionType(ParentsSelectionType value)
+{
+	parentsSelectionType = value;
+}
+
+Genetic::ParentsSelectionType Genetic::GeneticSettings::getParentsSelectionType()
+{
+	return parentsSelectionType;
+}
+
+#endif // GENETICSETTINGS_H_INCLUDED
