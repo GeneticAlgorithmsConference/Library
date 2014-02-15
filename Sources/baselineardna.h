@@ -4,22 +4,20 @@
 #include <vector>
 
 #include "log.h"
+#include "dna.h"
 
 namespace Genetic
 {
 
 	template <typename T>
-	class BaseLinearDna
+	class BaseLinearDna: public Genetic::Dna
 	{
 	public:
 		T& operator[](int id);
 		int size() const;
 		void resize(int newSize);
 
-		virtual void mutate(double parameter = 1.0) = 0;
-		virtual void generate(int dnaSize) = 0;
-		virtual double getDistance(BaseLinearDna <T>* dna) = 0;
-		virtual void print();
+		void print();
 
 	protected:
 		std::vector <T> dna;

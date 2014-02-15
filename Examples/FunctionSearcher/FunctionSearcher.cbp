@@ -2,13 +2,13 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="Genetic-Algorithms" />
+		<Option title="FunctionSearcher" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
 				<Option output="../../Output/bin/Debug/Genetic-Algorithms" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../../WorkingDirectory" />
+				<Option working_dir="../../WorkingDir" />
 				<Option object_output="../../Output/obj/Debug" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -40,6 +40,7 @@
 		</Compiler>
 		<Unit filename="../../Sources/baselineardna.h" />
 		<Unit filename="../../Sources/basetreedna.h" />
+		<Unit filename="../../Sources/dna.h" />
 		<Unit filename="../../Sources/dnatypes.h" />
 		<Unit filename="../../Sources/generation.h" />
 		<Unit filename="../../Sources/genetic.h" />
@@ -54,6 +55,7 @@
 		<Unit filename="../../Sources/testindividual.h" />
 		<Unit filename="../../Sources/treeexpressiondna.h" />
 		<Unit filename="../../Sources/treeexpressionindividual.h" />
+		<Unit filename="../../Sources/treeexpressiontexdna.h" />
 		<Unit filename="../../Sources/treeindividual.h" />
 		<Unit filename="../../Sources/treeintegerdna.h" />
 		<Unit filename="main.cpp" />

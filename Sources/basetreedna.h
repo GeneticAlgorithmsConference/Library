@@ -3,23 +3,29 @@
 
 #include <vector>
 
+#include "dna.h"
+
 namespace Genetic
 {
 
 	template <typename T>
-	class BaseTreeDna
+	class BaseTreeDna: public Genetic::Dna
 	{
 	public:
 		BaseTreeDna();
 		~BaseTreeDna();
+
+		double getDistance(Genetic::Dna* dna);
+
+    public:
+
 		// virtual void operator=(BaseTreeDna <T>& dna) = 0;
-		virtual void mutate() = 0;
 
 		static void swapRandomChildren(BaseTreeDna <T>* dna1,
 		                               BaseTreeDna <T>* dna2);
 		static void swapChildren(BaseTreeDna <T>* dna1, int id1,
 		                         BaseTreeDna <T>* dna2, int id2);
-		
+
 		BaseTreeDna <T>* getRandom();
 		BaseTreeDna <T>* getRandom(int& depth);
 		BaseTreeDna <T>* getRandomWithChildren();
@@ -27,10 +33,12 @@ namespace Genetic
 		int getChildrenNum() const;
 		BaseTreeDna <T>* getChild(int id);
 		void setChild(int id, BaseTreeDna <T> *value);
-		double getDistance(const Genetic::BaseTreeDna <T>* dna) const;
+
 	protected:
+
 		std::vector < BaseTreeDna <T>* > children;
 		T value;
+
 	};
 
 }
@@ -47,6 +55,12 @@ Genetic::BaseTreeDna <T>::~BaseTreeDna()
 	{
 		delete children[i];
 	}
+}
+
+template <typename T>
+double Genetic::BaseTreeDna <T>::getDistance(Genetic::Dna* dna)
+{
+	return 0.0;
 }
 
 template <typename T>
@@ -132,12 +146,6 @@ template <typename T>
 void Genetic::BaseTreeDna <T>::setChild(int id, BaseTreeDna <T>* value)
 {
 	children[id] = value;
-}
-
-template <typename T>
-double Genetic::BaseTreeDna <T>::getDistance(const Genetic::BaseTreeDna <T>* dna) const
-{
-	return 0.0;
 }
 
 #endif

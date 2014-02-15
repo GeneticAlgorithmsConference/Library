@@ -2,16 +2,13 @@
 #ifndef TREEINDIVIDUAL_H
 #define TREEINDIVIDUAL_H
 
-#include <string>
+#include <stdlib.h>
 #include <vector>
-#include <cmath>
-#include <cstdlib>
-#include <cassert>
-#include <algorithm>
-#include <iostream>
 
 #include "genetic.h"
-#include "treeexpressiondna.h"
+#include "geneticsettings.h"
+
+#include "individual.h"
 
 namespace Genetic {
 
@@ -22,82 +19,43 @@ namespace Genetic {
  */
 
 	template <typename D, typename S>
-	class TreeIndividual
+	class TreeIndividual: public Individual<D, S>
 	{
 	public:
-		/// Empty Constructor2.
-		TreeIndividual();
 
-		/// Empty Destructor.
-		virtual ~TreeIndividual();
+        void mutate(Genetic::GeneticSettings* geneticSettings);
 
-		virtual void test() = 0;
-
-		/// Recombine method.
 		static void recombine(Genetic::TreeIndividual <D, S>* parentIndividual1,
 		                      Genetic::TreeIndividual <D, S>* parentIndividual2,
 		                      Genetic::TreeIndividual <D, S>* childIndividual1,
-		                      Genetic::TreeIndividual <D, S>* childIndividual2);
-
-		/// Generate method.
-		virtual void generate();
-
-		/// Update parameters from dna.
-		virtual void updateParameters();
-
-		virtual void mutate();
-		
-		/**
-		 * Set the value of score
-		 * @param new_var the new value of score
-		 */
-		void setScore(S value);
-
-		/**
-		 * Get the value of score
-		 * @return the value of score
-		 */
-		S getScore();
-
-		/**
-		 * Set the value of dna
-		 * @param new_var the new value of dna
-		 */
-		void setDna(D* value);
-
-		/**
-		 * Get the value of dna
-		 * @return the value of dna
-		 */
-		const D* getDna() const;
-
-	protected:
-
-		S score;	///< Score value
-		D* dna;
+		                      Genetic::TreeIndividual <D, S>* childIndividual2,
+		                      Genetic::GeneticSettings* geneticSettings);
 	};
 };
 
-/**
- * Detailed description of empty constructor.
- */
 template <typename D, typename S>
-Genetic::TreeIndividual <D, S>::TreeIndividual()
+void Genetic::TreeIndividual <D, S>::mutate(Genetic::GeneticSettings* geneticSettings)
 {
+    double attempts = geneticSettings -> getMutationAttempts();
+    double probability = geneticSettings -> getMutationProbability();
+    double parameter = geneticSettings -> getMutationParameter();
 
-}
-
-template <typename D, typename S>
-Genetic::TreeIndividual <D, S>::~TreeIndividual()
-{
-	delete dna;
+	for(int attemptNo = 0; attemptNo < attempts; ++attemptNo)
+	{
+	    double rndVal = static_cast<double>(rand() % 10000) / 10000.0;
+		if(rndVal <= probability)
+		{
+		    this -> dna -> getRandom() -> mutate(parameter);
+		}
+	}
 }
 
 template <typename D, typename S>
 void Genetic::TreeIndividual <D, S>::recombine(Genetic::TreeIndividual <D, S>* parentIndividual1,
                                                Genetic::TreeIndividual <D, S>* parentIndividual2,
                                                Genetic::TreeIndividual <D, S>* childIndividual1,
-                                               Genetic::TreeIndividual <D, S>* childIndividual2)
+                                               Genetic::TreeIndividual <D, S>* childIndividual2,
+                                               Genetic::GeneticSettings* geneticSettings)
 {
 	D* dna1;
 	D* dna2;
@@ -126,46 +84,6 @@ void Genetic::TreeIndividual <D, S>::recombine(Genetic::TreeIndividual <D, S>* p
 	} else {
 		// Do nothing
 	}
-}
-
-template <typename D, typename S>        
-void Genetic::TreeIndividual <D, S>::mutate()
-{
-	dna -> getRandom() -> mutate();
-}
-
-template <typename D, typename S>
-void Genetic::TreeIndividual <D, S>::generate()
-{
-}
-
-template <typename D, typename S>
-void Genetic::TreeIndividual <D, S>::updateParameters()
-{
-}
-
-template <typename D, typename S>
-void Genetic::TreeIndividual <D, S>::setScore(S value)
-{
-	score = value;
-}
-
-template <typename D, typename S>
-S Genetic::TreeIndividual <D, S>::getScore()
-{
-	return score;
-}
-
-template <typename D, typename S>
-void Genetic::TreeIndividual <D, S>::setDna(D* value)
-{
-	dna = value;
-}
-
-template <typename D, typename S>
-const D* Genetic::TreeIndividual <D, S>::getDna() const
-{
-	return dna;
 }
 
 #endif // TREEINDIVIDUAL_H

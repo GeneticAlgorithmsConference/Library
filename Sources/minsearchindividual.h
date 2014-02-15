@@ -11,11 +11,9 @@
 namespace Genetic
 {
 	template <class F>
-	class MinSearchIndividual : public Genetic::LinearIndividual <LinearRealDna>
+	class MinSearchIndividual : public Genetic::LinearIndividual <LinearRealDna, double>
 	{
 	public:
-
-	    MinSearchIndividual(): LinearIndividual<LinearRealDna>() { };
 		void test();
 	};
 }

@@ -12,6 +12,7 @@
 
 #include "genetic.h"
 #include "geneticsettings.h"
+#include "dna.h"
 
 namespace Genetic {
 
@@ -21,29 +22,28 @@ namespace Genetic {
      *
      */
 
-    template <typename D>
+	template <typename D, typename S>
     class Individual
     {
 	public:
 
-	    Individual() {};
+	    Individual();
+	    ~Individual();
 
+        void generate(double dnaGenerationParameter);
+
+		virtual void mutate(Genetic::GeneticSettings* geneticSettings) = 0;
 		virtual void test() = 0;
-
-		static void recombine(Genetic::Individual <D>* parent_individual1,
-		                      Genetic::Individual <D>* parent_individual2,
-		                      Genetic::Individual <D>* child_individual1,
-		                      Genetic::Individual <D>* child_individual2,
+		static void recombine(Genetic::Individual <D, S>* parent_individual1,
+		                      Genetic::Individual <D, S>* parent_individual2,
+		                      Genetic::Individual <D, S>* child_individual1,
+		                      Genetic::Individual <D, S>* child_individual2,
 		                      Genetic::GeneticSettings* geneticSettings);
-
-        virtual void generate(double dnaGenerationParameter) = 0;
-
-		void mutate(Genetic::GeneticSettings* geneticSettings);
 
 	protected:
 
-		double score;	///< Score value
-		D dna;
+		S score;
+		D* dna;
 
     public:
 
@@ -63,7 +63,7 @@ namespace Genetic {
 		 * Set the value of dna
 		 * @param new_var the new value of dna
 		 */
-		void setDna(D& value);
+		void setDna(D* value);
 
 		/**
 		 * Get the value of dna
@@ -74,45 +74,46 @@ namespace Genetic {
 	};
 };
 
-template <typename D>
-void Genetic::Individual <D>::mutate(Genetic::GeneticSettings* geneticSettings)
+template <typename D, typename S>
+Genetic::Individual <D, S>::Individual()
 {
-    int attempts = geneticSettings -> getMutationAttempts();
-    double probability = geneticSettings -> getMutationProbability();
-    double parameter = geneticSettings -> getMutationParameter();
-
-	for(int attemptNo = 0; attemptNo < attempts; ++attemptNo)
-	{
-	    double rndVal = static_cast<double>(rand() % 10000) / 10000.0;
-		if(rndVal <= probability)
-		{
-		    dna.mutate(parameter);
-		}
-	}
+    dna = new D();
 }
 
-template <typename D>
-void Genetic::Individual <D>::setScore(double value)
+template <typename D, typename S>
+Genetic::Individual <D, S>::~Individual()
+{
+    delete dna;
+}
+
+template <typename D, typename S>
+void Genetic::Individual <D, S>::generate(double dnaGenerationParameter)
+{
+    dna -> generate(dnaGenerationParameter);
+}
+
+template <typename D, typename S>
+void Genetic::Individual <D, S>::setScore(double value)
 {
 	score = value;
 }
 
-template <typename D>
-double Genetic::Individual <D>::getScore()
+template <typename D, typename S>
+double Genetic::Individual <D, S>::getScore()
 {
 	return score;
 }
 
-template <typename D>
-void Genetic::Individual <D>::setDna(D& value)
+template <typename D, typename S>
+void Genetic::Individual <D, S>::setDna(D* value)
 {
 	dna = value;
 }
 
-template <typename D>
-D* Genetic::Individual <D>::getDna()
+template <typename D, typename S>
+D* Genetic::Individual <D, S>::getDna()
 {
-	return &dna;
+	return dna;
 }
 
 #endif // INDIVIDUAL_H

@@ -11,8 +11,8 @@ namespace Genetic
 	{
 	public:
 		void mutate(double param);
-		void generate(int dnaSize);
-		double getDistance(BaseLinearDna <double>* other);
+		void generate(double param);
+		double getDistance(Genetic::Dna* dna);
 	};
 
 }
@@ -40,16 +40,16 @@ void Genetic::LinearRealDna::mutate(double param)
     dna[a] += dlt;
 }
 
-void Genetic::LinearRealDna::generate(int dnaSize)
+void Genetic::LinearRealDna::generate(double param)
 {
-    dna.resize(dnaSize);
+    dna.resize((int)(param + 0.1));
     for(int i = 0; i < dna.size(); ++i)
     {
         dna[i] = ((double)(rand() % 1000000)) / 1000.0;
     }
 }
 
-double Genetic::LinearRealDna::getDistance(Genetic::BaseLinearDna <double>* other)
+double Genetic::LinearRealDna::getDistance(Genetic::Dna* other)
 {
 	double distance = 0.0;
 	double delta;

@@ -2,7 +2,7 @@
 #define TREEEXPRESSIONDNA_H
 
 #include <iostream>
-#include <cmath>
+#include <math.h>
 
 #include "basetreedna.h"
 #include "log.h"
@@ -17,11 +17,14 @@ namespace Genetic
 	public:
 		TreeExpressionDna();
 		TreeExpressionDna(int currentDepth);
+
+		void mutate(double parameter);
+		void generate(double parameter);
+
 		void operator=(TreeExpressionDna& dna);
-		void mutate();
-		void generate(int currentDepth);
-		void print() const;
+		void print();
 		double getValue(double x) const;
+
 	private:
 		int range;
 		static const int maxDepth;
@@ -33,7 +36,7 @@ namespace Genetic
 
 Genetic::TreeExpressionDna::TreeExpressionDna()
 {
-	
+
 }
 
 Genetic::TreeExpressionDna::TreeExpressionDna(int currentDepth)
@@ -47,12 +50,12 @@ void Genetic::TreeExpressionDna::operator=(TreeExpressionDna& dna)
 	children.resize(dna.getChildrenNum());
 	for(int i = 0; i < children.size(); ++i)
 	{
-		children[i] = new TreeExpressionDna;
+		children[i] = new TreeExpressionDna();
 		*(dynamic_cast<TreeExpressionDna*>(children[i])) = *(dynamic_cast<TreeExpressionDna*>(dna.children[i]));
 	}
 }
 
-void Genetic::TreeExpressionDna::mutate()
+void Genetic::TreeExpressionDna::mutate(double parameter)
 {
 	// 0 - abs
 	// 1 - sin
@@ -83,8 +86,9 @@ void Genetic::TreeExpressionDna::mutate()
 	target -> generate(depth);
 }
 
-void Genetic::TreeExpressionDna::generate(int currentDepth)
+void Genetic::TreeExpressionDna::generate(double parameter)
 {
+    int currentDepth = parameter + 0.1;
 	for(int i = 0; i < children.size(); ++i)
 	{
 		delete children[i];
@@ -116,7 +120,7 @@ void Genetic::TreeExpressionDna::generate(int currentDepth)
 	}
 }
 
-void Genetic::TreeExpressionDna::print() const
+void Genetic::TreeExpressionDna::print()
 {
 	static const char* s[] = {
 		"\\abs",
@@ -131,6 +135,7 @@ void Genetic::TreeExpressionDna::print() const
 		"^",
 		"x"
 	};
+
 	if(value <= 10)
 	{
 		if((value <= 4) || (value == 10))
@@ -201,19 +206,19 @@ double Genetic::TreeExpressionDna::getValue(double x) const
 			return 1.0 / tan(dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x));
 			break;
 		case 5:
-			return (dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x) + 
+			return (dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x) +
 			        dynamic_cast<TreeExpressionDna*>(children[1]) -> getValue(x));
 			break;
 		case 6:
-			return (dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x) - 
+			return (dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x) -
 			        dynamic_cast<TreeExpressionDna*>(children[1]) -> getValue(x));
 			break;
 		case 7:
-			return (dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x) * 
+			return (dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x) *
 			        dynamic_cast<TreeExpressionDna*>(children[1]) -> getValue(x));
 			break;
 		case 8:
-			return (dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x) / 
+			return (dynamic_cast<TreeExpressionDna*>(children[0]) -> getValue(x) /
 			        dynamic_cast<TreeExpressionDna*>(children[1]) -> getValue(x));
 			break;
 		case 9:
