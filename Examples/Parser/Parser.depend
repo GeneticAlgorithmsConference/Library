@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1392553478 source:d:\programming\github\library\examples\parser\main.cpp
+	<iostream>
+	<iostream>
+	"parser.h"
+
+1392553931 d:\programming\github\library\examples\parser\parser.h
+	<vector>
+	<stack>
+	<string>
+	<math.h>
+	<stdio.h>
+

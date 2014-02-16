@@ -4,6 +4,7 @@
 #include <vector>
 #include <stack>
 #include <string>
+#include <math.h>
 
 #include <stdio.h>
 
@@ -11,12 +12,12 @@ class Parser
 {
 private:
 
-    int operationToInt(string oper)
+    inline int operationToInt(string oper)
     {
         if(oper == "(")
-            return 1;
+            return -11;
         if(oper == ")")
-            return 2;
+            return -12;
 
         if(oper == "+")
             return 51;
@@ -31,13 +32,27 @@ private:
         if(oper == "^")
             return 81;
 
+        if(oper == "pi")
+            return 801;
+
+        if(oper == "abs")
+            return 901;
+        if(oper == "sin")
+            return 902;
+        if(oper == "cos")
+            return 903;
+        if(oper == "tg")
+            return 904;
+        if(oper == "ctg")
+            return 905;
+
         return -10;
     }
     string intToOperation(int oper)
     {
-        if(oper == 1)
+        if(oper == -11)
             return "(";
-        if(oper == 2)
+        if(oper == -12)
             return ")";
 
         if(oper == 51)
@@ -52,6 +67,20 @@ private:
 
         if(oper == 81)
             return "^";
+
+        if(oper == 801)
+            return "pi";
+
+        if(oper == 901)
+            return "abs";
+        if(oper == 902)
+            return "sin";
+        if(oper == 903)
+            return "cos";
+        if(oper == 904)
+            return "tg";
+        if(oper == 905)
+            return "ctg";
 
         return "{ERROR}";
     }
@@ -72,7 +101,12 @@ private:
                str == "(" ||
                str == ")" ||
                str == "^" ||
-               str == "abs";
+               str == "abs" ||
+               str == "sin" ||
+               str == "cos" ||
+               str == "tg" ||
+               str == "ctg" ||
+               str == "pi";
     }
 
     string inputExpr;
@@ -131,7 +165,7 @@ private:
     vector< pair<int, int> > polishNotation;
     bool formNotation()
     {
-        buffer.push(make_pair(-1, -1));
+        buffer.push(make_pair(-20, -20));
         for(int i = 0; i < parts.size(); ++i)
             if(parts[i].first == 1)
             {
@@ -206,6 +240,56 @@ public:
         printf("\n");
     }
 
+    double calc()
+    {
+        stack<double> tmp;
+        for(int i = 0; i < polishNotation.size(); ++i)
+        {
+            if(polishNotation[i].first == 1)
+            {
+                //Constant
+                tmp.push(polishNotation[i].second);
+            }
+            else if(polishNotation[i].first == 2)
+            {
+                //Getiing constants
+                if(polishNotation[i].second == operationToInt("pi"))
+                    { tmp.push( acos(-1) ); continue; }
+
+                //Unar Function
+                double a = tmp.top(); tmp.pop();
+                if(polishNotation[i].second == operationToInt("abs"))
+                    { tmp.push( fabs(a) ); continue; }
+                if(polishNotation[i].second == operationToInt("sin"))
+                    { tmp.push( sin(a) ); continue; }
+                if(polishNotation[i].second == operationToInt("cos"))
+                    { tmp.push( cos(a) ); continue; }
+                if(polishNotation[i].second == operationToInt("tg"))
+                    { tmp.push( sin(a) / cos(a) ); continue; }
+                if(polishNotation[i].second == operationToInt("ctg"))
+                    { tmp.push( cos(a) / sin(a) ); continue; }
+
+                //Binar Function
+                double b = a;
+                a = tmp.top(); tmp.pop();
+                if(polishNotation[i].second == operationToInt("+"))
+                    { tmp.push( a + b ); continue; }
+                if(polishNotation[i].second == operationToInt("-"))
+                    { tmp.push( a - b ); continue; }
+                if(polishNotation[i].second == operationToInt("*"))
+                    { tmp.push( a * b ); continue; }
+                if(polishNotation[i].second == operationToInt("/"))
+                    { tmp.push( a / b ); continue; }
+                if(polishNotation[i].second == operationToInt("^"))
+                    { tmp.push( pow(a,b) ); continue; }
+            }
+            else if(polishNotation[i].first == 3)
+            {
+                //Variable
+            }
+        }
+        return tmp.top();
+    }
 };
 
 #endif // PARSER_H_INCLUDED
