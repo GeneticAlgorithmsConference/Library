@@ -1,7 +1,0 @@
-d:\work\visual studio 2010\Projects\ex1\ex1\bin\Debug\ex1.exe
-d:\work\visual studio 2010\Projects\ex1\ex1\bin\Debug\ex1.pdb
-d:\work\visual studio 2010\Projects\ex1\ex1\obj\x86\Debug\ex1.Form1.resources
-d:\work\visual studio 2010\Projects\ex1\ex1\obj\x86\Debug\ex1.Properties.Resources.resources
-d:\work\visual studio 2010\Projects\ex1\ex1\obj\x86\Debug\ex1.csproj.GenerateResource.Cache
-d:\work\visual studio 2010\Projects\ex1\ex1\obj\x86\Debug\ex1.exe
-d:\work\visual studio 2010\Projects\ex1\ex1\obj\x86\Debug\ex1.pdb
