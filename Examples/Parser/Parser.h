@@ -8,6 +8,9 @@
 
 #include <stdio.h>
 
+using namespace std;
+
+template <typename T>
 class Parser
 {
 private:
@@ -88,9 +91,10 @@ private:
     {
         return i / 10;
     }
+
     bool isDigit(char c)
     {
-        return c >= '0' && c <= '9';
+        return (c >= '0' && c <= '9') || (c == '.');
     }
     bool isOperation(string str)
     {
@@ -110,18 +114,45 @@ private:
     }
 
     string inputExpr;
-    vector< pair<int, int> > parts;
-    void addNumber(int st, int en)
+    vector< pair<int, T> > parts;
+    bool addNumber(int st, int en)
     {
-        int v = 0;
-        for(int i = st; i <= en; ++i)
-            v = 10*v + (int)(inputExpr[i] - '0');
+        T v = 0;
+        int i = st;
+        for(; i <= en && inputExpr[i] != '.'; ++i)
+            v = v*10 + (int)(inputExpr[i] - '0');
+        ++i;
+
+        T x = 1;
+        for(; i <= en && inputExpr[i] != '.'; ++i)
+        {
+            x /= 10.0;
+            v += x * (int)(inputExpr[i] - '0');
+        }
+
+        if(i <= en)
+            return false;
+
         parts.push_back(make_pair(1, v));
+        return true;
     }
     void addOperation(int st, int en)
     {
-        int v = operationToInt(inputExpr.substr(st, en-st+1));
+        T v = operationToInt(inputExpr.substr(st, en-st+1));
         parts.push_back(make_pair(2, v));
+    }
+    bool addVariable(int st, int en)
+    {
+        T v = 0;
+        int i = st;
+        for(; i <= en && inputExpr[i] != '.'; ++i)
+            v = v*10 + (int)(inputExpr[i] - '0');
+
+        if(i <= en)
+            return false;
+
+        parts.push_back(make_pair(3, v));
+        return true;
     }
     bool setParts()
     {
@@ -142,8 +173,27 @@ private:
             {
                 while(isDigit(inputExpr[lst]))
                     ++lst;
-                addNumber(pos, lst-1);
+                if(!addNumber(pos, lst-1))
+                    return false;
                 pos = lst;
+            }
+            else if(inputExpr[pos] == '{')
+            {
+                ++lst;
+                while(inputExpr[lst] != ' ' && inputExpr[lst] != '}')
+                {
+                    if(!isDigit(inputExpr[lst]))
+                        return false;
+                    ++lst;
+                }
+
+                if(inputExpr[lst] == ' ')
+                    return false;
+
+                if(!addVariable(pos+1, lst-1))
+                    return false;
+
+                pos = lst + 1;
             }
             else
             {
@@ -161,13 +211,13 @@ private:
         return true;
     }
 
-    stack< pair<int, int> > buffer;
-    vector< pair<int, int> > polishNotation;
+    stack< pair<int, T> > buffer;
+    vector< pair<int, T> > polishNotation;
     bool formNotation()
     {
         buffer.push(make_pair(-20, -20));
         for(int i = 0; i < parts.size(); ++i)
-            if(parts[i].first == 1)
+            if(parts[i].first == 1 || parts[i].first == 3)
             {
                 polishNotation.push_back(parts[i]);
             }
@@ -213,6 +263,11 @@ private:
 
 public:
 
+    Parser(vector<T>* _variables)
+    {
+        variables = _variables;
+    }
+
     bool parse(string expr)
     {
         parts.clear();
@@ -234,15 +289,19 @@ public:
         {
             if(polishNotation[i].first == 1)
                 cout << polishNotation[i].second << ' ';
+            else if(polishNotation[i].first == 3)
+                cout << '{' << polishNotation[i].second << '}' << ' ';
             else
                 cout << intToOperation(polishNotation[i].second) << ' ';
         }
         printf("\n");
     }
 
-    double calc()
+    vector<T>* variables;
+
+    T calc()
     {
-        stack<double> tmp;
+        stack<T> tmp;
         for(int i = 0; i < polishNotation.size(); ++i)
         {
             if(polishNotation[i].first == 1)
@@ -257,7 +316,7 @@ public:
                     { tmp.push( acos(-1) ); continue; }
 
                 //Unar Function
-                double a = tmp.top(); tmp.pop();
+                T a = tmp.top(); tmp.pop();
                 if(polishNotation[i].second == operationToInt("abs"))
                     { tmp.push( fabs(a) ); continue; }
                 if(polishNotation[i].second == operationToInt("sin"))
@@ -270,22 +329,32 @@ public:
                     { tmp.push( cos(a) / sin(a) ); continue; }
 
                 //Binar Function
-                double b = a;
+                T b = a;
                 a = tmp.top(); tmp.pop();
+                if(polishNotation[i].second == operationToInt("/"))
+                {
+                    if(b == 0.0) { return NAN; }
+                    tmp.push( a / b ); continue;
+                }
                 if(polishNotation[i].second == operationToInt("+"))
                     { tmp.push( a + b ); continue; }
                 if(polishNotation[i].second == operationToInt("-"))
                     { tmp.push( a - b ); continue; }
                 if(polishNotation[i].second == operationToInt("*"))
                     { tmp.push( a * b ); continue; }
-                if(polishNotation[i].second == operationToInt("/"))
-                    { tmp.push( a / b ); continue; }
                 if(polishNotation[i].second == operationToInt("^"))
                     { tmp.push( pow(a,b) ); continue; }
             }
             else if(polishNotation[i].first == 3)
             {
                 //Variable
+                if(variables == NULL)
+                    return NAN;
+                int j = polishNotation[i].second;
+                if(j < 0 || j >= variables -> size())
+                    return NAN;
+                T res = (*variables)[j];
+                tmp.push(res);
             }
         }
         return tmp.top();
