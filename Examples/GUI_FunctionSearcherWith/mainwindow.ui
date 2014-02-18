@@ -46,6 +46,9 @@
          <height>16777215</height>
         </size>
        </property>
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
        <item>
         <property name="text">
          <string>TRUNCATION_SELECTION</string>
@@ -93,6 +96,9 @@ parameter</string>
          <height>16777215</height>
         </size>
        </property>
+       <property name="value">
+        <double>1.000000000000000</double>
+       </property>
       </widget>
      </item>
      <item row="2" column="0">
@@ -115,6 +121,9 @@ parameter</string>
          <width>200</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
        </property>
        <item>
         <property name="text">
@@ -150,6 +159,9 @@ parameter</string>
          <width>200</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="currentIndex">
+        <number>2</number>
        </property>
        <item>
         <property name="text">
@@ -210,6 +222,9 @@ per generation</string>
          <height>16777215</height>
         </size>
        </property>
+       <property name="value">
+        <double>1.000000000000000</double>
+       </property>
       </widget>
      </item>
      <item row="7" column="1">
@@ -219,6 +234,9 @@ per generation</string>
          <width>200</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="value">
+        <double>25.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -246,6 +264,9 @@ per generation</string>
        <property name="maximum">
         <double>100.000000000000000</double>
        </property>
+       <property name="value">
+        <double>25.000000000000000</double>
+       </property>
       </widget>
      </item>
      <item row="6" column="0">
@@ -271,6 +292,9 @@ per generation</string>
        </property>
        <property name="maximum">
         <number>1024</number>
+       </property>
+       <property name="value">
+        <number>1</number>
        </property>
       </widget>
      </item>
@@ -776,7 +800,7 @@ per generation</string>
      <string>Pause</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="lStopped">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -873,6 +897,172 @@ per generation</string>
     </property>
     <property name="text">
      <string>Continue</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lRunning">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>20</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="palette">
+     <palette>
+      <active>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>170</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>170</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>120</red>
+          <green>120</green>
+          <blue>120</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>120</red>
+          <green>120</green>
+          <blue>120</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Running...</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lPaused">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>20</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="palette">
+     <palette>
+      <active>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>120</red>
+          <green>120</green>
+          <blue>120</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>120</red>
+          <green>120</green>
+          <blue>120</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Paused.</string>
     </property>
    </widget>
   </widget>
@@ -1001,13 +1191,13 @@ per generation</string>
    <property name="title">
     <string>Generation interval</string>
    </property>
-   <widget class="QSlider" name="sldInterval">
+   <widget class="QSpinBox" name="sbInterval">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>160</width>
-      <height>19</height>
+      <width>101</width>
+      <height>22</height>
      </rect>
     </property>
     <property name="minimum">
@@ -1016,34 +1206,21 @@ per generation</string>
     <property name="maximum">
      <number>30000</number>
     </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
+    <property name="value">
+     <number>200</number>
     </property>
    </widget>
    <widget class="QLabel" name="label_12">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>20</width>
-      <height>31</height>
+      <x>120</x>
+      <y>20</y>
+      <width>46</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>1 ms</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_13">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>29</y>
-      <width>21</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>30 s</string>
+     <string>ms</string>
     </property>
    </widget>
   </widget>

@@ -38,7 +38,7 @@ public slots:
     void btnPause();
     void btnStop();
     void btnContinue();
-
+    void applySpeed();
     void timerEvent();
 };
 

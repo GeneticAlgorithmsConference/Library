@@ -11,12 +11,16 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui -> btStop, SIGNAL(clicked()), this, SLOT(btnStop()));
     connect(ui -> btPause, SIGNAL(clicked()), this, SLOT(btnPause()));
     connect(ui -> btContinue, SIGNAL(clicked()), this, SLOT(btnContinue()));
-
     connect(ui -> btApllySets, SIGNAL(clicked()), this, SLOT(apllySets()));
+    connect(ui -> sbInterval, SIGNAL(editingFinished()), this, SLOT(applySpeed()));
     connect(&timer, SIGNAL(timeout()), this, SLOT(timerEvent()));
 
     timer.setInterval(200);
     timer.stop();
+
+    ui -> lPaused -> hide();
+    ui -> lStopped -> show();
+    ui -> lRunning -> hide();
 }
 
 MainWindow::~MainWindow()
@@ -27,6 +31,11 @@ MainWindow::~MainWindow()
         delete generation;
 }
 
+
+void MainWindow::applySpeed()
+{
+    timer.setInterval(ui -> sbInterval -> value());
+}
 
 void MainWindow::timerEvent()
 {
@@ -66,7 +75,9 @@ void MainWindow::btnStart()
     ui -> gbFunction -> setEnabled(false);
 
     timer.start();
-
+    ui -> lPaused -> hide();
+    ui -> lStopped -> hide();
+    ui -> lRunning -> show();
 }
 
 void MainWindow::btnStop()
@@ -80,6 +91,9 @@ void MainWindow::btnStop()
     ui -> gbFunction -> setEnabled(true);
 
     timer.stop();
+    ui -> lPaused -> hide();
+    ui -> lStopped -> show();
+    ui -> lRunning -> hide();
 }
 
 void MainWindow::btnPause()
@@ -90,6 +104,9 @@ void MainWindow::btnPause()
     ui -> btStart -> setEnabled(false);
 
     timer.stop();
+    ui -> lPaused -> show();
+    ui -> lStopped -> hide();
+    ui -> lRunning -> hide();
 }
 
 
@@ -101,6 +118,9 @@ void MainWindow::btnContinue()
     ui -> btStart -> setEnabled(false);
 
     timer.start();
+    ui -> lPaused -> hide();
+    ui -> lStopped -> hide();
+    ui -> lRunning -> show();
 }
 
 void MainWindow::apllySets()
