@@ -7,11 +7,7 @@
 
 #include "log.h"
 #include "genetic.h"
-#include "geneticsettings.h"
-#include "dnatypes.h"
-#include "individual.h"
 #include "generation.h"
-
 #include "minsearchindividual.h"
 
 using namespace std;
@@ -20,10 +16,10 @@ using namespace Genetic;
 class MyTargetFunction
 {
 public:
-    static double getResult(LinearRealDna* arguments)
+    static double getResult(LinearRealDna arguments)
     {
-        double x = (*arguments)[0];
-        double y = (*arguments)[1];
+        double x = (arguments)[0];
+        double y = (arguments)[1];
         return sin(x/20.0) - sin(y/20.0);
         return fabs(3.0 * x * x * x - 6.0 * x * x + 12.0 * x - 24.0);
     }

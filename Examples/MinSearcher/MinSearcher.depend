@@ -116,25 +116,23 @@
 	"linearindividual.h"
 	"minsearchindividual.h"
 
-1392456621 d:\programming\github\library\sources\log.h
+1392570108 d:\programming\github\library\sources\log.h
 	<iostream>
 
-1390575223 d:\programming\github\library\sources\dnatypes.h
+1392730728 d:\programming\github\library\sources\dnatypes.h
 	"baselineardna.h"
 	"linearbinarydna.h"
 	"linearrealdna.h"
-	"basetreedna.h"
-	"treeexpressiondna.h"
 
-1392456552 d:\programming\github\library\sources\baselineardna.h
+1392570108 d:\programming\github\library\sources\baselineardna.h
 	<vector>
 	"log.h"
 	"dna.h"
 
-1392451602 d:\programming\github\library\sources\linearbinarydna.h
+1392729223 d:\programming\github\library\sources\linearbinarydna.h
 	"baselineardna.h"
 
-1392451864 d:\programming\github\library\sources\linearrealdna.h
+1392730965 d:\programming\github\library\sources\linearrealdna.h
 	<math.h>
 	"log.h"
 	"baselineardna.h"
@@ -149,27 +147,18 @@
 	"basetreedna.h"
 	"log.h"
 
-1392455732 d:\programming\github\library\sources\individual.h
-	<string>
-	<vector>
-	<cmath>
-	<cstdlib>
-	<cassert>
-	<algorithm>
-	<iostream>
+1392730993 d:\programming\github\library\sources\individual.h
 	"genetic.h"
 	"geneticsettings.h"
 	"dna.h"
 
-1392144588 d:\programming\github\library\sources\genetic.h
-	"parents_selection/panmixia.h"
+1392730677 d:\programming\github\library\sources\genetic.h
 
 1392144588 d:\programming\github\library\sources\parents_selection\panmixia.h
 	<vector>
 
-1392411907 d:\programming\github\library\sources\generation.h
-	<iostream>
-	<string>
+1392729173 d:\programming\github\library\sources\generation.h
+	<assert.h>
 	<vector>
 	<algorithm>
 	"individual.h"
@@ -203,28 +192,30 @@
 	"treeexpressiondna.h"
 	"log.h"
 
-1392453807 d:\programming\github\library\sources\minsearchindividual.h
+1392570108 d:\programming\github\library\sources\minsearchindividual.h
 	"log.h"
 	"genetic.h"
 	"geneticsettings.h"
 	"dnatypes.h"
 	"linearindividual.h"
 
-1392408613 d:\programming\github\library\sources\geneticsettings.h
+1392728838 d:\programming\github\library\sources\geneticsettings.h
 	<string>
 	<vector>
 	"genetic.h"
 
-1392456778 d:\programming\github\library\sources\linearindividual.h
+1392731092 d:\programming\github\library\sources\linearindividual.h
 	<stdlib.h>
 	<vector>
+	<algorithm>
+	<assert.h>
 	"genetic.h"
 	"geneticsettings.h"
 	"individual.h"
 
 1392408613 source:d:\programming\github\library\examples\genetic-algorithms\main_old.cpp
 
-1392456638 source:d:\programming\github\library\examples\minsearcher\main.cpp
+1392731121 source:d:\programming\github\library\examples\minsearcher\main.cpp
 	<ctime>
 	<cstdlib>
 	<iomanip>
@@ -232,13 +223,13 @@
 	<math.h>
 	"log.h"
 	"genetic.h"
-	"geneticsettings.h"
-	"dnatypes.h"
-	"individual.h"
 	"generation.h"
 	"minsearchindividual.h"
 
-1392449711 d:\programming\github\library\sources\dna.h
+1392729173 d:\programming\github\library\sources\dna.h
 
-1392408613 source:d:\programming\github\library\examples\minsearcher\main_old.cpp
+1392570108 source:d:\programming\github\library\examples\minsearcher\main_old.cpp
+
+1392728837 source:d:\programming\github\library\sources\geneticsettings.cpp
+	"geneticSettings.h"
 

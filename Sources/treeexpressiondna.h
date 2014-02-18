@@ -21,7 +21,7 @@ namespace Genetic
 		void mutate(double parameter);
 		void generate(double parameter);
 
-		void operator=(TreeExpressionDna& dna);
+		void operator=(TreeExpressionDna* dna);
 		void print();
 		double getValue(double x) const;
 
@@ -44,14 +44,14 @@ Genetic::TreeExpressionDna::TreeExpressionDna(int currentDepth)
 	generate(currentDepth);
 }
 
-void Genetic::TreeExpressionDna::operator=(TreeExpressionDna& dna)
+void Genetic::TreeExpressionDna::operator=(TreeExpressionDna* dna)
 {
-	value = dna.value;
-	children.resize(dna.getChildrenNum());
+	value = dna -> value;
+	children.resize(dna -> getChildrenNum());
 	for(int i = 0; i < children.size(); ++i)
 	{
 		children[i] = new TreeExpressionDna();
-		*(dynamic_cast<TreeExpressionDna*>(children[i])) = *(dynamic_cast<TreeExpressionDna*>(dna.children[i]));
+		*(dynamic_cast<TreeExpressionDna*>(children[i])) = *(dynamic_cast<TreeExpressionDna*>(dna -> children[i]));
 	}
 }
 

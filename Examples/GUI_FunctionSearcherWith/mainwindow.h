@@ -3,8 +3,12 @@
 
 #include <QWidget>
 #include <QMessageBox>
+#include <QTimer>
 
-//#include "../../Sources/geneticSettings.h"
+#include "../../Sources/genetic.h"
+#include "../../Sources/geneticSettings.h"
+#include "../../Sources/generation.h"
+#include "../../Sources/minsearchindividual.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,9 +24,16 @@ public:
     
 private:
     Ui::MainWindow *ui;
+    QTimer timer;
 
-   // Genetic::GeneticSettings geneticSettings;
+    Genetic::GeneticSettings geneticSettings;
+    Genetic::Generation < Genetic::MinSearchIndividual >* generation;
+
     void apllySets();
+    void btnStart();
+    void btnPause();
+    void btnStop();
+    void btnContinue();
 };
 
 #endif // MAINWINDOW_H

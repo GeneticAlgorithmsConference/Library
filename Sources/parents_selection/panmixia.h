@@ -2,6 +2,7 @@
 #define PARENTS_SELECTION_PANMIXIA
 
 #include <vector>
+#include <stdlib.h>
 
 namespace Genetic
 {

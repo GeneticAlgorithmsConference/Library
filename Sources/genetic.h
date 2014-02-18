@@ -1,8 +1,6 @@
 #ifndef GENETIC_H
 #define GENETIC_H
 
-#include "parents_selection/panmixia.h"
-
 namespace Genetic
 {
     enum RecombinationType
@@ -32,13 +30,6 @@ namespace Genetic
         OUTBREEDING_GENOTYPE,
         TOURNAMENT,
         ROULETTE_WHEEL
-    };
-    enum MutationType
-    {
-        REAL_VALUE_MUTATION = 0x500,
-        BINARY_MUTATION,
-        DENSITY_MUTATION,
-        SWAP_MUTATION
     };
 }
 

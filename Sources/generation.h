@@ -2,8 +2,7 @@
 #ifndef GENERATION_H
 #define GENERATION_H
 
-#include <iostream>
-#include <string>
+#include <assert.h>
 #include <vector>
 #include <algorithm>
 
@@ -150,14 +149,15 @@ void Genetic::Generation <I>::genNext()
             for(int i = 0; i < individualsNum / 2; ++i)
             {
                 firstParent = rand() % individualsNum;
-                minDistance = (firstParent == 0) ? (individuals[0] -> getDna() -> getDistance(individuals[1] -> getDna()))
-                    : individuals[0] -> getDna() -> getDistance(individuals[firstParent] -> getDna());
+
+                minDistance = (firstParent == 0) ? (individuals[0] -> getDna().getDistance(individuals[1] -> getDna()))
+                    : individuals[0] -> getDna().getDistance(individuals[firstParent] -> getDna());
                 secondParent = (firstParent == 0) ? 1 : 0;
                 for(int j = 0; j < individualsNum; ++j)
                 {
                     if((j != firstParent)
                        && (minDistance > (currentDistance = individuals[firstParent]
-                                          -> getDna() -> getDistance(individuals[j] -> getDna()))))
+                                          -> getDna().getDistance(individuals[j] -> getDna()))))
                     {
                         minDistance = currentDistance;
                         secondParent = j;
@@ -204,14 +204,14 @@ void Genetic::Generation <I>::genNext()
             for(int i = 0; i < individualsNum / 2; ++i)
             {
                 firstParent = rand() % individualsNum;
-                maxDistance = (firstParent == 0) ? (individuals[0] -> getDna() -> getDistance(individuals[1] -> getDna()))
-                    : individuals[0] -> getDna() -> getDistance(individuals[firstParent] -> getDna());
+                maxDistance = (firstParent == 0) ? (individuals[0] -> getDna().getDistance(individuals[1] -> getDna()))
+                    : individuals[0] -> getDna().getDistance(individuals[firstParent] -> getDna());
                 secondParent = (firstParent == 0) ? 1 : 0;
                 for(int j = 0; j < individualsNum; ++j)
                 {
                     if((j != firstParent)
                        && (maxDistance < (currentDistance = individuals[firstParent]
-                                          -> getDna() -> getDistance(individuals[j] -> getDna()))))
+                                          -> getDna().getDistance(individuals[j] -> getDna()))))
                     {
                         maxDistance = currentDistance;
                         secondParent = j;
@@ -304,7 +304,7 @@ void Genetic::Generation <I>::genNext()
 
 	#ifdef ENABLE_DNALOG_BestPerStep
 	dnalog << "Best: ";
-	nextIndividuals[0] -> getDna() -> print();
+	nextIndividuals[0] -> getDna().print();
 	dnalog << " with score " << nextIndividuals[0] -> getScore() << std::endl;
 	#endif
 

@@ -116,8 +116,8 @@
 	"linearindividual.h"
 	"minsearchindividual.h"
 
-1392451002 d:\programming\github\library\sources\log.h
-	<fstream>
+1392570108 d:\programming\github\library\sources\log.h
+	<iostream>
 
 1390575223 d:\programming\github\library\sources\dnatypes.h
 	"baselineardna.h"
@@ -138,37 +138,28 @@
 	"log.h"
 	"baselineardna.h"
 
-1392450091 d:\programming\github\library\sources\basetreedna.h
+1392733283 d:\programming\github\library\sources\basetreedna.h
 	<vector>
 	"dna.h"
 
-1392451021 d:\programming\github\library\sources\treeexpressiondna.h
+1392732009 d:\programming\github\library\sources\treeexpressiondna.h
 	<iostream>
 	<math.h>
 	"basetreedna.h"
 	"log.h"
 
-1392453797 d:\programming\github\library\sources\individual.h
-	<string>
-	<vector>
-	<cmath>
-	<cstdlib>
-	<cassert>
-	<algorithm>
-	<iostream>
+1392730993 d:\programming\github\library\sources\individual.h
 	"genetic.h"
 	"geneticsettings.h"
 	"dna.h"
 
-1392144588 d:\programming\github\library\sources\genetic.h
-	"parents_selection/panmixia.h"
+1392731437 d:\programming\github\library\sources\genetic.h
 
 1392144588 d:\programming\github\library\sources\parents_selection\panmixia.h
 	<vector>
 
-1392411907 d:\programming\github\library\sources\generation.h
-	<iostream>
-	<string>
+1392729173 d:\programming\github\library\sources\generation.h
+	<assert.h>
 	<vector>
 	<algorithm>
 	"individual.h"
@@ -179,7 +170,7 @@
 	<vector>
 	"genetic.h"
 
-1392449591 d:\programming\github\library\sources\treeindividual.h
+1392733102 d:\programming\github\library\sources\treeindividual.h
 	<stdlib.h>
 	<vector>
 	"genetic.h"
@@ -191,7 +182,7 @@
 	"individual.h"
 	"dnatypes.h"
 
-1392455593 d:\programming\github\library\sources\treeexpressionindividual.h
+1392570108 d:\programming\github\library\sources\treeexpressionindividual.h
 	<vector>
 	<fstream>
 	"treeindividual.h"
@@ -205,7 +196,7 @@
 	"dnatypes.h"
 	"linearindividual.h"
 
-1392408613 d:\programming\github\library\sources\geneticsettings.h
+1392728838 d:\programming\github\library\sources\geneticsettings.h
 	<string>
 	<vector>
 	"genetic.h"
@@ -217,7 +208,7 @@
 
 1392408613 source:d:\programming\github\library\examples\genetic-algorithms\main_old.cpp
 
-1392450826 source:d:\programming\github\library\examples\functionsearcher\main.cpp
+1392570108 source:d:\programming\github\library\examples\functionsearcher\main.cpp
 	<ctime>
 	<cstdlib>
 	<iomanip>
@@ -228,7 +219,10 @@
 	"generation.h"
 	"treeexpressionindividual.h"
 
-1392449711 d:\programming\github\library\sources\dna.h
+1392729173 d:\programming\github\library\sources\dna.h
 
-1392408613 source:d:\programming\github\library\examples\functionsearcher\main_old.cpp
+1392570108 source:d:\programming\github\library\examples\functionsearcher\main_old.cpp
+
+1392728837 source:d:\programming\github\library\sources\geneticsettings.cpp
+	"geneticSettings.h"
 

@@ -9,7 +9,7 @@ namespace Genetic
     public:
 		virtual void mutate(double parameter) = 0;
 		virtual void generate(double parameter) = 0;
-		virtual double getDistance(Genetic::Dna* dna) = 0;
+		virtual double getDistance(Genetic::Dna& dna) = 0;
     };
 }
 

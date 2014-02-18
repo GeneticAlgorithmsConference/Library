@@ -2,14 +2,6 @@
 #ifndef INDIVIDUAL_H
 #define INDIVIDUAL_H
 
-#include <string>
-#include <vector>
-#include <cmath>
-#include <cstdlib>
-#include <cassert>
-#include <algorithm>
-#include <iostream>
-
 #include "genetic.h"
 #include "geneticsettings.h"
 #include "dna.h"
@@ -43,7 +35,7 @@ namespace Genetic {
 	protected:
 
 		S score;
-		D* dna;
+		D dna;
 
     public:
 
@@ -63,13 +55,13 @@ namespace Genetic {
 		 * Set the value of dna
 		 * @param new_var the new value of dna
 		 */
-		void setDna(D* value);
+		void setDna(D value);
 
 		/**
 		 * Get the value of dna
 		 * @return the value of dna
 		 */
-		D* getDna();
+		D& getDna();
 
 	};
 };
@@ -77,19 +69,19 @@ namespace Genetic {
 template <typename D, typename S>
 Genetic::Individual <D, S>::Individual()
 {
-    dna = new D();
+
 }
 
 template <typename D, typename S>
 Genetic::Individual <D, S>::~Individual()
 {
-    delete dna;
+
 }
 
 template <typename D, typename S>
 void Genetic::Individual <D, S>::generate(double dnaGenerationParameter)
 {
-    dna -> generate(dnaGenerationParameter);
+    dna.generate(dnaGenerationParameter);
 }
 
 template <typename D, typename S>
@@ -105,13 +97,13 @@ double Genetic::Individual <D, S>::getScore()
 }
 
 template <typename D, typename S>
-void Genetic::Individual <D, S>::setDna(D* value)
+void Genetic::Individual <D, S>::setDna(D value)
 {
 	dna = value;
 }
 
 template <typename D, typename S>
-D* Genetic::Individual <D, S>::getDna()
+D& Genetic::Individual <D, S>::getDna()
 {
 	return dna;
 }

@@ -45,6 +45,7 @@
 		<Unit filename="../../Sources/generation.h" />
 		<Unit filename="../../Sources/genetic.h" />
 		<Unit filename="../../Sources/geneticSettings.h" />
+		<Unit filename="../../Sources/geneticsettings.cpp" />
 		<Unit filename="../../Sources/individual.h" />
 		<Unit filename="../../Sources/linearbinarydna.h" />
 		<Unit filename="../../Sources/linearindividual.h" />

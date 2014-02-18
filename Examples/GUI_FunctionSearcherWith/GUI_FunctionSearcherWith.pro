@@ -13,7 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    ../../Sources/geneticsettings.cpp \
+    ../../Sources/linearbinarydna.cpp \
+    ../../Sources/linearrealdna.cpp
 
 HEADERS  += mainwindow.h \
     ../../Sources/treeintegerdna.h \
@@ -36,6 +39,7 @@ HEADERS  += mainwindow.h \
     ../../Sources/dna.h \
     ../../Sources/carindividual.h \
     ../../Sources/basetreedna.h \
-    ../../Sources/baselineardna.h
+    ../../Sources/baselineardna.h \
+    ../../Sources/parser.h
 
 FORMS    += mainwindow.ui

@@ -15,7 +15,7 @@ namespace Genetic
 		BaseTreeDna();
 		~BaseTreeDna();
 
-		double getDistance(Genetic::Dna* dna);
+		double getDistance(Genetic::Dna& dna);
 
     public:
 
@@ -31,8 +31,8 @@ namespace Genetic
 		BaseTreeDna <T>* getRandomWithChildren();
 
 		int getChildrenNum() const;
-		BaseTreeDna <T>* getChild(int id);
-		void setChild(int id, BaseTreeDna <T> *value);
+		BaseTreeDna <T>& getChild(int id);
+		void setChild(int id, BaseTreeDna <T> &value);
 
 	protected:
 
@@ -58,7 +58,7 @@ Genetic::BaseTreeDna <T>::~BaseTreeDna()
 }
 
 template <typename T>
-double Genetic::BaseTreeDna <T>::getDistance(Genetic::Dna* dna)
+double Genetic::BaseTreeDna <T>::getDistance(Genetic::Dna& dna)
 {
 	return 0.0;
 }
@@ -78,7 +78,7 @@ void Genetic::BaseTreeDna <T>::swapRandomChildren(BaseTreeDna <T>* dna1,
 {
 	int id1 = rand() % (dna1 -> getChildrenNum());
 	int id2 = rand() % (dna2 -> getChildrenNum());
-	BaseTreeDna <T>* tmp = dna1 -> getChild(id1);
+	BaseTreeDna <T>& tmp = dna1 -> getChild(id1);
 	dna1 -> setChild(id1, dna2 -> getChild(id2));
 	dna2 -> setChild(id2, tmp);
 }
@@ -93,7 +93,7 @@ Genetic::BaseTreeDna <T>* Genetic::BaseTreeDna <T>::getRandom()
 template <typename T>
 Genetic::BaseTreeDna <T>* Genetic::BaseTreeDna <T>::getRandom(int& depth)
 {
-	BaseTreeDna <T>* current = this;
+	BaseTreeDna<T>* current = this;
 	int id;
 	depth = 1;
 	while(true)
@@ -103,7 +103,7 @@ Genetic::BaseTreeDna <T>* Genetic::BaseTreeDna <T>::getRandom(int& depth)
 		{
 			break;
 		} else {
-			current = current -> getChild(id);
+			*current = current -> getChild(id);
 			++depth;
 		}
 	}
@@ -119,11 +119,11 @@ Genetic::BaseTreeDna <T>* Genetic::BaseTreeDna <T>::getRandomWithChildren()
 	while(current -> getChildrenNum() > 0)
 	{
 		id = rand() % (current -> getChildrenNum() + 1);
-		if((id == current -> getChildrenNum()) || (current -> getChild(id) -> getChildrenNum() == 0))
+		if((id == current -> getChildrenNum()) || (current -> getChild(id).getChildrenNum() == 0))
 		{
 			break;
 		} else {
-			current = current -> getChild(id);
+			*current = current -> getChild(id);
 		}
 	}
 	return current;
@@ -137,15 +137,15 @@ int Genetic::BaseTreeDna <T>::getChildrenNum() const
 }
 
 template <typename T>
-Genetic::BaseTreeDna <T>* Genetic::BaseTreeDna <T>::getChild(int id)
+Genetic::BaseTreeDna <T>& Genetic::BaseTreeDna <T>::getChild(int id)
 {
-	return children[id];
+	return *children[id];
 }
 
 template <typename T>
-void Genetic::BaseTreeDna <T>::setChild(int id, BaseTreeDna <T>* value)
+void Genetic::BaseTreeDna <T>::setChild(int id, BaseTreeDna <T> &value)
 {
-	children[id] = value;
+	children[id] = &value;
 }
 
 #endif

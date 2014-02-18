@@ -5,6 +5,7 @@
 #include <stack>
 #include <string>
 #include <math.h>
+#include <stdlib.h>
 
 #include <stdio.h>
 
@@ -14,6 +15,7 @@ template <typename T>
 class Parser
 {
 private:
+    int max_var;
 
     inline int operationToInt(string oper)
     {
@@ -151,6 +153,7 @@ private:
         if(i <= en)
             return false;
 
+        max_var = max(max_var, v);
         parts.push_back(make_pair(3, v));
         return true;
     }
@@ -263,13 +266,14 @@ private:
 
 public:
 
-    Parser(vector<T>* _variables)
+    Parser(vector<T>* _variables = NULL)
     {
         variables = _variables;
     }
 
     bool parse(string expr)
     {
+        max_var = -1;
         parts.clear();
         polishNotation.clear();
         while(!buffer.empty())
@@ -280,6 +284,13 @@ public:
             return false;
         if(!formNotation())
             return false;
+
+        parts.clear();
+        polishNotation.clear();
+        while(!buffer.empty())
+            buffer.pop();
+        inputExpr.clear();
+
         return true;
     }
 
