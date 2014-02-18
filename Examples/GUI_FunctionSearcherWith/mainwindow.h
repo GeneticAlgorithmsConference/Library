@@ -31,11 +31,15 @@ private:
     Genetic::GeneticSettings geneticSettings;
     Genetic::Generation < Genetic::MinSearchIndividual >* generation;
 
+public slots:
+
     void apllySets();
     void btnStart();
     void btnPause();
     void btnStop();
     void btnContinue();
+
+    void timerEvent();
 };
 
 #endif // MAINWINDOW_H

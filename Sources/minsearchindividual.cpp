@@ -1,11 +1,13 @@
 #include "minsearchindividual.h"
 
+Parser<double> minSearchParser;
+
 void Genetic::MinSearchIndividual::test()
 {
-   /* std::vector<double> variables;
+    std::vector<double> variables;
     variables.clear();
     for(int i = 0; i < dna.size(); ++i)
         variables.push_back(dna[i]);
     minSearchParser.variables = &variables;
-    score = minSearchParser.calc();*/
+    score = minSearchParser.calc();
 }

@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <vector>
 #include <algorithm>
+#include <math.h>
 
 #include "individual.h"
 #include "geneticsettings.h"
