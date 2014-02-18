@@ -211,7 +211,7 @@ public:
         label_2->setGeometry(QRect(10, 50, 241, 121));
         lcdBestScore = new QLCDNumber(MainWindow);
         lcdBestScore->setObjectName(QStringLiteral("lcdBestScore"));
-        lcdBestScore->setGeometry(QRect(670, 70, 131, 23));
+        lcdBestScore->setGeometry(QRect(670, 62, 131, 31));
         QPalette palette;
         QBrush brush(QColor(0, 0, 0, 255));
         brush.setStyle(Qt::SolidPattern);
@@ -233,10 +233,11 @@ public:
         lcdBestScore->setPalette(palette);
         lcdBestScore->setSmallDecimalPoint(true);
         lcdBestScore->setDigitCount(10);
+        lcdBestScore->setSegmentStyle(QLCDNumber::Flat);
         lcdBestScore->setProperty("value", QVariant(0));
         lcdGeneration = new QLCDNumber(MainWindow);
         lcdGeneration->setObjectName(QStringLiteral("lcdGeneration"));
-        lcdGeneration->setGeometry(QRect(490, 70, 51, 23));
+        lcdGeneration->setGeometry(QRect(490, 62, 51, 31));
         QPalette palette1;
         palette1.setBrush(QPalette::Active, QPalette::WindowText, brush);
         palette1.setBrush(QPalette::Active, QPalette::Dark, brush);
@@ -255,12 +256,13 @@ public:
         palette1.setBrush(QPalette::Disabled, QPalette::ButtonText, brush);
         lcdGeneration->setPalette(palette1);
         lcdGeneration->setDigitCount(5);
+        lcdGeneration->setSegmentStyle(QLCDNumber::Flat);
         label_9 = new QLabel(MainWindow);
         label_9->setObjectName(QStringLiteral("label_9"));
-        label_9->setGeometry(QRect(570, 70, 91, 20));
+        label_9->setGeometry(QRect(570, 59, 91, 31));
         label_10 = new QLabel(MainWindow);
         label_10->setObjectName(QStringLiteral("label_10"));
-        label_10->setGeometry(QRect(390, 70, 111, 21));
+        label_10->setGeometry(QRect(390, 60, 111, 31));
         gbControl = new QGroupBox(MainWindow);
         gbControl->setObjectName(QStringLiteral("gbControl"));
         gbControl->setGeometry(QRect(370, 0, 441, 51));
@@ -386,7 +388,7 @@ public:
         label_6->setText(QApplication::translate("MainWindow", "Recombination type", 0));
         btApllySets->setText(QApplication::translate("MainWindow", "\320\237\321\200\320\270\320\274\320\265\320\275\320\270\321\202\321\214", 0));
         gbFunction->setTitle(QApplication::translate("MainWindow", "Target function", 0));
-        tbFunction->setText(QApplication::translate("MainWindow", "{0}^2-12*{0}+36", 0));
+        tbFunction->setText(QApplication::translate("MainWindow", "0.25*{0}^2-3*{0}+9-sin({1})", 0));
         label_2->setText(QApplication::translate("MainWindow", "Here should be some help.", 0));
         label_9->setText(QApplication::translate("MainWindow", " Best score in gen.:", 0));
         label_10->setText(QApplication::translate("MainWindow", "Current generation:", 0));

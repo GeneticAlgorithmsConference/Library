@@ -7,13 +7,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(ui -> btApllySets, SIGNAL(clicked()), this, SLOT(apllySets()));
-    connect(ui -> btStop, SIGNAL(clicked()), this, SLOT(btnStop()));
     connect(ui -> btStart, SIGNAL(clicked()), this, SLOT(btnStart()));
+    connect(ui -> btStop, SIGNAL(clicked()), this, SLOT(btnStop()));
     connect(ui -> btPause, SIGNAL(clicked()), this, SLOT(btnPause()));
     connect(ui -> btContinue, SIGNAL(clicked()), this, SLOT(btnContinue()));
 
-    timer.setInterval(50);
+    connect(ui -> btApllySets, SIGNAL(clicked()), this, SLOT(apllySets()));
+    connect(&timer, SIGNAL(timeout()), this, SLOT(timerEvent()));
+
+    timer.setInterval(200);
     timer.stop();
 }
 
@@ -26,8 +28,35 @@ MainWindow::~MainWindow()
 }
 
 
+void MainWindow::timerEvent()
+{
+    ui -> lcdGeneration -> display(ui -> lcdGeneration -> value() + 1);
+    generation -> genNext();
+
+    Genetic::MinSearchIndividual* bestres = generation -> getIndividualBest();
+    ui -> lcdBestScore -> display(bestres -> getScore());
+}
+
 void MainWindow::btnStart()
 {
+    if(!minSearchParser.parse(ui -> tbFunction -> text().toStdString()))
+    {
+        QMessageBox mb;
+        mb.setIcon(QMessageBox::Critical);
+        mb.setText("Irregular expression!");
+        mb.exec();
+        return;
+    }
+
+    if(generation != NULL)
+        delete generation;
+
+    generation = new Genetic::Generation< Genetic::MinSearchIndividual >
+            (ui -> sbSize -> value(), &geneticSettings);
+    generation -> init(time(NULL), max(2, minSearchParser.getVariablesCount()));
+
+    ui -> lcdGeneration -> display(0);
+
     ui -> btPause -> setEnabled(true);
     ui -> btContinue -> setEnabled(false);
     ui -> btStop -> setEnabled(true);
@@ -35,14 +64,6 @@ void MainWindow::btnStart()
 
     ui -> gbSize -> setEnabled(false);
     ui -> gbFunction -> setEnabled(false);
-
-    if(generation != NULL)
-        delete generation;
-
-    /*minSearchParser.parse(ui -> tbFunction -> text().toStdString());
-    generation = new Genetic::Generation< Genetic::MinSearchIndividual >
-            (ui -> sbSize -> value(), &geneticSettings);
-    generation -> init(time(NULL), minSearchParser.getVariablesCount());*/
 
     timer.start();
 
@@ -56,7 +77,7 @@ void MainWindow::btnStop()
     ui -> btStart -> setEnabled(true);
 
     ui -> gbSize -> setEnabled(true);
-    ui -> gbFunction -> setEnabled(false);
+    ui -> gbFunction -> setEnabled(true);
 
     timer.stop();
 }
@@ -121,7 +142,7 @@ void MainWindow::apllySets()
         QMessageBox mb;
         mb.setIcon(QMessageBox::Critical);
         mb.setText("Genetic settings are incorrect and can`t be applied!");
-        mb.show();
+        mb.exec();
     }
 }
 

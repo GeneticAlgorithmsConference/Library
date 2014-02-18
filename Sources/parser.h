@@ -165,7 +165,6 @@ private:
                 inputExpr.erase(i, 1);
                 --i;
             }
-        cout << inputExpr << endl;
 
         inputExpr += ' ';
         int pos = 0;
@@ -291,7 +290,6 @@ public:
             return false;
 
         parts.clear();
-        polishNotation.clear();
         while(!buffer.empty())
             buffer.pop();
         inputExpr.clear();

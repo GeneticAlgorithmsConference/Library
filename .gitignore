@@ -21,6 +21,7 @@ paper.pdf
 Genetic-Algorithms.layout
 Genetic-Algorithms.depend
 bin/
+*.pro.user
 *.user
 
 # Documentation files #
