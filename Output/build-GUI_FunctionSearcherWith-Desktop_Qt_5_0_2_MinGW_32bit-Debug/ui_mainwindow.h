@@ -54,7 +54,7 @@ public:
     QPushButton *btApllySets;
     QTableView *tableView;
     QGroupBox *gbFunction;
-    QLineEdit *lineEdit;
+    QLineEdit *tbFunction;
     QLabel *label_2;
     QLCDNumber *lcdBestScore;
     QLCDNumber *lcdGeneration;
@@ -203,9 +203,9 @@ public:
         gbFunction = new QGroupBox(MainWindow);
         gbFunction->setObjectName(QStringLiteral("gbFunction"));
         gbFunction->setGeometry(QRect(10, 350, 261, 161));
-        lineEdit = new QLineEdit(gbFunction);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(10, 20, 241, 20));
+        tbFunction = new QLineEdit(gbFunction);
+        tbFunction->setObjectName(QStringLiteral("tbFunction"));
+        tbFunction->setGeometry(QRect(10, 20, 241, 20));
         label_2 = new QLabel(gbFunction);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setGeometry(QRect(10, 50, 241, 121));
@@ -386,7 +386,7 @@ public:
         label_6->setText(QApplication::translate("MainWindow", "Recombination type", 0));
         btApllySets->setText(QApplication::translate("MainWindow", "\320\237\321\200\320\270\320\274\320\265\320\275\320\270\321\202\321\214", 0));
         gbFunction->setTitle(QApplication::translate("MainWindow", "Target function", 0));
-        lineEdit->setText(QString());
+        tbFunction->setText(QApplication::translate("MainWindow", "{0}^2-12*{0}+36", 0));
         label_2->setText(QApplication::translate("MainWindow", "Here should be some help.", 0));
         label_9->setText(QApplication::translate("MainWindow", " Best score in gen.:", 0));
         label_10->setText(QApplication::translate("MainWindow", "Current generation:", 0));

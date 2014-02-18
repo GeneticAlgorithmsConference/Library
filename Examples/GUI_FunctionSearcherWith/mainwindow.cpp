@@ -33,15 +33,32 @@ void MainWindow::btnStart()
     ui -> btStop -> setEnabled(true);
     ui -> btStart -> setEnabled(false);
 
+    ui -> gbSize -> setEnabled(false);
+    ui -> gbFunction -> setEnabled(false);
 
     if(generation != NULL)
         delete generation;
+
+    /*minSearchParser.parse(ui -> tbFunction -> text().toStdString());
     generation = new Genetic::Generation< Genetic::MinSearchIndividual >
             (ui -> sbSize -> value(), &geneticSettings);
-    generation
+    generation -> init(time(NULL), minSearchParser.getVariablesCount());*/
 
     timer.start();
 
+}
+
+void MainWindow::btnStop()
+{
+    ui -> btPause -> setEnabled(false);
+    ui -> btContinue -> setEnabled(false);
+    ui -> btStop -> setEnabled(false);
+    ui -> btStart -> setEnabled(true);
+
+    ui -> gbSize -> setEnabled(true);
+    ui -> gbFunction -> setEnabled(false);
+
+    timer.stop();
 }
 
 void MainWindow::btnPause()
@@ -54,15 +71,6 @@ void MainWindow::btnPause()
     timer.stop();
 }
 
-void MainWindow::btnStop()
-{
-    ui -> btPause -> setEnabled(false);
-    ui -> btContinue -> setEnabled(false);
-    ui -> btStop -> setEnabled(false);
-    ui -> btStart -> setEnabled(true);
-
-    timer.stop();
-}
 
 void MainWindow::btnContinue()
 {

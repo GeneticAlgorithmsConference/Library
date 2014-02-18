@@ -16,7 +16,8 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     ../../Sources/geneticsettings.cpp \
     ../../Sources/linearbinarydna.cpp \
-    ../../Sources/linearrealdna.cpp
+    ../../Sources/linearrealdna.cpp \
+    ../../Sources/minsearchindividual.cpp
 
 HEADERS  += mainwindow.h \
     ../../Sources/treeintegerdna.h \

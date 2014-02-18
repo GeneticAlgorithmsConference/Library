@@ -12,25 +12,12 @@
 
 namespace Genetic
 {
-    template <typename F>
+    //Parser<double>* minSearchParser;
+
 	class MinSearchIndividual : public Genetic::LinearIndividual <LinearRealDna, double>
     {
-
 	public:
-
-        void test(parser<double>* parser)
-        {
-            std::vector<double> variables;
-            variables.clear();
-            for(int i = 0; i < dna.size(); ++i)
-                variables.push_back(dna[i]);
-            score = parser -> calc();
-        }
-
-        void test()
-        {
-
-        }
+        void test();
 	};
 }
 

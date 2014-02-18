@@ -153,7 +153,7 @@ private:
         if(i <= en)
             return false;
 
-        max_var = max(max_var, v);
+        max_var = max(max_var, (int)v);
         parts.push_back(make_pair(3, v));
         return true;
     }
@@ -266,7 +266,12 @@ private:
 
 public:
 
-    Parser(vector<T>* _variables = NULL)
+    Parser()
+    {
+        variables = NULL;
+    }
+
+    Parser(vector<T>* _variables)
     {
         variables = _variables;
     }
@@ -369,6 +374,11 @@ public:
             }
         }
         return tmp.top();
+    }
+
+    int getVariablesCount()
+    {
+        return max_var + 1;
     }
 };
 

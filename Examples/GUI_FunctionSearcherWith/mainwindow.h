@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <time.h>
+
 #include <QWidget>
 #include <QMessageBox>
 #include <QTimer>

@@ -338,7 +338,7 @@ per generation</string>
    <property name="title">
     <string>Target function</string>
    </property>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="tbFunction">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -348,7 +348,7 @@ per generation</string>
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>{0}^2-12*{0}+36</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
