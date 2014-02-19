@@ -31,3 +31,4 @@ Examples/build*
 html/
 latex/
 # documentation/
+*.layout

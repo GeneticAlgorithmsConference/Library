@@ -49,10 +49,10 @@ void MainWindow::timerEvent()
     QString str;
     for(int c = 0; c < lc; ++c)
     {
-        str.setNum(bestres -> getDna()[c], 'f', 6);
+        str.setNum(bestres -> getDna()[c]);
         ui -> tableWidget -> setItem(r, c, new QTableWidgetItem(str));
     }
-    str.setNum(bestres -> getScore(), 'f', 6);
+    str.setNum(bestres -> getScore());
     ui -> tableWidget -> setItem(r, lc, new QTableWidgetItem(str));
 }
 
