@@ -44,6 +44,18 @@ void MainWindow::timerEvent()
 
     Genetic::MinSearchIndividual* bestres = generation -> getIndividualBest();
     ui -> lcdBestScore -> display(bestres -> getScore());
+    int r = ui -> tableWidget -> rowCount();
+    int lc = ui -> tableWidget -> columnCount()-1;
+    ui -> tableWidget -> setRowCount(r + 1);
+    ui -> tableWidget-> setCurrentCell(r, 1);
+    QString str;
+    for(int c = 0; c < lc; ++c)
+    {
+        str.setNum(bestres -> getDna()[c], 'f', 6);
+        ui -> tableWidget -> setItem(r, c, new QTableWidgetItem(str));
+    }
+    str.setNum(bestres -> getScore(), 'f', 6);
+    ui -> tableWidget -> setItem(r, lc, new QTableWidgetItem(str));
 }
 
 void MainWindow::btnStart()
@@ -78,6 +90,20 @@ void MainWindow::btnStart()
     ui -> lPaused -> hide();
     ui -> lStopped -> hide();
     ui -> lRunning -> show();
+
+    ui -> tableWidget -> clear();
+    ui -> tableWidget -> setColumnCount(minSearchParser.getVariablesCount() + 1);
+    ui -> tableWidget -> setRowCount(0);
+    int lc = ui -> tableWidget -> columnCount()-1;
+    QString str;
+    for(int c = 0; c < lc; ++c)
+    {
+        str.setNum(c);
+        str = "{" + str + "}";
+        ui -> tableWidget -> setHorizontalHeaderItem(c, new QTableWidgetItem(str));
+    }
+    str = "Result";
+    ui -> tableWidget -> setHorizontalHeaderItem(lc, new QTableWidgetItem(str));
 }
 
 void MainWindow::btnStop()

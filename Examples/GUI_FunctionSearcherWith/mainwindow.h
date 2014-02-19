@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QMessageBox>
 #include <QTimer>
+#include <QTableWidgetItem>
 
 #include "../../Sources/genetic.h"
 #include "../../Sources/geneticSettings.h"

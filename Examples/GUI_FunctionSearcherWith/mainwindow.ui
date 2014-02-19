@@ -336,19 +336,9 @@ per generation</string>
      </rect>
     </property>
     <property name="text">
-     <string>Применить</string>
+     <string>Apply</string>
     </property>
    </widget>
-  </widget>
-  <widget class="QTableView" name="tableView">
-   <property name="geometry">
-    <rect>
-     <x>370</x>
-     <y>100</y>
-     <width>441</width>
-     <height>411</height>
-    </rect>
-   </property>
   </widget>
   <widget class="QGroupBox" name="gbFunction">
    <property name="geometry">
@@ -1223,6 +1213,22 @@ per generation</string>
      <string>ms</string>
     </property>
    </widget>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>100</y>
+     <width>441</width>
+     <height>411</height>
+    </rect>
+   </property>
+   <property name="alternatingRowColors">
+    <bool>true</bool>
+   </property>
+   <attribute name="horizontalHeaderDefaultSectionSize">
+    <number>80</number>
+   </attribute>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
