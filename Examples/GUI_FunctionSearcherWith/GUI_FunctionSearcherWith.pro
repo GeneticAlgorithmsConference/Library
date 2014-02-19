@@ -33,7 +33,6 @@ HEADERS  += mainwindow.h \
     ../../Sources/linearindividual.h \
     ../../Sources/linearbinarydna.h \
     ../../Sources/individual.h \
-    ../../Sources/geneticSettings.h \
     ../../Sources/genetic.h \
     ../../Sources/generation.h \
     ../../Sources/dnatypes.h \
@@ -41,6 +40,7 @@ HEADERS  += mainwindow.h \
     ../../Sources/carindividual.h \
     ../../Sources/basetreedna.h \
     ../../Sources/baselineardna.h \
-    ../../Sources/parser.h
+    ../../Sources/parser.h \
+    ../../Sources/geneticsettings.h
 
 FORMS    += mainwindow.ui
