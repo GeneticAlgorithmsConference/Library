@@ -24,6 +24,7 @@ bin/
 *.pro.user
 *.user
 Output/
+Examples/build*
 
 # Documentation files #
 #######################

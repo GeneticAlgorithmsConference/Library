@@ -85,7 +85,7 @@ void MainWindow::btnStart()
     ui -> gbFunction -> setEnabled(false);
 
     timer.start();
-    ui -> lStatus -> setText("<font color=\"green\">Running</font>");
+    ui ->lStatus -> setText("<font color=\"green\">Running</font>");
     ui -> tableWidget -> clear();
     ui -> tableWidget -> setColumnCount(minSearchParser.getVariablesCount() + 1);
     ui -> tableWidget -> setRowCount(0);
@@ -135,7 +135,7 @@ void MainWindow::btnContinue()
     ui -> btStart -> setEnabled(false);
 
     timer.start();
-    ui -> lStatus -> setText("<font color=\"red\">Running</font>");
+    ui -> lStatus -> setText("<font color=\"green\">Running</font>");
 }
 
 void MainWindow::apllySets()
