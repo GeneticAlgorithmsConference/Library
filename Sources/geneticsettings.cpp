@@ -1,4 +1,4 @@
-#include "geneticSettings.h"
+#include "geneticsettings.h"
 
 Genetic::GeneticSettings::GeneticSettings(int _generationSize, NewGenerationSelectionType _newGenerationSelectionType,
                                              ParentsSelectionType _parentsSelectionType, RecombinationType _recombinationType)

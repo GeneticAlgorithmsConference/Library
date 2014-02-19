@@ -8,7 +8,7 @@
 #include <QTimer>
 
 #include "../../Sources/genetic.h"
-#include "../../Sources/geneticSettings.h"
+#include "../../Sources/geneticsettings.h"
 #include "../../Sources/generation.h"
 #include "../../Sources/minsearchindividual.h"
 

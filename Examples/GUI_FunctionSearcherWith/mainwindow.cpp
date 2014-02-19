@@ -18,9 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     timer.setInterval(200);
     timer.stop();
 
-    ui -> lPaused -> hide();
-    ui -> lStopped -> show();
-    ui -> lRunning -> hide();
+    ui -> lStatus -> setText("<font color=\"red\">Stopped</font>");
 }
 
 MainWindow::~MainWindow()
@@ -75,9 +73,7 @@ void MainWindow::btnStart()
     ui -> gbFunction -> setEnabled(false);
 
     timer.start();
-    ui -> lPaused -> hide();
-    ui -> lStopped -> hide();
-    ui -> lRunning -> show();
+    ui -> lStatus -> setText("<font color=\"green\">Running</font>");
 }
 
 void MainWindow::btnStop()
@@ -91,9 +87,7 @@ void MainWindow::btnStop()
     ui -> gbFunction -> setEnabled(true);
 
     timer.stop();
-    ui -> lPaused -> hide();
-    ui -> lStopped -> show();
-    ui -> lRunning -> hide();
+    ui -> lStatus -> setText("<font color=\"red\">Stopped</font>");
 }
 
 void MainWindow::btnPause()
@@ -104,9 +98,7 @@ void MainWindow::btnPause()
     ui -> btStart -> setEnabled(false);
 
     timer.stop();
-    ui -> lPaused -> show();
-    ui -> lStopped -> hide();
-    ui -> lRunning -> hide();
+    ui -> lStatus -> setText("<font color=\"blue\">Paused</font>");
 }
 
 
@@ -118,9 +110,7 @@ void MainWindow::btnContinue()
     ui -> btStart -> setEnabled(false);
 
     timer.start();
-    ui -> lPaused -> hide();
-    ui -> lStopped -> hide();
-    ui -> lRunning -> show();
+    ui -> lStatus -> setText("<font color=\"red\">Running</font>");
 }
 
 void MainWindow::apllySets()
