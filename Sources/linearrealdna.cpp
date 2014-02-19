@@ -28,7 +28,7 @@ void Genetic::LinearRealDna::generate(double param)
     dna.resize((int)(param + 0.1));
     for(int i = 0; i < dna.size(); ++i)
     {
-        dna[i] = ((double)(rand() % 1000000)) / 1000.0;
+        dna[i] = (double)rand() + ((double)(rand() % 10000)) / 10000.0;
     }
 }
 
