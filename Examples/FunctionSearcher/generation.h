@@ -2,10 +2,10 @@
 #ifndef GENERATION_H
 #define GENERATION_H
 
-#include <assert.h>
+#include <iostream>
+#include <string>
 #include <vector>
 #include <algorithm>
-#include <math.h>
 
 #include "individual.h"
 #include "geneticsettings.h"
@@ -26,7 +26,7 @@ namespace Genetic {
  * This class implements a single generation.
  */
 
-	template <typename I>
+	template <typename Individual>
 	class Generation
 	{
 	public:
@@ -39,7 +39,7 @@ namespace Genetic {
 
 	protected:
 
-		std::vector <I*> individuals;
+		std::vector <Individual*> individuals;
 		int individualsNum;
 
 		GeneticSettings* geneticSettings;
@@ -50,25 +50,25 @@ namespace Genetic {
 		 * Set the array of individuals
 		 * @param new_var the new array of individuals
 		 */
-		void setIndividuals(const std::vector <I*>& value);
+		void setIndividuals(const std::vector <Individual*>& value);
 
 		/**
 		 * Get the array of individuals
 		 * @return the array of individuals
 		 */
-		std::vector <I*>& getIndividuals();
+		std::vector <Individual*>& getIndividuals();
 
 		/**
 		 * Get the array of individuals sorted by score
 		 * @return the array of individuals sorted by score
 		 */
-		std::vector <I*>& getIndividualsSorted();
+		std::vector <Individual*>& getIndividualsSorted();
 
 		/**
 		 * Get the best individual in generation
 		 * @return the best individual in generation
 		 */
-		I* getIndividualBest();
+		Individual* getIndividualBest();
 
 		/**
 		 * Set the value of individualsNum
@@ -96,16 +96,16 @@ namespace Genetic {
 	};
 }; // end of package namespace
 
-template <typename I>
-Genetic::Generation <I>::Generation(int _individualsNum, Genetic::GeneticSettings* _geneticSettings)
+template <typename Individual>
+Genetic::Generation <Individual>::Generation(int _individualsNum, Genetic::GeneticSettings* _geneticSettings)
 {
 	individualsNum = _individualsNum;
 	geneticSettings = _geneticSettings;
 	assert(individualsNum % 2 == 0);
 }
 
-template <typename I>
-Genetic::Generation <I>::~Generation()
+template <typename Individual>
+Genetic::Generation <Individual>::~Generation()
 {
 	for(int i = 0; i < individuals.size(); ++i)
 	{
@@ -114,13 +114,13 @@ Genetic::Generation <I>::~Generation()
 	individuals.clear();
 }
 
-template <typename I>
-void Genetic::Generation <I>::genNext()
+template <typename Individual>
+void Genetic::Generation <Individual>::genNext()
 {
-	std::vector <I*> nextIndividuals(individualsNum);
+	std::vector <Individual*> nextIndividuals(individualsNum);
 	for(int i = 0; i < individualsNum; ++i)
 	{
-		nextIndividuals[i] = new I();
+		nextIndividuals[i] = new Individual();
 	}
 
     // Recombination
@@ -137,7 +137,7 @@ void Genetic::Generation <I>::genNext()
                 {
                     ++secondParent;
                 }
-                I::recombine(individuals[firstParent], individuals[secondParent],
+                Individual::recombine(individuals[firstParent], individuals[secondParent],
                                       nextIndividuals[i * 2], nextIndividuals[i * 2 + 1], geneticSettings);
             }
             break;
@@ -150,22 +150,21 @@ void Genetic::Generation <I>::genNext()
             for(int i = 0; i < individualsNum / 2; ++i)
             {
                 firstParent = rand() % individualsNum;
-
-                minDistance = (firstParent == 0) ? (individuals[0] -> getDna().getDistance(individuals[1] -> getDna()))
-                    : individuals[0] -> getDna().getDistance(individuals[firstParent] -> getDna());
+                minDistance = (firstParent == 0) ? (individuals[0] -> getDna() -> getDistance(individuals[1] -> getDna()))
+                    : individuals[0] -> getDna() -> getDistance(individuals[firstParent] -> getDna());
                 secondParent = (firstParent == 0) ? 1 : 0;
                 for(int j = 0; j < individualsNum; ++j)
                 {
                     if((j != firstParent)
                        && (minDistance > (currentDistance = individuals[firstParent]
-                                          -> getDna().getDistance(individuals[j] -> getDna()))))
+                                          -> getDna() -> getDistance(individuals[j] -> getDna()))))
                     {
                         minDistance = currentDistance;
                         secondParent = j;
                     }
                 }
 
-                I::recombine(individuals[firstParent], individuals[secondParent],
+                Individual::recombine(individuals[firstParent], individuals[secondParent],
                                       nextIndividuals[i * 2], nextIndividuals[i * 2 + 1], geneticSettings);
             }
             break;
@@ -192,7 +191,7 @@ void Genetic::Generation <I>::genNext()
                     }
                 }
 
-                I::recombine(individuals[firstParent], individuals[secondParent],
+                Individual::recombine(individuals[firstParent], individuals[secondParent],
                                       nextIndividuals[i * 2], nextIndividuals[i * 2 + 1], geneticSettings);
             }
             break;
@@ -205,21 +204,21 @@ void Genetic::Generation <I>::genNext()
             for(int i = 0; i < individualsNum / 2; ++i)
             {
                 firstParent = rand() % individualsNum;
-                maxDistance = (firstParent == 0) ? (individuals[0] -> getDna().getDistance(individuals[1] -> getDna()))
-                    : individuals[0] -> getDna().getDistance(individuals[firstParent] -> getDna());
+                maxDistance = (firstParent == 0) ? (individuals[0] -> getDna() -> getDistance(individuals[1] -> getDna()))
+                    : individuals[0] -> getDna() -> getDistance(individuals[firstParent] -> getDna());
                 secondParent = (firstParent == 0) ? 1 : 0;
                 for(int j = 0; j < individualsNum; ++j)
                 {
                     if((j != firstParent)
                        && (maxDistance < (currentDistance = individuals[firstParent]
-                                          -> getDna().getDistance(individuals[j] -> getDna()))))
+                                          -> getDna() -> getDistance(individuals[j] -> getDna()))))
                     {
                         maxDistance = currentDistance;
                         secondParent = j;
                     }
                 }
 
-                I::recombine(individuals[firstParent], individuals[secondParent],
+                Individual::recombine(individuals[firstParent], individuals[secondParent],
                                       nextIndividuals[i * 2], nextIndividuals[i * 2 + 1], geneticSettings);
             }
             break;
@@ -246,7 +245,7 @@ void Genetic::Generation <I>::genNext()
                     }
                 }
 
-                I::recombine(individuals[firstParent], individuals[secondParent],
+                Individual::recombine(individuals[firstParent], individuals[secondParent],
                                       nextIndividuals[i * 2], nextIndividuals[i * 2 + 1], geneticSettings);
             }
             break;
@@ -268,36 +267,26 @@ void Genetic::Generation <I>::genNext()
 	}
 
 	individuals.clear();
-	sort(nextIndividuals.begin(), nextIndividuals.end(), individualComparator<I>);
+	sort(nextIndividuals.begin(), nextIndividuals.end(), individualComparator<Individual>);
 
 	// Selection individuals for new generation.
 	switch(geneticSettings -> getNewGenerationSelectionType())
 	{
 	case TRUNCATION_SELECTION:
 	{
-        int possibleIndividualsNum = (double) nextIndividuals.size()*
+		int possibleIndividualsNum = individualsNum *
                                      (geneticSettings -> getGenerationSelectionParameter());
-        assert(possibleIndividualsNum >= individualsNum);
-
-        while(nextIndividuals.size() > possibleIndividualsNum)
-        {
-            delete nextIndividuals[nextIndividuals.size() - 1];
-            nextIndividuals.pop_back();
-        }
-
+		std::vector <bool> used(nextIndividuals.size(), false);
+		assert(possibleIndividualsNum != 0);
 		for(int i = 0; i < individualsNum; ++i)
 		{
-            int currentId = rand() % (nextIndividuals.size());
-            individuals.push_back(nextIndividuals[currentId]);
-            nextIndividuals.erase(nextIndividuals.begin() + currentId);
+			int currentId = rand() % possibleIndividualsNum;
+			used[currentId] = true;
+			Individual* tmp = new Individual();
+			*tmp = *nextIndividuals[currentId];
+			individuals.push_back(tmp);
+			delete nextIndividuals[i];
 		}
-
-        while(nextIndividuals.size() > 0)
-        {
-            delete nextIndividuals[nextIndividuals.size() - 1];
-            nextIndividuals.pop_back();
-        }
-
 		break;
 	}
 	case ELITE_SELECTION:
@@ -313,17 +302,17 @@ void Genetic::Generation <I>::genNext()
 		break;
 	}
 
-	#ifdef ENABLE_DNALOG_BestPerStep
+	#ifdef ENABLE_DNALOG
 	dnalog << "Best: ";
-	nextIndividuals[0] -> getDna().print();
+	nextIndividuals[0] -> getDna() -> print();
 	dnalog << " with score " << nextIndividuals[0] -> getScore() << std::endl;
 	#endif
 
 	nextIndividuals.clear();
 }
 
-template <typename I>
-void Genetic::Generation <I>::init(unsigned int seed, double dnaGenerationParameter)
+template <typename Individual>
+void Genetic::Generation <Individual>::init(unsigned int seed, double dnaGenerationParameter)
 {
     srand(seed);
 
@@ -333,56 +322,56 @@ void Genetic::Generation <I>::init(unsigned int seed, double dnaGenerationParame
 	}
 	individuals.clear();
 
-	I* tmpIndividual;
+	Individual* tmpIndividual;
 
 	for(int i = 0; i < individualsNum; ++i)
 	{
-		tmpIndividual = new I();
+		tmpIndividual = new Individual();
 		tmpIndividual -> generate(dnaGenerationParameter);
 		tmpIndividual -> test();
 		individuals.push_back(tmpIndividual);
 	}
 }
 
-template <typename I>
-void Genetic::Generation <I>::setIndividuals(const std::vector <I*>& value)
+template <typename Individual>
+void Genetic::Generation <Individual>::setIndividuals(const std::vector <Individual*>& value)
 {
 	individuals = value;
 }
 
-template <typename I>
-std::vector <I*>& Genetic::Generation <I>::getIndividuals()
+template <typename Individual>
+std::vector <Individual*>& Genetic::Generation <Individual>::getIndividuals()
 {
 	return individuals;
 }
 
-template <typename I>
-std::vector <I*>& Genetic::Generation <I>::getIndividualsSorted()
+template <typename Individual>
+std::vector <Individual*>& Genetic::Generation <Individual>::getIndividualsSorted()
 {
-    std::vector <I*> ans = individuals;
-	sort(ans.begin(), ans.end(), individualComparator<I>);
+    std::vector <Individual*> ans = individuals;
+	sort(ans.begin(), ans.end(), individualComparator<Individual>);
 	return ans;
 }
 
-template <typename I>
-I* Genetic::Generation <I>::getIndividualBest()
+template <typename Individual>
+Individual* Genetic::Generation <Individual>::getIndividualBest()
 {
     assert(individuals.size() > 0);
-    I* ans = individuals[0];
+    Individual* ans = individuals[0];
     for(int i = 1; i < individuals.size(); ++i)
         if(ans -> getScore() > individuals[i] -> getScore())
             ans = individuals[i];
     return ans;
 }
 
-template <typename I>
-void Genetic::Generation <I>::setGeneticSettings(Genetic::GeneticSettings* value)
+template <typename Individual>
+void Genetic::Generation <Individual>::setGeneticSettings(Genetic::GeneticSettings* value)
 {
 	geneticSettings = value;
 }
 
-template <typename I>
-Genetic::GeneticSettings* Genetic::Generation <I>::getGeneticSettings()
+template <typename Individual>
+Genetic::GeneticSettings* Genetic::Generation <Individual>::getGeneticSettings()
 {
 	return geneticSettings;
 }

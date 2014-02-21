@@ -30,7 +30,7 @@ namespace Genetic
 template <typename D, typename S>
 void Genetic::LinearIndividual <D, S>::mutate(Genetic::GeneticSettings* geneticSettings)
 {
-    double attempts = geneticSettings -> getMutationAttempts();
+    int attempts = geneticSettings -> getMutationAttempts();
     double probability = geneticSettings -> getMutationProbability();
     double parameter = geneticSettings -> getMutationParameter();
 
@@ -38,7 +38,7 @@ void Genetic::LinearIndividual <D, S>::mutate(Genetic::GeneticSettings* geneticS
 	{
 	    double rndVal = static_cast<double>(rand() % 10000) / 10000.0;
 		if(rndVal <= probability)
-		{
+        {
 		    this -> dna.mutate(parameter);
 		}
 	}
@@ -181,9 +181,6 @@ void Genetic::LinearIndividual <D, S>::recombine(Genetic::LinearIndividual <D, S
             }
             break;
         }
-        case TRIADIC_CROSSOVER:
-
-            break;
         case SHUFFLER_CROSSOVER:
         {
             for(int i = 0; i < parent_Individual1 -> dna.size(); ++i)
@@ -206,6 +203,9 @@ void Genetic::LinearIndividual <D, S>::recombine(Genetic::LinearIndividual <D, S
             }
             break;
         }
+        case TRIADIC_CROSSOVER:
+
+            break;
         case CROSSOVER_WITH_REDUCED_SURROGATE:
 
             break;

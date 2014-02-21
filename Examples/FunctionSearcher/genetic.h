@@ -10,8 +10,8 @@ namespace Genetic
         LINE,
         CROSSOVER,
         UNIFORM_CROSSOVER,
-        SHUFFLER_CROSSOVER,
         TRIADIC_CROSSOVER,
+        SHUFFLER_CROSSOVER,
         CROSSOVER_WITH_REDUCED_SURROGATE
     };
     enum NewGenerationSelectionType
@@ -30,6 +30,13 @@ namespace Genetic
         OUTBREEDING_GENOTYPE,
         TOURNAMENT,
         ROULETTE_WHEEL
+    };
+    enum MutationType
+    {
+        REAL_VALUE_MUTATION = 0x500,
+        BINARY_MUTATION,
+        DENSITY_MUTATION,
+        SWAP_MUTATION
     };
 }
 

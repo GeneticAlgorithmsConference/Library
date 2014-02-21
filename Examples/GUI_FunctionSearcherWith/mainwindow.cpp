@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     timer.stop();
 
     ui -> lStatus -> setText("<font color=\"red\">Stopped</font>");
+    apllySets();
 }
 
 MainWindow::~MainWindow()
@@ -49,16 +50,22 @@ void MainWindow::timerEvent()
     QString str;
     for(int c = 0; c < lc; ++c)
     {
-        str.setNum(bestres -> getDna()[c]);
+        str.setNum((double)(bestres -> getDna()[c]));
         ui -> tableWidget -> setItem(r, c, new QTableWidgetItem(str));
     }
-    str.setNum(bestres -> getScore());
+    double q = bestres -> getScore();
+    if(ui -> rbMax -> isChecked())
+        q *= -1;
+    str.setNum(q);
     ui -> tableWidget -> setItem(r, lc, new QTableWidgetItem(str));
 }
 
 void MainWindow::btnStart()
 {
-    if(!minSearchParser.parse(ui -> tbFunction -> text().toStdString()))
+    string fnc = ui -> tbFunction -> text().toStdString();
+    if(ui -> rbMax -> isChecked())
+        fnc = "0-(" + fnc + ")";
+    if(!minSearchParser.parse(fnc))
     {
         QMessageBox mb;
         mb.setIcon(QMessageBox::Critical);
@@ -66,6 +73,8 @@ void MainWindow::btnStart()
         mb.exec();
         return;
     }
+
+   // minSearchParser.printNotation();
 
     if(generation != NULL)
         delete generation;
@@ -83,6 +92,7 @@ void MainWindow::btnStart()
 
     ui -> gbSize -> setEnabled(false);
     ui -> gbFunction -> setEnabled(false);
+    ui -> gbTargetValue -> setEnabled(false);
 
     timer.start();
     ui ->lStatus -> setText("<font color=\"green\">Running</font>");
@@ -110,6 +120,7 @@ void MainWindow::btnStop()
 
     ui -> gbSize -> setEnabled(true);
     ui -> gbFunction -> setEnabled(true);
+    ui -> gbTargetValue -> setEnabled(true);
 
     timer.stop();
     ui -> lStatus -> setText("<font color=\"red\">Stopped</font>");
@@ -166,7 +177,7 @@ void MainWindow::apllySets()
         geneticSettings.setGenerationSelectionParameter(ui -> sbSelectionParameter -> value());
         geneticSettings.setMutationAttempts(ui -> sbMaxMutations -> value());
         geneticSettings.setMutationParameter(ui -> sbMutationParameter -> value());
-        geneticSettings.setMutationProbability(ui -> sbMutationProbability -> value());
+        geneticSettings.setMutationProbability(ui -> sbMutationProbability -> value() / 100.0);
         geneticSettings.setNewGenerationSelectionType(st);
         geneticSettings.setParentsSelectionType(pt);
         geneticSettings.setRecombinationParameter(ui -> sbSelectionParameter -> value());

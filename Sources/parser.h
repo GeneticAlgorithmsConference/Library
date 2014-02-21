@@ -39,6 +39,8 @@ private:
 
         if(oper == "pi")
             return 801;
+        if(oper == "e")
+            return 802;
 
         if(oper == "abs")
             return 901;
@@ -75,6 +77,8 @@ private:
 
         if(oper == 801)
             return "pi";
+        if(oper == 802)
+            return "e";
 
         if(oper == 901)
             return "abs";
@@ -112,7 +116,8 @@ private:
                str == "cos" ||
                str == "tg" ||
                str == "ctg" ||
-               str == "pi";
+               str == "pi" ||
+               str == "e";
     }
 
     string inputExpr;
@@ -217,7 +222,7 @@ private:
     vector< pair<int, T> > polishNotation;
     bool formNotation()
     {
-        buffer.push(make_pair(-20, -20));
+        buffer.push(make_pair(-233440, -233440));
         for(int i = 0; i < parts.size(); ++i)
             if(parts[i].first == 1 || parts[i].first == 3)
             {
@@ -328,6 +333,8 @@ public:
                 //Getiing constants
                 if(polishNotation[i].second == operationToInt("pi"))
                     { tmp.push( acos(-1) ); continue; }
+                if(polishNotation[i].second == operationToInt("e"))
+                    { tmp.push( exp(1) ); continue; }
 
                 //Unar Function
                 T a = tmp.top(); tmp.pop();
