@@ -180,7 +180,7 @@ void MainWindow::apllySets()
         geneticSettings.setMutationProbability(ui -> sbMutationProbability -> value() / 100.0);
         geneticSettings.setNewGenerationSelectionType(st);
         geneticSettings.setParentsSelectionType(pt);
-        geneticSettings.setRecombinationParameter(ui -> sbSelectionParameter -> value());
+        geneticSettings.setRecombinationParameter(ui -> sbRecombParam -> value());
         geneticSettings.setRecombinationType(rt);
     }
     else
