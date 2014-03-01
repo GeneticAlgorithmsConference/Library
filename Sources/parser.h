@@ -6,6 +6,7 @@
 #include <string>
 #include <math.h>
 #include <stdlib.h>
+#include <iostream>
 
 #include <stdio.h>
 
@@ -307,11 +308,11 @@ public:
         for(int i = 0; i < polishNotation.size(); ++i)
         {
             if(polishNotation[i].first == 1)
-                cout << polishNotation[i].second << ' ';
+                std::cout << polishNotation[i].second << ' ';
             else if(polishNotation[i].first == 3)
-                cout << '{' << polishNotation[i].second << '}' << ' ';
+                std::cout << '{' << polishNotation[i].second << '}' << ' ';
             else
-                cout << intToOperation(polishNotation[i].second) << ' ';
+                std::cout << intToOperation(polishNotation[i].second) << ' ';
         }
         printf("\n");
     }
@@ -386,5 +387,7 @@ public:
         return max_var + 1;
     }
 };
+
+extern Parser<double> minSearchParser;
 
 #endif // PARSER_H_INCLUDED

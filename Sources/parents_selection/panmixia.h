@@ -1,42 +1,21 @@
-#ifndef PARENTS_SELECTION_PANMIXIA
-#define PARENTS_SELECTION_PANMIXIA
+#ifndef PARENTS_SELECTION_PANMIXIA_H
+#define PARENTS_SELECTION_PANMIXIA_H
 
-#include <vector>
-#include <stdlib.h>
+#include "parents_selection.h"
 
 namespace Genetic
 {
-namespace ParentsSelection
-{
 
-template <typename Individual>
-class Panmixia
+class Panmixia : public Genetic::ParentsSelection
 {
 public:
-	void process(std::vector <Individual*>& individuals, std::vector <Individual*>& resultIndividuals);
+	void process(std::vector <Genetic::BaseIndividual*>& individuals,
+	             std::vector <Genetic::BaseIndividual*>& resultIndividuals,
+	             Genetic::Recombination* recombination) override;
 private:
 	
 };
 
-template <typename Individual>
-void Panmixia<Individual>::process(std::vector <Individual*>& individuals, std::vector <Individual*>& resultIndividuals)
-{
-	// Recombination
-	int individualsNum = individuals.size();
-	for(int i = 0; i < individualsNum / 2; ++i)
-	{
-		int firstParent = rand() % individualsNum;
-		int secondParent = rand() % (individualsNum - 1);
-		if(secondParent >= firstParent)
-		{
-			++secondParent;
-		}
-		Individual::recombine(individuals[firstParent], individuals[secondParent],
-		                      resultIndividuals[i * 2], resultIndividuals[i * 2 + 1]);
-	}
 }
-
-}
-};
 
 #endif

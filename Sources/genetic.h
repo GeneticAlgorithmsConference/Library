@@ -33,4 +33,36 @@ namespace Genetic
     };
 }
 
+#include "genetic_settings.h"
+#include "generation.h"
+
+// Individuals
+#include "individual/base_individual.h"
+#include "individual/individual.h"
+
+// New generation selection supported types
+#include "new_generation_selection/new_generation_selection.h"
+#include "new_generation_selection/elite.h"
+#include "new_generation_selection/truncation.h"
+
+// Parents selection supported types
+#include "parents_selection/parents_selection.h"
+#include "parents_selection/panmixia.h"
+#include "parents_selection/inbreeding_fenotype.h"
+
+// Recombination supported types
+#include "recombination/recombination.h"
+#include "recombination/discrete.h"
+
+// Mutation supported types
+#include "mutation/mutation.h"
+#include "mutation/binary_dna_mutation.h"
+
+// Supported dna types
+#include "dna/dna.h"
+#include "dna/base_linear_dna.h"
+#include "dna/base_tree_dna.h"
+
+#include "function_calculator.h"
+
 #endif

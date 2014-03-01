@@ -1,7 +1,5 @@
 #include "minsearchindividual.h"
 
-Parser<double> minSearchParser;
-
 void Genetic::MinSearchIndividual::test()
 {
     std::vector<double> variables;

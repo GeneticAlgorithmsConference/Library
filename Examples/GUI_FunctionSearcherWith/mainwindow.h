@@ -12,6 +12,7 @@
 #include "../../Sources/geneticsettings.h"
 #include "../../Sources/generation.h"
 #include "../../Sources/minsearchindividual.h"
+#include "../../Sources/parser.h"
 
 namespace Ui {
 class MainWindow;

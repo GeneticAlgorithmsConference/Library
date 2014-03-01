@@ -10,7 +10,6 @@
 #include "linearindividual.h"
 #include "parser.h"
 
-extern Parser<double> minSearchParser;
 namespace Genetic
 {
 	class MinSearchIndividual : public Genetic::LinearIndividual <LinearRealDna, double>

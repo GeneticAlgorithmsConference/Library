@@ -7,19 +7,10 @@
 #include <algorithm>
 #include <math.h>
 
-#include "individual.h"
-#include "geneticsettings.h"
-
-template <class T>
-bool individualComparator(T* i1, T* i2)
-{
-	return (i1 -> getScore() < i2 -> getScore());
-}
-
-using std::endl;
+#include "individual/individual.h"
+#include "genetic_settings.h"
 
 namespace Genetic {
-
 
 /**
  * @class Generation
@@ -35,11 +26,11 @@ namespace Genetic {
 		~Generation();
 
 		void genNext();
-		void init(unsigned int seed, double dnaGenerationParameter);
+		void init(unsigned int seed);
 
 	protected:
 
-		std::vector <I*> individuals;
+		std::vector <Genetic::BaseIndividual*> individuals;
 		int individualsNum;
 
 		GeneticSettings* geneticSettings;
@@ -50,25 +41,25 @@ namespace Genetic {
 		 * Set the array of individuals
 		 * @param new_var the new array of individuals
 		 */
-		void setIndividuals(const std::vector <I*>& value);
+		void setIndividuals(const std::vector <Genetic::BaseIndividual*>& value);
 
 		/**
 		 * Get the array of individuals
 		 * @return the array of individuals
 		 */
-		std::vector <I*>& getIndividuals();
+		std::vector <Genetic::BaseIndividual*>& getIndividuals();
 
 		/**
 		 * Get the array of individuals sorted by score
 		 * @return the array of individuals sorted by score
 		 */
-		std::vector <I*>& getIndividualsSorted();
+		std::vector <Genetic::BaseIndividual*> getIndividualsSorted();
 
 		/**
 		 * Get the best individual in generation
 		 * @return the best individual in generation
 		 */
-		I* getIndividualBest();
+		Genetic::BaseIndividual* getIndividualBest();
 
 		/**
 		 * Set the value of individualsNum
@@ -107,7 +98,7 @@ Genetic::Generation <I>::Generation(int _individualsNum, Genetic::GeneticSetting
 template <typename I>
 Genetic::Generation <I>::~Generation()
 {
-	for(int i = 0; i < individuals.size(); ++i)
+    for(unsigned int i = 0; i < individuals.size(); ++i)
 	{
 		delete individuals[i];
 	}
@@ -117,262 +108,200 @@ Genetic::Generation <I>::~Generation()
 template <typename I>
 void Genetic::Generation <I>::genNext()
 {
-	std::vector <I*> nextIndividuals(individualsNum);
-	for(int i = 0; i < individualsNum; ++i)
+	std::vector <Genetic::BaseIndividual*> nextIndividuals(individualsNum);
+	for(unsigned int i = 0; i < nextIndividuals.size(); ++i)
 	{
 		nextIndividuals[i] = new I();
 	}
 
+	geneticSettings->getParentsSelection()->process(individuals, nextIndividuals,
+	                                                geneticSettings->getRecombination());
+
     // Recombination
-	switch(geneticSettings -> getParentsSelectionType())
+	// switch(geneticSettings -> getParentsSelectionType())
+	// {
+    //     case INBREEDING_GENOTYPE:
+    //     {
+    //         int firstParent, secondParent;
+    //         double minDistance;
+    //         double currentDistance;
+    //         for(int i = 0; i < individualsNum / 2; ++i)
+    //         {
+    //             firstParent = rand() % individualsNum;
+    //             minDistance = (firstParent == 0) ? fabs(individuals[0] -> getScore() - individuals[1] -> getScore())
+    //                 : fabs(individuals[0] -> getScore() - individuals[firstParent] -> getScore());
+    //             secondParent = (firstParent == 0) ? 1 : 0;
+    //             for(int j = 0; j < individualsNum; ++j)
+    //             {
+    //                 if((j != firstParent)
+    //                    && (minDistance > (currentDistance =
+    //                                       fabs(individuals[firstParent] -> getScore() - individuals[j] -> getScore()))))
+    //                 {
+    //                     minDistance = currentDistance;
+    //                     secondParent = j;
+    //                 }
+    //             }
+
+    //             I::recombine(individuals[firstParent], individuals[secondParent],
+    //                                   nextIndividuals[i * 2], nextIndividuals[i * 2 + 1], geneticSettings);
+    //         }
+    //         break;
+    //     }
+    //     case OUTBREEDING_FENOTYPE:
+    //     {
+    //         int firstParent, secondParent;
+    //         double maxDistance;
+    //         double currentDistance;
+    //         for(int i = 0; i < individualsNum / 2; ++i)
+    //         {
+    //             firstParent = rand() % individualsNum;
+    //             maxDistance = (firstParent == 0) ? (individuals[0] -> getDna().getDistance(individuals[1] -> getDna()))
+    //                 : individuals[0] -> getDna().getDistance(individuals[firstParent] -> getDna());
+    //             secondParent = (firstParent == 0) ? 1 : 0;
+    //             for(int j = 0; j < individualsNum; ++j)
+    //             {
+    //                 if((j != firstParent)
+    //                    && (maxDistance < (currentDistance = individuals[firstParent]
+    //                                       -> getDna().getDistance(individuals[j] -> getDna()))))
+    //                 {
+    //                     maxDistance = currentDistance;
+    //                     secondParent = j;
+    //                 }
+    //             }
+
+    //             I::recombine(individuals[firstParent], individuals[secondParent],
+    //                                   nextIndividuals[i * 2], nextIndividuals[i * 2 + 1], geneticSettings);
+    //         }
+    //         break;
+    //     }
+    //     case OUTBREEDING_GENOTYPE:
+    //     {
+    //         int firstParent, secondParent;
+    //         double maxDistance;
+    //         double currentDistance;
+    //         for(int i = 0; i < individualsNum / 2; ++i)
+    //         {
+    //             firstParent = rand() % individualsNum;
+    //             maxDistance = (firstParent == 0) ? fabs(individuals[0] -> getScore() - individuals[1] -> getScore())
+    //                 : fabs(individuals[0] -> getScore() - individuals[firstParent] -> getScore());
+    //             secondParent = (firstParent == 0) ? 1 : 0;
+    //             for(int j = 0; j < individualsNum; ++j)
+    //             {
+    //                 if((j != firstParent)
+    //                    && (maxDistance < (currentDistance =
+    //                                       fabs(individuals[firstParent] -> getScore() - individuals[j] -> getScore()))))
+    //                 {
+    //                     maxDistance = currentDistance;
+    //                     secondParent = j;
+    //                 }
+    //             }
+
+    //             I::recombine(individuals[firstParent], individuals[secondParent],
+    //                                   nextIndividuals[i * 2], nextIndividuals[i * 2 + 1], geneticSettings);
+    //         }
+    //         break;
+    //     }
+	// }
+
+	// Mutations
+	for(unsigned int i = 0; i < nextIndividuals.size(); ++i)
 	{
-        case PANMIXIA:
-        {
-            int individualsNum = individuals.size();
-            for(int i = 0; i < individualsNum / 2; ++i)
-            {
-                int firstParent = rand() % individualsNum;
-                int secondParent = rand() % (individualsNum - 1);
-                if(secondParent >= firstParent)
-                {
-                    ++secondParent;
-                }
-                I::recombine(individuals[firstParent], individuals[secondParent],
-                                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1], geneticSettings);
-            }
-            break;
-        }
-        case INBREEDING_FENOTYPE:
-        {
-            int firstParent, secondParent;
-            double minDistance;
-            double currentDistance;
-            for(int i = 0; i < individualsNum / 2; ++i)
-            {
-                firstParent = rand() % individualsNum;
-
-                minDistance = (firstParent == 0) ? (individuals[0] -> getDna().getDistance(individuals[1] -> getDna()))
-                    : individuals[0] -> getDna().getDistance(individuals[firstParent] -> getDna());
-                secondParent = (firstParent == 0) ? 1 : 0;
-                for(int j = 0; j < individualsNum; ++j)
-                {
-                    if((j != firstParent)
-                       && (minDistance > (currentDistance = individuals[firstParent]
-                                          -> getDna().getDistance(individuals[j] -> getDna()))))
-                    {
-                        minDistance = currentDistance;
-                        secondParent = j;
-                    }
-                }
-
-                I::recombine(individuals[firstParent], individuals[secondParent],
-                                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1], geneticSettings);
-            }
-            break;
-        }
-        case INBREEDING_GENOTYPE:
-        {
-            int firstParent, secondParent;
-            double minDistance;
-            double currentDistance;
-            for(int i = 0; i < individualsNum / 2; ++i)
-            {
-                firstParent = rand() % individualsNum;
-                minDistance = (firstParent == 0) ? fabs(individuals[0] -> getScore() - individuals[1] -> getScore())
-                    : fabs(individuals[0] -> getScore() - individuals[firstParent] -> getScore());
-                secondParent = (firstParent == 0) ? 1 : 0;
-                for(int j = 0; j < individualsNum; ++j)
-                {
-                    if((j != firstParent)
-                       && (minDistance > (currentDistance =
-                                          fabs(individuals[firstParent] -> getScore() - individuals[j] -> getScore()))))
-                    {
-                        minDistance = currentDistance;
-                        secondParent = j;
-                    }
-                }
-
-                I::recombine(individuals[firstParent], individuals[secondParent],
-                                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1], geneticSettings);
-            }
-            break;
-        }
-        case OUTBREEDING_FENOTYPE:
-        {
-            int firstParent, secondParent;
-            double maxDistance;
-            double currentDistance;
-            for(int i = 0; i < individualsNum / 2; ++i)
-            {
-                firstParent = rand() % individualsNum;
-                maxDistance = (firstParent == 0) ? (individuals[0] -> getDna().getDistance(individuals[1] -> getDna()))
-                    : individuals[0] -> getDna().getDistance(individuals[firstParent] -> getDna());
-                secondParent = (firstParent == 0) ? 1 : 0;
-                for(int j = 0; j < individualsNum; ++j)
-                {
-                    if((j != firstParent)
-                       && (maxDistance < (currentDistance = individuals[firstParent]
-                                          -> getDna().getDistance(individuals[j] -> getDna()))))
-                    {
-                        maxDistance = currentDistance;
-                        secondParent = j;
-                    }
-                }
-
-                I::recombine(individuals[firstParent], individuals[secondParent],
-                                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1], geneticSettings);
-            }
-            break;
-        }
-        case OUTBREEDING_GENOTYPE:
-        {
-            int firstParent, secondParent;
-            double maxDistance;
-            double currentDistance;
-            for(int i = 0; i < individualsNum / 2; ++i)
-            {
-                firstParent = rand() % individualsNum;
-                maxDistance = (firstParent == 0) ? fabs(individuals[0] -> getScore() - individuals[1] -> getScore())
-                    : fabs(individuals[0] -> getScore() - individuals[firstParent] -> getScore());
-                secondParent = (firstParent == 0) ? 1 : 0;
-                for(int j = 0; j < individualsNum; ++j)
-                {
-                    if((j != firstParent)
-                       && (maxDistance < (currentDistance =
-                                          fabs(individuals[firstParent] -> getScore() - individuals[j] -> getScore()))))
-                    {
-                        maxDistance = currentDistance;
-                        secondParent = j;
-                    }
-                }
-
-                I::recombine(individuals[firstParent], individuals[secondParent],
-                                      nextIndividuals[i * 2], nextIndividuals[i * 2 + 1], geneticSettings);
-            }
-            break;
-        }
+		geneticSettings->getMutation()->process(dynamic_cast<I*>(nextIndividuals[i])->getDna());
 	}
 
 	// Testing
-    // For old `parents`
-	for(int i = 0; i < individualsNum; ++i)
+	geneticSettings->getFunctionCalculator()->process(nextIndividuals);
+	for(unsigned int i = 0; i < individuals.size(); ++i)
 	{
-		individuals[i] -> test();
 		nextIndividuals.push_back(individuals[i]);
 	}
-    // For new `children`
-	for(int i = 0; i < individualsNum; ++i)
-	{
-		nextIndividuals[i] -> mutate(geneticSettings);
-		nextIndividuals[i] -> test();
-	}
 
+	// Select new generation
 	individuals.clear();
-	sort(nextIndividuals.begin(), nextIndividuals.end(), individualComparator<I>);
+	sort(nextIndividuals.begin(), nextIndividuals.end(), Genetic::scoreComparator);
+	geneticSettings->getNewGenerationSelection()->process(nextIndividuals, individuals);
 
-	// Selection individuals for new generation.
-	switch(geneticSettings -> getNewGenerationSelectionType())
+	// Clear memory
+	for(unsigned int i = 0; i < nextIndividuals.size(); ++i)
 	{
-	case TRUNCATION_SELECTION:
-	{
-        int possibleIndividualsNum = (double) nextIndividuals.size()*
-                                     (geneticSettings -> getGenerationSelectionParameter());
-        assert(possibleIndividualsNum >= individualsNum);
-
-        while(nextIndividuals.size() > possibleIndividualsNum)
-        {
-            delete nextIndividuals[nextIndividuals.size() - 1];
-            nextIndividuals.pop_back();
-        }
-
-		for(int i = 0; i < individualsNum; ++i)
+		bool selected = false;
+		for(unsigned int j = 0; j < individuals.size(); ++j)
 		{
-            int currentId = rand() % (nextIndividuals.size());
-            individuals.push_back(nextIndividuals[currentId]);
-            nextIndividuals.erase(nextIndividuals.begin() + currentId);
+			if(nextIndividuals[i] == individuals[j])
+			{
+				selected = true;
+				break;
+			}
 		}
-
-        while(nextIndividuals.size() > 0)
-        {
-            delete nextIndividuals[nextIndividuals.size() - 1];
-            nextIndividuals.pop_back();
-        }
-
-		break;
-	}
-	case ELITE_SELECTION:
-	{
-		for(int i = 0; i < individualsNum; ++i)
+		if(!selected)
 		{
-			individuals.push_back(nextIndividuals[i]);
-			delete nextIndividuals[individualsNum + i];
+			delete nextIndividuals[i];
 		}
-		break;
-	}
-	default:
-		break;
 	}
 
-	#ifdef ENABLE_DNALOG_BestPerStep
+	#ifdef ENABLE_LOG
 	dnalog << "Best: ";
-	nextIndividuals[0] -> getDna().print();
-	dnalog << " with score " << nextIndividuals[0] -> getScore() << std::endl;
+	dynamic_cast<I*>(nextIndividuals[0])->getDna().print();
+	dnalog << " with score " << dynamic_cast<I*>(nextIndividuals[0])->getScore() << std::endl;
 	#endif
-
-	nextIndividuals.clear();
 }
 
 template <typename I>
-void Genetic::Generation <I>::init(unsigned int seed, double dnaGenerationParameter)
+void Genetic::Generation <I>::init(unsigned int seed)
 {
     srand(seed);
 
-    for(int i = 0; i < individuals.size(); ++i)
+    for(unsigned int i = 0; i < individuals.size(); ++i)
 	{
 		delete individuals[i];
 	}
 	individuals.clear();
 
-	I* tmpIndividual;
+	BaseIndividual* tmpIndividual;
 
 	for(int i = 0; i < individualsNum; ++i)
 	{
 		tmpIndividual = new I();
-		tmpIndividual -> generate(dnaGenerationParameter);
-		tmpIndividual -> test();
+		tmpIndividual->generate();
+		tmpIndividual->test();
 		individuals.push_back(tmpIndividual);
 	}
 }
 
 template <typename I>
-void Genetic::Generation <I>::setIndividuals(const std::vector <I*>& value)
+	void Genetic::Generation <I>::setIndividuals(const std::vector <Genetic::BaseIndividual*>& value)
 {
 	individuals = value;
 }
 
 template <typename I>
-std::vector <I*>& Genetic::Generation <I>::getIndividuals()
+	std::vector <Genetic::BaseIndividual*>& Genetic::Generation <I>::getIndividuals()
 {
 	return individuals;
 }
 
 template <typename I>
-std::vector <I*>& Genetic::Generation <I>::getIndividualsSorted()
+	std::vector <Genetic::BaseIndividual*> Genetic::Generation <I>::getIndividualsSorted()
 {
-    std::vector <I*> ans = individuals;
-	sort(ans.begin(), ans.end(), individualComparator<I>);
+    std::vector <BaseIndividual*> ans = individuals;
+    sort(ans.begin(), ans.end(), scoreComparator);
 	return ans;
 }
 
 template <typename I>
-I* Genetic::Generation <I>::getIndividualBest()
+	Genetic::BaseIndividual* Genetic::Generation <I>::getIndividualBest()
 {
-    assert(individuals.size() > 0);
-    I* ans = individuals[0];
-    for(int i = 1; i < individuals.size(); ++i)
-        if(ans -> getScore() > individuals[i] -> getScore())
-            ans = individuals[i];
-    return ans;
+	assert(individuals.size() > 0);
+	I* ans = dynamic_cast<I*>(individuals[0]);
+	for(int i = 1; i < individuals.size(); ++i)
+	{
+	if(ans->getScore() > dynamic_cast<I*>(individuals[i])->getScore())
+	{
+	ans = dynamic_cast<I*>(individuals[i]);
+}
+       
+}
+	return ans;
 }
 
 template <typename I>

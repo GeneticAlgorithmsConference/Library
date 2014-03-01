@@ -1,7 +1,7 @@
 #ifndef LOG_H
 #define LOG_H
 
-#define ENABLE_DNALOG_BestPerStep
+#define ENABLE_LOG
 
 // #include <fstream>
 // static std::ofstream dnalog("log.txt");
